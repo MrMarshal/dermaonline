@@ -1,0 +1,7 @@
+truncate table colors;
+truncate table custom_data;
+truncate table manufacturers;
+truncate table products;
+truncate table product_custom_data;
+truncate table types;
+truncate table categories;
