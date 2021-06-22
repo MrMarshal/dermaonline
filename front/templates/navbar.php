@@ -1,69 +1,50 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-navbar py-4">
-    <a class="navbar-brand" href="#">
-        <img src="<?php echo $backing; ?>assets/images/Logo.png" class="img-fluid" width="200px" />
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-2 pb-3" id="mainNav">
+    <a class="" href="#">
+        <img src="<?php echo $backing; ?>assets/images/page/logo.svg" class=" mx-5" width="150px" />
     </a>
-    <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon text-white"></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars ms-1"></i>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link mx-3" href="#">
-                    <p class="my-2"><strong>Gaming</strong></p>
+                <a class="nav-link" href="index.php">
+                    <p class="my-2"><strong>Home</strong></p>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-3" href="#">
-                    <p class="my-2"><strong>Empresas</strong></p>
+                <a class="nav-link" href="acerca.php">
+                    <p class="my-2"><strong>Acerca</strong></p>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-3" href="#">
-                    <p class="my-2"><strong>Componentes</strong></p>
+                <a class="nav-link" href="categorias.php">
+                    <p class="my-2"><strong>Categorias</strong></p>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-3" href="#">
-                    <p class="my-2"><strong>Noticias</strong></p>
+                <a class="nav-link" href="tienda.php">
+                    <p class="my-2"><strong>Tiendas</strong></p>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-3" href="#">
-                    <p class="my-2"><strong>Nosotros</strong></p>
+                <a class="nav-link" href="cuenta.php">
+                    <p class="my-2">
+                        <strong>
+                            <img src="<?php echo $backing; ?>assets/images/page/user.svg" />
+                        </strong>
+                    </p>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-3" href="#">
-                    <p class="my-2"><strong>Foro</strong></p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mx-3" href="#">
-                    <div class="row">
-                        <div class="col-12 d-block d-md-none">
-                            <p class="my-2"><strong>Iniciar sesión</strong></p>
-                        </div>
-                        <div class="col-12 text-center d-none d-md-block">
-                            <img class="d-none d-md-block  mx-auto" src="<?php echo $backing; ?>assets/images/Iconos/user.svg" />
-                            <span class="mb-1"><small><strong>Iniciar sesión</strong></small></span>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mx-3" href="#">
-                    <div class="row">
-                        <div class="col-12 d-block d-md-none">
-                            <p class="my-2"><strong>Buscar</strong></p>
-                        </div>
-                        <div class="col-12 text-center d-none d-md-block">
-                            <img class="d-none d-md-block mx-auto" src="<?php echo $backing; ?>assets/images/Iconos/user.svg" />
-                            <span class="mb-1"><small><strong>Buscar</strong></small></span>
-                        </div>
-                    </div>
+                <a class="nav-link" href="carrito.php">
+                    <p class="my-2">
+                        <strong>
+                            <img src="<?php echo $backing; ?>assets/images/page/car.svg" />
+                        </strong>
+                    </p>
                 </a>
             </li>
         </ul>
