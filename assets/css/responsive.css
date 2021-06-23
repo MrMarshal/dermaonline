@@ -1,0 +1,71 @@
+/* Pantalla muy chica */
+
+@media (min-width: 300px) {
+  .title-black {
+    font-size: 25px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    text-align: left;
+    color: #000000;
+  }
+}
+/* Pantalla chica */
+
+@media (min-width: 576px) {
+  .title-black {
+    font-size: 40px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 3.6px;
+    text-align: left;
+    color: #000000;
+  }
+}
+/* Pantalla mediana */
+
+@media (min-width: 768px) {
+  .title-black {
+    font-size: 40px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 3.6px;
+    text-align: left;
+    color: #000000;
+  }
+  .centered-md {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+/* Pantalla grande */
+
+@media (min-width: 992px) {
+  .title-black {
+    font-size: 50px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 3.6px;
+    text-align: left;
+    color: #000000;
+  }
+  .centered-lg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+/* Pantalla extragrande */
+
+@media (min-width: 1400px) {
+}

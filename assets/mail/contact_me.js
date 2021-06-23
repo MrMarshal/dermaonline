@@ -1,8 +1,7 @@
 $("#contactForm").submit(function (ev) {
   ev.preventDefault();
-  var name = $("#name").val();
-  var email = $("#email").val();
-  var phone = $("#inputPhone").val();
+  var name = $("#inputName").val();
+  var email = $("#inputEmail").val();
   var message = $("#msj").val();
   let flag = true;
   if (name === "") {
@@ -16,12 +15,6 @@ $("#contactForm").submit(function (ev) {
     flag = false;
   } else {
     $("#emailError").html("");
-  }
-  if (phone === "") {
-    $("#phoneError").html("El número de teléfono está vácio");
-    flag = false;
-  } else {
-    $("#phoneError").html("");
   }
   if (!flag) return;
   var firstName = name; // For Success/Failure Message
@@ -38,7 +31,6 @@ $("#contactForm").submit(function (ev) {
     data: {
       name: name,
       email: email,
-      phone: phone,
       message: message,
     },
     cache: false,
@@ -49,7 +41,6 @@ $("#contactForm").submit(function (ev) {
     },
     error: function (error) {
       //clear all fields
-
       alert("Ha ocurrido un error");
       $("#contactForm").trigger("reset");
     },

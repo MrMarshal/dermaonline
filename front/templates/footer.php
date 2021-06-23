@@ -37,6 +37,17 @@
         <script src="<?php echo $backing; ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="<?php echo $backing; ?>assets/OwlCarousel/js/owl.carousel.min.js"></script>
         <script src="<?php echo $backing; ?>assets/js/scripts.js"></script>
+        <script>
+            $(document).ready(function() {
+                $(".owl-carousel").owlCarousel({
+                    loop: true,
+                    autoplay: true,
+                    autoplayTimeout: 4000,
+                    // margin: 10,
+                    items: 1,
+                });
+            });
+        </script>
     </body>
 
     </html>
