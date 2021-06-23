@@ -79,7 +79,9 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 									<div class="text">Agregar al carrito</div>
 								</button>
 							</div>
-							<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							<a href="tienda-1.php">
+								<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							</a>
 							<p class="price-product mb-0 text-center">$20.00</p>
 						</div>
 						<div class="col-12 col-md-6 mb-5">
@@ -89,7 +91,9 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 									<div class="text">Agregar al carrito</div>
 								</button>
 							</div>
-							<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							<a href="tienda-1.php">
+								<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							</a>
 							<p class="price-product mb-0 text-center">$20.00</p>
 						</div>
 						<div class="col-12 col-md-6 mb-5">
@@ -99,7 +103,9 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 									<div class="text">Agregar al carrito</div>
 								</button>
 							</div>
-							<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							<a href="tienda-1.php">
+								<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							</a>
 							<p class="price-product mb-0 text-center">$20.00</p>
 						</div>
 						<div class="col-12 col-md-6 mb-5">
@@ -109,7 +115,9 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 									<div class="text">Agregar al carrito</div>
 								</button>
 							</div>
-							<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							<a href="tienda-1.php">
+								<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							</a>
 							<p class="price-product mb-0 text-center">$20.00</p>
 						</div>
 						<div class="col-12 col-md-6 mb-5">
@@ -119,7 +127,9 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 									<div class="text">Agregar al carrito</div>
 								</button>
 							</div>
-							<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							<a href="tienda-1.php">
+								<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							</a>
 							<p class="price-product mb-0 text-center">$20.00</p>
 						</div>
 						<div class="col-12 col-md-6 mb-5">
@@ -129,7 +139,9 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 									<div class="text">Agregar al carrito</div>
 								</button>
 							</div>
-							<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							<a href="tienda-1.php">
+								<h5 class="name-product mb-0 text-center mt-3"><strong>Crema Ruby</strong></h5>
+							</a>
 							<p class="price-product mb-0 text-center">$20.00</p>
 						</div>
 						<div class="col-12 text-center">
