@@ -88,7 +88,7 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 				<div class="col-12 col-md-3 mb-5">
 					<div class="container-2">
 						<img src="https://via.placeholder.com/450" alt="Avatar" class="image col-12">
-						<button class="middle" onclick="alert('Producto añadido al carrito')">
+						<button class="middle" onclick="addToCart('id')">
 							<div class="text">Agregar al carrito</div>
 						</button>
 					</div>
@@ -100,7 +100,7 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 				<div class="col-12 col-md-3 mb-5">
 					<div class="container-2">
 						<img src="https://via.placeholder.com/450" alt="Avatar" class="image col-12">
-						<button class="middle" onclick="alert('Producto añadido al carrito')">
+						<button class="middle" onclick="addToCart('id')">
 							<div class="text">Agregar al carrito</div>
 						</button>
 					</div>
@@ -112,7 +112,7 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 				<div class="col-12 col-md-3 mb-5">
 					<div class="container-2">
 						<img src="https://via.placeholder.com/450" alt="Avatar" class="image col-12">
-						<button class="middle" onclick="alert('Producto añadido al carrito')">
+						<button class="middle" onclick="addToCart('id')">
 							<div class="text">Agregar al carrito</div>
 						</button>
 					</div>
@@ -124,7 +124,7 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 				<div class="col-12 col-md-3 mb-5">
 					<div class="container-2">
 						<img src="https://via.placeholder.com/450" alt="Avatar" class="image col-12">
-						<button class="middle" onclick="alert('Producto añadido al carrito')">
+						<button class="middle" onclick="addToCart('id')">
 							<div class="text">Agregar al carrito</div>
 						</button>
 					</div>
@@ -136,7 +136,7 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 				<div class="col-12 col-md-3 mb-5">
 					<div class="container-2">
 						<img src="https://via.placeholder.com/450" alt="Avatar" class="image col-12">
-						<button class="middle" onclick="alert('Producto añadido al carrito')">
+						<button class="middle" onclick="addToCart('id')">
 							<div class="text">Agregar al carrito</div>
 						</button>
 					</div>

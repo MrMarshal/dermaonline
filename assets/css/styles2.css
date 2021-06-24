@@ -208,3 +208,7 @@ fieldset {
     height: 350px;
   }
 }
+.btn-bor-bottom {
+  border-bottom: 2px solid #b37737 !important;
+  border-radius: 0% !important;
+}

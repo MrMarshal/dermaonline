@@ -48,6 +48,8 @@
                 });
             });
         </script>
+        <script src="<?php echo $backing; ?>assets/js/cart.js"></script>
+
     </body>
 
     </html>
