@@ -212,3 +212,19 @@ fieldset {
   border-bottom: 2px solid #b37737 !important;
   border-radius: 0% !important;
 }
+
+.link {
+  color: #000 !important;
+}
+
+.link:hover {
+  color: #000 !important;
+}
+
+.link:active {
+  color: #000 !important;
+}
+
+.link:focus {
+  color: #000 !important;
+}
