@@ -1,6 +1,6 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-2 pb-3" id="mainNav">
-    <a class="" href="#">
+    <a class="" href="index.php">
         <img src="<?php echo $backing; ?>assets/images/page/logo.svg" class=" mx-5" width="150px" />
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
