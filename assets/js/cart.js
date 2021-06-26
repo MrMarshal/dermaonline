@@ -88,8 +88,8 @@ $(document).ready(function () {
   }
 });
 
-const addToCart = () => {
-  alert("Producto añadido al carrito");
+const addToCart = (id) => {
+  alert("Producto "+id+" añadido al carrito");
   localStorage.setItem("cart", true);
 };
 const removeFromCart = () => {

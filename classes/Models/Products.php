@@ -7,6 +7,83 @@
 			parent::__construct();
 		}
 
+		public function GetProductsList()
+		{
+			$s = $this->query->select_join("p.id, p.sku as code,p.description,p.tags, p.name, stoc.quantity as existence, pric.normal as price",
+				self::TABLE_PRODUCTS,
+				[
+					self::TABLE_STOCK=>"stoc.product_id = p.id",
+					self::TABLE_PRICES=>"p.id = pric.product_id"
+				]
+			);
+			$prods = $this->GetAllRows($s);
+			$res = array();
+			foreach ($prods as $p) {
+				$s = $this->query->select_join("p.id, cate.name",
+					self::TABLE_PRODUCT_CATEGORY,
+					[
+						self::TABLE_CATEGORIES=>"cate.id = p.category_id"
+					]
+				);
+
+				$p['images'] = $this->GetList(self::TABLE_PRODUCT_IMAGES,"product_id = ".$p['id']);
+				foreach ($p['images'] as $img) {
+					if ($img['type']==1){
+						$p['main_image'] = $img['url'];
+						break;
+					}
+				}
+				$p['categories'] = $this->GetAllRows($s);
+				$res[] = $p;
+			}
+			return $res;
+		}
+
+		public function GetProductDetails($data)
+		{
+			if (!$data instanceof Request){
+				$data = new Request($data);
+			}
+			$s = $this->query->select_join("p.id, p.sku as sku,p.description, p.short_description, p.name, p.advantages, pric.normal as price, stoc.quantity as existence",
+				self::TABLE_PRODUCTS,
+				[
+					self::TABLE_STOCK=>"stoc.product_id = p.id",
+					self::TABLE_PRICES=>"pric.product_id = p.id"
+				],
+				"p.id = ".$data->id
+			);
+			$p = $this->GetFirst($s);
+			$p['images'] = $this->GetList(self::TABLE_PRODUCT_IMAGES,"product_id = ".$p['id']);
+			return $p;
+		}
+
+		public function GetPopularProducts()
+		{
+			$s = $this->query->select_join("p.id, p.sku as code,p.description,p.tags, p.name, stoc.quantity as existence, pric.normal as price",
+				self::TABLE_PRODUCTS,
+				[
+					self::TABLE_STOCK=>"stoc.product_id = p.id",
+					self::TABLE_PRICES=>"p.id = pric.product_id"
+				]
+			);
+			$prods = $this->GetAllRows($s);
+			$res = array();
+			foreach ($prods as $p) {
+				$img = $this->GetFirst($this->query->select("*",self::TABLE_PRODUCT_IMAGES,"product_id = ".$p['id']." AND type = 1"));
+				$p['image'] = $img['url'];
+				$res[] = $p;
+			}
+			return $res;
+		}
+
+		public function GetCategoriesList()
+		{
+			$catego = $this->ListAll(self::TABLE_CATEGORIES);
+			return $catego;
+		}
+
+
+
 		public function SaveProduct(Request $request){
 			$color = $this->query->select("*",self::TABLE_COLORS,"name = '".$request->get('color')."'");
 			$c = $this->GetFirst($color);
@@ -23,34 +100,6 @@
 				$this->Insert(self::TABLE_STOCK,["quantity"=>$request->get("quantity"),"product_id = ".$request->id]);
 			}
 			return $product;
-		}
-
-		public function GetProductsList()
-		{
-			$s = $this->query->select_join("p.id, p.sku as code,p.description, p.name, cate.name as category, stoc.quantity as existence, p.price",
-				self::TABLE_PRODUCTS,
-				[
-					self::TABLE_CATEGORIES=>"p.product_category = cate.id",
-					self::TABLE_STOCK=>"stoc.product_id = p.id"
-				]
-			);
-			return $this->GetAllRows($s);
-			return $prods;
-		}
-
-		public function GetProductDetails(Request $request)
-		{
-			$s = $this->query->select_join("p.id, p.sku as code,p.description, p.name, cate.name as category, cate.id as category_id, stoc.quantity as existence, p.price, p.manufacturer_id, p.image_1, p.image_2, p.image_3, p.tags, colo.name as color",
-				self::TABLE_PRODUCTS,
-				[
-					self::TABLE_CATEGORIES=>"p.product_category = cate.id",
-					self::TABLE_STOCK=>"stoc.product_id = p.id",
-					self::TABLE_COLORS=>"colo.id = p.color_id"
-				],
-				"p.id = ".$request->id
-			);
-			return $this->GetFirst($s);
-
 		}
 		
 		public function View(Request $request)
@@ -100,12 +149,6 @@
 
 			$s = $this->query->select("*",self::TABLE_PRODUCTS,$filter);
 			return $this->GetAllRows($s);
-		}
-
-		public function GetCategoriesList()
-		{
-			$catego = $this->ListAll(self::TABLE_CATEGORIES);
-			return $catego;
 		}
 
 		public function GetManufacturersList()

@@ -32,9 +32,7 @@
         <?php if ($js != null) foreach ($js as $j) { ?>
             <script src="<?php echo $backing; ?>assets/js/<?php echo $j ?>.js"></script>
         <?php } ?>
-
-        <script src="<?php echo $backing; ?>assets/jquery/jquery.js"></script>
-        <script src="<?php echo $backing; ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+        
         <script src="<?php echo $backing; ?>assets/OwlCarousel/js/owl.carousel.min.js"></script>
         <script src="<?php echo $backing; ?>assets/js/scripts.js"></script>
         <script>

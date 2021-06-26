@@ -1,7 +1,10 @@
 <?php
-include "routes.php";
-$view = new Front; //Para definir una vista
-$view->Header(["title" => "DERMA ONLINE"]); //La cabecera
+	include "routes.php";
+	include "classes/LoadModels.php";
+	$view = new Front; //Para definir una vista
+	$view->Header(["title" => "DERMA ONLINE"]); //La cabecera
+	$admin = new Model;
+	$prod = $admin->products->GetProductDetails(["id"=>1]);
 ?>
 <div class="col-12">
 	<div class="row">
@@ -20,36 +23,27 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 									<div class="d-flex">
 										<div class="">
 											<div class="d-flex flex-column thumbnails">
-												<div id="f1" class="tb tb-active"> <img class="thumbnail-img fit-image" src="https://i.imgur.com/wL1uRBk.jpg"> </div>
-												<div id="f2" class="tb"> <img class="thumbnail-img fit-image" src="https://i.imgur.com/3NusNP2.jpg"> </div>
-												<div id="f3" class="tb"> <img class="thumbnail-img fit-image" src="https://i.imgur.com/pXUPOVR.jpg"> </div>
-												<div id="f4" class="tb"> <img class="thumbnail-img fit-image" src="https://i.imgur.com/xX5Qmsa.jpg"> </div>
+												<?php $c = 0; foreach ($prod['images'] as $img) { ?>
+													<div id="f<?php echo $c; ?>" class="tb <?php echo $c==0?'tb-active':''; ?>"> <img class="thumbnail-img fit-image" src="<?php echo $img['url']; ?>"> </div>
+												<?php $c++; } ?>
 											</div>
-											<fieldset id="f11" class="active">
-												<div class="product-pic"> <img class="pic0" src="https://i.imgur.com/wL1uRBk.jpg"> </div>
-											</fieldset>
-											<fieldset id="f21" class="">
-												<div class="product-pic"> <img class="pic0" src="https://i.imgur.com/3NusNP2.jpg"> </div>
-											</fieldset>
-											<fieldset id="f31" class="">
-												<div class="product-pic"> <img class="pic0" src="https://i.imgur.com/pXUPOVR.jpg"> </div>
-											</fieldset>
-											<fieldset id="f41" class="">
-												<div class="product-pic"> <img class="pic0" src="https://i.imgur.com/xX5Qmsa.jpg"> </div>
-											</fieldset>
+											<?php $c = 0; foreach ($prod['images'] as $img) { ?>
+												<fieldset id="f<?php echo $c; ?>1" class="<?php echo $c==0?'active':''; ?>">
+													<div class="product-pic"> <img class="pic0" src="<?php echo $img['url']; ?>"> </div>
+												</fieldset>
+											<?php $c++; } ?>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-12 col-md-6 mb-5">
-							<h1 class="text-uppercase">Crema Ruby</h1>
-							<p class="price-product mb-5">$20.00</p>
-							<p class="price-product">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere impedit consectetur est aliquam eius enim exercitationem iure tempora suscipit. Quis odit harum non atque veniam suscipit sit neque quidem voluptatem.</p>
-
+							<h1 class="text-uppercase"><?php echo $prod['name']; ?></h1>
+							<p class="price-product mb-5">$<?php echo $prod['price']; ?></p>
+							<p class="price-product"><?php echo $prod['short_description']; ?></p>
 							<div class="row">
 								<div class="col-12 col-md-5 mx-auto b-tags text-center py-2">Cantidad <button class="btn">
-										- </button> <input class="col-3 p-0 text-center" value="1" style="border-color: white !important; background-color:white" /> <button class="btn">
+										- </button> <input type="number" class="col-3 p-0 text-center" max="<?php echo $prod['existence']; ?>" value="1" style="border-color: white !important; background-color:white" /> <button class="btn">
 										+ </button>
 								</div>
 								<button class="btn btn-2 col-12 col-md-5 mx-auto">Añadir al carrito</button>
@@ -73,10 +67,9 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 				</li>
 			</ul>
 			<div class="tab-content py-4" id="myTabContent">
-				<div class="tab-pane fade show active" id="description1" role="tabpanel" aria-labelledby="home-tab">---
-				</div>
-				<div class="tab-pane fade" id="ventajas" role="tabpanel" aria-labelledby="profile-tab">---</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">---</div>
+				<div class="tab-pane fade show active" id="description1" role="tabpanel" aria-labelledby="home-tab"><?php echo $prod['description']; ?></div>
+				<div class="tab-pane fade" id="ventajas" role="tabpanel" aria-labelledby="profile-tab"><?php echo $prod['advantages']; ?></div>
+				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"></div>
 			</div>
 
 		</div>

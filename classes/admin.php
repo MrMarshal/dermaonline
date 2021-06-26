@@ -2,8 +2,12 @@
 	class Admin{
 
 		const TABLE_PRODUCTS = "products";
-		const TABLE_MANUFACTURERS = "manufacturers";
+		const TABLE_PRICES = "prices";
+		const TABLE_PRODUCT_CATEGORY = "product_category";
 		const TABLE_CATEGORIES = "categories";
+		const TABLE_PRODUCT_IMAGES = "product_images";
+		
+		const TABLE_MANUFACTURERS = "manufacturers";
 		const TABLE_COLORS = "colors";
 		const TABLE_TYPES = "types";
 		const TABLE_CUSTOM_DATA = "custom_data";
@@ -88,6 +92,13 @@
 		public function ListAll($table)
 		{
 			$res = $this->query->select("*",$table);
+			$res = $this->GetAllRows($res);
+			return $res;
+		}
+
+		public function GetList($table,$condition)
+		{
+			$res = $this->query->select("*",$table,$condition);
 			$res = $this->GetAllRows($res);
 			return $res;
 		}

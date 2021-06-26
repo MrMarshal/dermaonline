@@ -18,7 +18,7 @@
 
 		public $databaseDev = array(
 			"host"=>"127.0.0.1",
-			"name"=>"atera_db",
+			"name"=>"dermaonline_db",
 			"user"=>"pruebas",
 			"password"=>"Shiosaki.0"
 		);
