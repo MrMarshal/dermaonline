@@ -62,7 +62,8 @@
 				$jas = substr($j, 0, 4);
 				$js = $js." LEFT JOIN ".$j." AS ".$jas." ON ".$value." ";
 			}
-			$query = "SELECT $fields FROM $table AS $as $js WHERE $conditions ORDER BY $order";
+			$o = $order=="id"?"ORDER BY id":($order);
+			$query = "SELECT $fields FROM $table AS $as $js WHERE $conditions $o";
 
 			return $query;
 		}

@@ -2,30 +2,56 @@
 
 	class Products extends Admin
 	{
+
+		public $no_of_records_per_page = 10;
+
 		function __construct()
 		{
 			parent::__construct();
 		}
 
-		public function GetProductsList()
+		public function GetProductsList(Request $data)
 		{
+			$filter = new Request($data->get("filter"));
+			$category = $filter->get("category");
+			$min = $filter->get("min_price");
+			$max = $filter->get("max_price");
+			$f = "true ";
+			
+			if ($category!=null){
+				$f.="AND (cate.id = ".$category.")";
+			}
+			if ($min!=null){
+				$f.="AND (pric.normal > ".$min." AND pric.normal < ".$max.")";
+			}
+
+			$total_pages_sql = $this->query->select_join("COUNT(*)",
+				self::TABLE_PRODUCTS,
+				[
+					self::TABLE_STOCK=>"stoc.product_id = p.id",
+					self::TABLE_PRICES=>"p.id = pric.product_id",
+					self::TABLE_PRODUCT_CATEGORY=>"prod.product_id = p.id",
+					self::TABLE_CATEGORIES=>"cate.id = prod.category_id"
+				],
+				$f,"Order BY p.id"
+			);
+			$result = $this->GetFirst($total_pages_sql);
+			$total_rows = $result['COUNT(*)'];
+			$total_pages = ceil($total_rows / $this->no_of_records_per_page);
+			$offset = ($data->get("page")-1) * $this->no_of_records_per_page;
 			$s = $this->query->select_join("p.id, p.sku as code,p.description,p.tags, p.name, stoc.quantity as existence, pric.normal as price",
 				self::TABLE_PRODUCTS,
 				[
 					self::TABLE_STOCK=>"stoc.product_id = p.id",
-					self::TABLE_PRICES=>"p.id = pric.product_id"
-				]
+					self::TABLE_PRICES=>"p.id = pric.product_id",
+					self::TABLE_PRODUCT_CATEGORY=>"prod.product_id = p.id",
+					self::TABLE_CATEGORIES=>"cate.id = prod.category_id"
+				],
+				$f,"GROUP BY p.id ORDER BY p.id LIMIT ".$offset.",".$this->no_of_records_per_page
 			);
 			$prods = $this->GetAllRows($s);
 			$res = array();
 			foreach ($prods as $p) {
-				$s = $this->query->select_join("p.id, cate.name",
-					self::TABLE_PRODUCT_CATEGORY,
-					[
-						self::TABLE_CATEGORIES=>"cate.id = p.category_id"
-					]
-				);
-
 				$p['images'] = $this->GetList(self::TABLE_PRODUCT_IMAGES,"product_id = ".$p['id']);
 				foreach ($p['images'] as $img) {
 					if ($img['type']==1){
@@ -36,7 +62,7 @@
 				$p['categories'] = $this->GetAllRows($s);
 				$res[] = $p;
 			}
-			return $res;
+			return ["products"=>$res,"total_pages"=>$total_pages,"total_results"=>$total_rows];
 		}
 
 		public function GetProductDetails($data)
@@ -64,7 +90,8 @@
 				[
 					self::TABLE_STOCK=>"stoc.product_id = p.id",
 					self::TABLE_PRICES=>"p.id = pric.product_id"
-				]
+				],
+				"true","ORDER BY p.id LIMIT 6"
 			);
 			$prods = $this->GetAllRows($s);
 			$res = array();

@@ -6,12 +6,12 @@
 
 	$admin = new Model;
 
-	$prods = $admin->products->GetProductsList();
+	$pagination = $admin->products->GetProductsList(new Request(["page"=>$_GET['page'],"filter"=>$_GET]));
+	$prods = $pagination['products'];
+	$total_pages = $pagination['total_pages'];
+	$total_results = $pagination['total_results'];
 	$popular = $admin->products->GetPopularProducts();
 	$categories = $admin->products->GetCategoriesList();
-	for ($i=0; $i < 100; $i++) { 
-		$prods[] = $prods[0];
-	}
 ?>
 
 
@@ -264,7 +264,7 @@
 
 			<p class="mb-3 mt-5"><strong class="texts-store">Categorías</strong></p>
 			<?php foreach ($categories as $cat) { ?>
-				<p class="mb-2"><a href="" class="link-p"><?php echo $cat['name']; ?></a></p>
+				<p class="mb-2"><a href="tienda.php?category=<?php echo $cat['id']; ?>" class="link-p"><?php echo $cat['name']; ?></a></p>
 			<?php } ?>
 
 			<p class="mb-3 mt-5"><strong class="texts-store">Tags populares</strong></p>
@@ -294,7 +294,7 @@
 		<div class="col-12 col-md-8 pt-4">
 			<div class="row">
 				<div class="col-12">
-					<p class="showing-text">Mostrando 1-6 de <?php echo sizeof($prods); ?> resultados</p>
+					<p class="showing-text">Mostrando 1-6 de <?php echo $total_results; ?> resultados</p>
 				</div>
 				<div class="col-12 pb-4">
 					<div class="row">
@@ -307,14 +307,14 @@
 									</button>
 								</div>
 								<a href="tienda-1.php">
-									<h5 class="name-product mb-0 text-center mt-3"><strong><?php echo $prod['name']; ?></strong></h5>
+									<h5 class="name-product mb-0 text-center mt-3"><strong><?php echo $prod['name']."(".$prod['id'].")"; ?></strong></h5>
 								</a>
 								<p class="price-product mb-0 text-center">$<?php echo $prod['price']; ?></p>
 							</div>
 						<?php } ?>
 
 						<div class="col-12 text-center">
-							<p class="links-number">1 2 3 4 5 6 7 8 10 11..</p>
+							<p class="links-number">1 2 3 4 5 6 7 8 10 11.. Total: <?php echo $total_pages; ?></p>
 						</div>
 					</div>
 				</div>

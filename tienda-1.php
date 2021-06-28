@@ -1,11 +1,14 @@
 <?php
 	include "routes.php";
 	include "classes/LoadModels.php";
-	$view = new Front; //Para definir una vista
+	$view = new Front("front"); //Para definir una vista
 	$view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 	$admin = new Model;
 	$prod = $admin->products->GetProductDetails(["id"=>1]);
+
+	var_dump($_GET);
 ?>
+
 <div class="col-12">
 	<div class="row">
 		<div class="col-12 py-5 px-5" style="margin-top: 8rem; background-color:#F2F2F2">
