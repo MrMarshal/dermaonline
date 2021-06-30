@@ -6,7 +6,8 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 
 $admin = new Model;
 try {
-	$pagination = $admin->products->GetProductsList(new Request(["page" => $_GET['page'], "filter" => $_GET]));
+	$page = isset($_GET['page'])?$_GET['page']:1;
+	$pagination = $admin->products->GetProductsList(new Request(["page" => $page, "filter" => $_GET]));
 	try {
 		$prods = $pagination['products'];
 	} catch (Exception $ex) {
@@ -343,7 +344,7 @@ try {
 						<div class="col-12 text-center">
 							<p class="links-number">
 								<?php
-								$num_pag = $_GET['page']; //Página actual
+								$num_pag = $page; //Página actual
 								$num_pags = $total_pages; //No. Páginas
 								switch ($num_pags) {
 									case 1:

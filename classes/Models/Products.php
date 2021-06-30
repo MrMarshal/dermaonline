@@ -17,6 +17,8 @@
 			$min = $filter->get("min_price");
 			$max = $filter->get("max_price");
 			$f = "true ";
+
+			$page = $data->get("page");
 			
 			if ($category!=null){
 				$f.="AND (cate.id = ".$category.")";
@@ -38,7 +40,7 @@
 			$result = $this->GetFirst($total_pages_sql);
 			$total_rows = $result['COUNT(*)'];
 			$total_pages = ceil($total_rows / $this->no_of_records_per_page);
-			$offset = ($data->get("page")-1) * $this->no_of_records_per_page;
+			$offset = ($page-1) * $this->no_of_records_per_page;
 			$s = $this->query->select_join("p.id, p.sku as code,p.description,p.tags, p.name, stoc.quantity as existence, pric.normal as price",
 				self::TABLE_PRODUCTS,
 				[
