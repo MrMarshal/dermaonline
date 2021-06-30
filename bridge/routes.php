@@ -31,18 +31,18 @@
 		]
 	);*/
 
-	$router->New("login","users/Login");
-	$router->New("getProduct","products/View");
-	$router->New("saveProduct","products/SaveProduct");
-	$router->New("saveProductData","products/SaveProductData");
-	$router->New("registerEntrance","stock/RegisterEntrance");
-	$router->New("getProductsByFilter","products/GetByFilters");
-	$router->New("addToCart","shop/AddProductToCart");
-	$router->New("updateOrder","shop/UpdateOrder");
-	$router->New("deleteOrder","shop/DeleteOrder");
-	$router->New("getProductDetails","products/GetProductDetails");
-	$router->New("getProductCustomData","products/GetProductCustomData");
+	// $router->New("login","users/Login");
+	// $router->New("getProduct","products/View");
+	// $router->New("saveProduct","products/SaveProduct");
+	// $router->New("saveProductData","products/SaveProductData");
+	// $router->New("registerEntrance","stock/RegisterEntrance");
+	// $router->New("getProductsByFilter","products/GetByFilters");
+	// $router->New("addToCart","shop/AddProductToCart");
+	// $router->New("updateOrder","shop/UpdateOrder");
+	// $router->New("deleteOrder","shop/DeleteOrder");
+	// $router->New("getProductDetails","products/GetProductDetails");
+	// $router->New("getProductCustomData","products/GetProductCustomData");
 
 
-	$router->RUN();
+	// $router->RUN();
 ?>

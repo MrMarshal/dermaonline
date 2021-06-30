@@ -25,8 +25,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="tienda.php">
-                    <p class="my-2"><strong>Tiendas</strong></p>
+                <a class="nav-link" href="tienda.php?page=1">
+                    <p class="my-2"><strong>Tienda</strong></p>
                 </a>
             </li>
             <li class="nav-item">

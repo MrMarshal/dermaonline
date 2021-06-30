@@ -80,7 +80,7 @@ $(document).ready(function () {
                   <p class="mt-2 mb-1"><strong>SUBTOTAL &nbsp;&nbsp;&nbsp;<span>$0.00</span></strong></p>
                   <p class="mt-2 mb-1"><strong>ENVÍO &nbsp;&nbsp;&nbsp;<span>$0.00</span></strong></p>
                   <p class="mt-4 mb-1"><strong>TOTAL &nbsp;&nbsp;&nbsp;<span>$0.00</span></strong></p>
-                  <button class="btn b-tags col-12 mt-3" onclick="window.location.href='tienda.php'">Volver a la tienda</button>
+                  <button class="btn b-tags col-12 mt-3" onclick="window.location.href='tienda.php?page=1'">Volver a la tienda</button>
               </div>
           </div>
       </div>
@@ -89,7 +89,7 @@ $(document).ready(function () {
 });
 
 const addToCart = (id) => {
-  alert("Producto "+id+" añadido al carrito");
+  alert("Producto " + id + " añadido al carrito");
   localStorage.setItem("cart", true);
 };
 const removeFromCart = () => {
