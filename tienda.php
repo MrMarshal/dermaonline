@@ -346,17 +346,18 @@ try {
 								<?php
 									echo '<a class="btn" href="tienda.php?page=1" > 1 </a>';	
 									if ($page>3){
-										echo '<a class="btn" href="tienda.php?page='.round($page/2).'" > ... </a>';	
+										echo '<a class="btn" onclick="gotopage('.round($page/2).')" > ... </a>';	
 									}
 									for ($i=$page-1; $i <= $page+1; $i++) { 
 										if ($i<=$total_pages && $i>1 && $i<$total_pages){
-											echo '<a class="btn" href="tienda.php?page='.$i.'">'.$i.'</a>';
+											$p = $page==$i?('<span style="font-size:22px;font-weight:bold;">'.$i.'</span>'):($i);
+											echo '<a class="btn" onclick="gotopage('.$i.')">'.$p.'</a>';
 										}
 									}
 									if (($total_pages-$page)>2){
-										echo '<a class="btn" href="tienda.php?page='.round(($total_pages+$page)/2).'" > ... </a>';	
+										echo '<a class="btn" onclick="gotopage('.round(($total_pages+$page)/2).')" > ... </a>';	
 									}
-									echo '<a class="btn" href="tienda.php?page='.$total_pages.'" > '.$total_pages.' </a>';	
+									echo '<a class="btn" onclick="gotopage('.$total_pages.')" > '.$total_pages.' </a>';	
 								?>
 							</p>
 
@@ -368,6 +369,12 @@ try {
 
 	</div>
 </div>
+
+<script type="text/javascript">
+	function gotopage(page) {
+		location.href = "tienda.php?page="+page;
+	}
+</script>
 
 </div>
 <?php
