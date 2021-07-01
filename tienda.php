@@ -305,7 +305,7 @@ try {
 			<div id="slider-range"></div>
 
 			<label for="amount" class="mt-2">Precio:</label>
-			<input type="text" id="amount" disabled readonly style="border:0;">
+			<input type="text" id="amount" disabled readonly value="<?php echo $_GET['max'] ?>" style="border:0;">
 
 			<p class="mb-3 mt-5"><strong class="texts-store">Categorías</strong></p>
 			<?php foreach ($categories as $cat) { ?>
