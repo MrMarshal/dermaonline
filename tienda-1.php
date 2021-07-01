@@ -1,12 +1,12 @@
 <?php
-	include "routes.php";
-	include "classes/LoadModels.php";
-	$view = new Front("front"); //Para definir una vista
-	$view->Header(["title" => "DERMA ONLINE"]); //La cabecera
-	$admin = new Model;
-	$prod = $admin->products->GetProductDetails(["id"=>1]);
+include "routes.php";
+include "classes/LoadModels.php";
+$view = new Front("front"); //Para definir una vista
+$view->Header(["title" => "DERMA ONLINE"]); //La cabecera
+$admin = new Model;
+$prod = $admin->products->GetProductDetails(["id" => 1]);
 
-	var_dump($_GET);
+var_dump($_GET);
 ?>
 
 <div class="col-12">
@@ -26,15 +26,19 @@
 									<div class="d-flex">
 										<div class="">
 											<div class="d-flex flex-column thumbnails">
-												<?php $c = 0; foreach ($prod['images'] as $img) { ?>
-													<div id="f<?php echo $c; ?>" class="tb <?php echo $c==0?'tb-active':''; ?>"> <img class="thumbnail-img fit-image" src="<?php echo $img['url']; ?>"> </div>
-												<?php $c++; } ?>
+												<?php $c = 0;
+												foreach ($prod['images'] as $img) { ?>
+													<div id="f<?php echo $c; ?>" class="tb <?php echo $c == 0 ? 'tb-active' : ''; ?>"> <img class="thumbnail-img fit-image" src="<?php echo $img['url']; ?>"> </div>
+												<?php $c++;
+												} ?>
 											</div>
-											<?php $c = 0; foreach ($prod['images'] as $img) { ?>
-												<fieldset id="f<?php echo $c; ?>1" class="<?php echo $c==0?'active':''; ?>">
+											<?php $c = 0;
+											foreach ($prod['images'] as $img) { ?>
+												<fieldset id="f<?php echo $c; ?>1" class="<?php echo $c == 0 ? 'active' : ''; ?>">
 													<div class="product-pic"> <img class="pic0" src="<?php echo $img['url']; ?>"> </div>
 												</fieldset>
-											<?php $c++; } ?>
+											<?php $c++;
+											} ?>
 										</div>
 									</div>
 								</div>
