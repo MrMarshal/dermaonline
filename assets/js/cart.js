@@ -89,8 +89,18 @@ $(document).ready(function () {
 });
 
 const addToCart = (id) => {
-  alert("Producto " + id + " añadido al carrito");
-  localStorage.setItem("cart", true);
+  $.ajax({
+      type:"post",
+      url:"bridge/routes.php?action=addToCart",
+      data:{
+          id:id,
+          quantity:1
+      },
+      success:function(res) {
+        console.log(res)
+          alert("Producto añadido con éxito");
+      }
+  });
 };
 const removeFromCart = () => {
   localStorage.removeItem("cart");

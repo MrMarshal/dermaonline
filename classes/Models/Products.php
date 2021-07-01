@@ -3,7 +3,7 @@
 	class Products extends Admin
 	{
 
-		public $no_of_records_per_page = 10;
+		public $no_of_records_per_page = 8;
 
 		function __construct()
 		{
@@ -134,6 +134,11 @@
 		public function View(Request $request)
 		{
 			return $this->GetById(self::TABLE_PRODUCTS,$request->id);
+		}
+
+		public function GetPrice(Request $data)
+		{
+			return $this->GetById(self::TABLE_PRICES,$data->id);
 		}
 
 		public function GetByFilters(Request $request)

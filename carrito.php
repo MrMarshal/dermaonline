@@ -1,7 +1,15 @@
 <?php
 include "routes.php";
+include "classes/LoadModels.php";
 $view = new Front; //Para definir una vista
 $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
+$admin = new Model;
+
+
+$cart = $admin->shop->GetCurrentCart();
+
+var_dump($cart);
+
 ?>
 <div class="col-12 text-center " style="margin-top: 8rem;margin-bottom: 8rem;">
 	<h1 class="text-center text-uppercase">Carrito</h1>

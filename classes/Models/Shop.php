@@ -35,14 +35,19 @@
 				$cart_id = $this->CreateCart();
 			$_SESSION['cart_id'] = $cart_id;
 			$product = $this->productModel->View($request);
+			$product_price = $this->productModel->GetPrice($request);
+			$price = $product_price['normal'];
 
 			$s = $this->query->select("*",self::TABLE_ORDERS,"product_id = ".$request->id." AND cart_id = ".$cart_id);
 			$order = $this->GetFirst($s);
-			if ($order==null)
-				$this->Insert(self::TABLE_ORDERS,["cart_id"=>$cart_id,"product_id"=>$request->id,"quantity"=>$request->get("quantity"),"cost"=>$product['price'],"status"=>1]);
+			if ($order==null){	
+				$q = $request->get("quantity");
+				$c = $price*$q;
+				$this->Insert(self::TABLE_ORDERS,["cart_id"=>$cart_id,"product_id"=>$request->id,"quantity"=>$request->get("quantity"),"cost"=>$c,"status"=>1]);
+			}
 			else{
 				$q = $order['quantity']+$request->get('quantity');
-				$c = $q*$product['price'];
+				$c = $q*$price;
 				$this->Save(self::TABLE_ORDERS,["quantity"=>$q,"cost"=>$c],$order['id']);
 			}
 			$this->SetCartCost($cart_id);

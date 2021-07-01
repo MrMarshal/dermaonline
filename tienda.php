@@ -290,7 +290,7 @@ try {
 
 			<p class="mb-3 mt-5"><strong class="texts-store">Categorías</strong></p>
 			<?php foreach ($categories as $cat) { ?>
-				<p class="mb-2"><a href="tienda.php?page=1?category=<?php echo $cat['id']; ?>" class="link-p"><?php echo $cat['name']; ?></a></p>
+				<p class="mb-2"><a href="tienda.php?page=1&category=<?php echo $cat['id']; ?>" class="link-p"><?php echo $cat['name']; ?></a></p>
 			<?php } ?>
 
 			<p class="mb-3 mt-5"><strong class="texts-store">Tags populares</strong></p>
