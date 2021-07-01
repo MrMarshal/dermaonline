@@ -14,8 +14,26 @@
 
     <link rel="stylesheet" href="<?php echo $backing; ?>assets/OwlCarousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="<?php echo $backing; ?>assets/OwlCarousel/css/owl.theme.default.min.css">
-    
+    <link rel="stylesheet" href="<?php echo $backing; ?>assets/jquery-ui/jquery-ui.css">
+
+
     <script src="<?php echo $backing; ?>assets/jquery/jquery.js"></script>
     <script src="<?php echo $backing; ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function() {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 500,
+                values: [75, 300],
+                slide: function(event, ui) {
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+                " - $" + $("#slider-range").slider("values", 1));
+        });
+    </script>
+
     <!-- <link rel='stylesheet' id='fusion-dynamic-css-css' href="assets/css/parallax.min.css" type='text/css' media='all' /> -->
 </head>

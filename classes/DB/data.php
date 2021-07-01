@@ -19,8 +19,8 @@
 		public $databaseDev = array(
 			"host"=>"127.0.0.1",
 			"name"=>"dermaonline_db",
-			"user"=>"pruebas",
-			"password"=>"Shiosaki.0"
+			"user"=>"root",
+			"password"=>""
 		);
 
 		public $costs = array(
