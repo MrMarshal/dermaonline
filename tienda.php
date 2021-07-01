@@ -344,58 +344,19 @@ try {
 						<div class="col-12 text-center">
 							<p class="links-number">
 								<?php
-								$num_pag = $page; //Página actual
-								$num_pags = $total_pages; //No. Páginas
-								switch ($num_pags) {
-									case 1:
-										echo "<button class='btn' onclick='window.location.href=`tienda.php?page=$num_pags`' ><strong>$num_pags</strong></button>";
-										break;
-									case 2:
-										if ($num_pag == 1) {
-											echo "<button class='btn' onclick='window.location.href=`tienda.php?page=$num_pag`' ><strong>$num_pag</strong></button>";
-										} else {
-											echo "<button class='btn' onclick='window.location.href=`tienda.php?page=$num_pag`' >$num_pag</button>";
+									echo '<a class="btn" href="tienda.php?page=1" > 1 </a>';	
+									if ($page>3){
+										echo '<a class="btn" href="tienda.php?page='.round($page/2).'" > ... </a>';	
+									}
+									for ($i=$page-1; $i <= $page+1; $i++) { 
+										if ($i<=$total_pages && $i>1 && $i<$total_pages){
+											echo '<a class="btn" href="tienda.php?page='.$i.'">'.$i.'</a>';
 										}
-										if ($num_pag == 2) {
-											echo "<button class='btn' onclick='window.location.href=`tienda.php?page=$num_pag`' ><strong>$num_pag</strong></button>";
-										} else {
-											echo "<button class='btn' onclick='window.location.href=`tienda.php?page=$num_pag`' >$num_pag</button>";
-										}
-										break;
-									default:
-
-										echo "<button class='btn' onclick='window.location.href=`tienda.php?page=1`' ><<</button>";
-										//Calcula interacciones
-										$interacciones = 0;
-										for ($i = $num_pag - 1 < 1 ? $num_pag + 1 : $num_pag - 1; $i <= $num_pags; $i++) {
-											$interacciones++;
-										}
-										if ($interacciones > 3) {
-											for ($i =  $num_pag - 1 < 1 ? 1 : $num_pag - 1; $i <= $interacciones + 1; $i++) {
-												$extra = "$i";
-												if ($i == $num_pag) {
-													$extra = " <strong>$i</strong>";
-												}
-												if ($i <= $num_pags) {
-													echo "<button class='btn' onclick='window.location.href=`tienda.php?page=$i`' > $extra </button>";
-												}
-											}
-										} else {
-											//Pinta botones intermedios
-											for ($i = $num_pag - 1 < 1 ? 1 : $num_pag - 1; $i <= ($num_pags > 4 ? 4 : $num_pags); $i++) {
-												$extra = "$i";
-												if ($i == $num_pag) {
-													$extra = " <strong>$i</strong>";
-												}
-												echo "<button class='btn' onclick='window.location.href=`tienda.php?page=$i`' > $extra </button>";
-											}
-											//
-										}
-
-
-										echo "<button class='btn' onclick='window.location.href=`tienda.php?page=$num_pags`' >>></button>";
-										break;
-								}
+									}
+									if (($total_pages-$page)>2){
+										echo '<a class="btn" href="tienda.php?page='.round(($total_pages+$page)/2).'" > ... </a>';	
+									}
+									echo '<a class="btn" href="tienda.php?page='.$total_pages.'" > '.$total_pages.' </a>';	
 								?>
 							</p>
 
