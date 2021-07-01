@@ -88,9 +88,36 @@ $(document).ready(function () {
   }
 });
 
-const addToCart = (id) => {
-  alert("Producto " + id + " añadido al carrito");
-  localStorage.setItem("cart", true);
+const addToCart = (
+  id,
+  name = "",
+  price = 0,
+  main_image = "",
+  description = "",
+  existence = ""
+) => {
+  debugger;
+  let product = {
+    id: id,
+    name: name,
+    price: price,
+    main_image: main_image,
+    description: description,
+    existence: existence,
+    quantity: 1,
+  };
+  let array = localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart"))
+    : [];
+  let index = array.findIndex((x) => x.id);
+  if (index > -1) {
+    let __product = array.find((x) => x.id);
+    product.quantity = product.quantity + __product.quantity;
+    array.splice(index, 1);
+  }
+  array.push(product);
+  alert("Producto " + name + " añadido al carrito");
+  localStorage.setItem("cart", JSON.stringify(array));
 };
 const removeFromCart = () => {
   localStorage.removeItem("cart");
