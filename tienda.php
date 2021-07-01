@@ -6,7 +6,7 @@ $view->Header(["title" => "DERMA ONLINE"]); //La cabecera
 
 $admin = new Model;
 try {
-	$page = isset($_GET['page'])?$_GET['page']:1;
+	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$pagination = $admin->products->GetProductsList(new Request(["page" => $page, "filter" => $_GET]));
 	try {
 		$prods = $pagination['products'];
@@ -247,26 +247,52 @@ try {
 		box-sizing: border-box;
 	}
 </style>
+<style>
+	.ui-widget-header {
+		border: 0.5px solid #dddddd;
+		background: #B37737;
+		color: #333333;
+		font-weight: bold;
+	}
 
-<script type="text/javascript">
-	$("#slider-range").slider({
-		range: true,
-		min: 0,
-		max: 3500,
-		step: 50,
-		slide: function(event, ui) {
-			$("#min-price").html(ui.values[0]);
+	.ui-slider-horizontal .ui-slider-range {
+		top: 30%;
+		height: 30%;
+	}
 
-			console.log(ui.values[0])
+	.ui-widget-content {
+		border: 1px solid #ccc !important;
+	}
 
-			suffix = '';
-			if (ui.values[1] == $("#max-price").data('max')) {
-				suffix = ' +';
-			}
-			$("#max-price").html(ui.values[1] + suffix);
-		}
-	})
-</script>
+	.ui-state-default,
+	.ui-widget-content .ui-state-default,
+	.ui-widget-header .ui-state-default,
+	.ui-button,
+	html .ui-button.ui-state-disabled:hover,
+	html .ui-button.ui-state-disabled:active {
+		border: 1px solid #b37737;
+		background: #b37737;
+		font-weight: normal;
+		color: #454545;
+	}
+
+	.ui-slider-horizontal .ui-slider-handle {
+		top: 0em;
+		margin-left: -.01em;
+	}
+
+	.ui-slider .ui-slider-handle {
+		position: absolute;
+		z-index: 2;
+		width: 0.1em;
+		height: 0.5em;
+		cursor: default;
+		-ms-touch-action: none;
+		touch-action: none;
+	}
+</style>
+
+
 
 
 <div class="col-12">
@@ -276,17 +302,10 @@ try {
 		</div>
 		<div class="col-12 col-md-3 py-5 pl-5 pr-4">
 			<p><strong class="texts-store">Filtrar por precio</strong></p>
+			<div id="slider-range"></div>
 
-
-			<div class="selector">
-				<div class="price-slider">
-					<div id="slider-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-						<div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-						<span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-					</div>
-					<span id="min-price" data-currency="$" class="slider-price">0</span> <span class="seperator">-</span> <span id="max-price" data-currency="$" data-max="3500" class="slider-price">3500</span>
-				</div>
-			</div>
+			<label for="amount" class="mt-2">Precio:</label>
+			<input type="text" id="amount" disabled readonly style="border:0;">
 
 			<p class="mb-3 mt-5"><strong class="texts-store">Categorías</strong></p>
 			<?php foreach ($categories as $cat) { ?>
@@ -344,20 +363,20 @@ try {
 						<div class="col-12 text-center">
 							<p class="links-number">
 								<?php
-									echo '<a class="btn" href="tienda.php?page=1" > 1 </a>';	
-									if ($page>3){
-										echo '<a class="btn" onclick="gotopage('.round($page/2).')" > ... </a>';	
+								echo '<a class="btn" href="tienda.php?page=1" > 1 </a>';
+								if ($page > 3) {
+									echo '<a class="btn" onclick="gotopage(' . round($page / 2) . ')" > ... </a>';
+								}
+								for ($i = $page - 1; $i <= $page + 1; $i++) {
+									if ($i <= $total_pages && $i > 1 && $i < $total_pages) {
+										$p = $page == $i ? ('<span style="font-size:22px;font-weight:bold;">' . $i . '</span>') : ($i);
+										echo '<a class="btn" onclick="gotopage(' . $i . ')">' . $p . '</a>';
 									}
-									for ($i=$page-1; $i <= $page+1; $i++) { 
-										if ($i<=$total_pages && $i>1 && $i<$total_pages){
-											$p = $page==$i?('<span style="font-size:22px;font-weight:bold;">'.$i.'</span>'):($i);
-											echo '<a class="btn" onclick="gotopage('.$i.')">'.$p.'</a>';
-										}
-									}
-									if (($total_pages-$page)>2){
-										echo '<a class="btn" onclick="gotopage('.round(($total_pages+$page)/2).')" > ... </a>';	
-									}
-									echo '<a class="btn" onclick="gotopage('.$total_pages.')" > '.$total_pages.' </a>';	
+								}
+								if (($total_pages - $page) > 2) {
+									echo '<a class="btn" onclick="gotopage(' . round(($total_pages + $page) / 2) . ')" > ... </a>';
+								}
+								echo '<a class="btn" onclick="gotopage(' . $total_pages . ')" > ' . $total_pages . ' </a>';
 								?>
 							</p>
 
@@ -372,10 +391,26 @@ try {
 
 <script type="text/javascript">
 	function gotopage(page) {
-		location.href = "tienda.php?page="+page;
+		location.href = "tienda.php?page=" + page;
 	}
 </script>
 
 </div>
 <?php
-$view->Footer();// Footer
+$view->Footer(); // Footer
+?>
+<script>
+	$(function() {
+		$("#slider-range").slider({
+			range: true,
+			min: 0,
+			max: 5000,
+			values: [0, 5000],
+			slide: function(event, ui) {
+				$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+			}
+		});
+		$("#amount").val("$" + $("#slider-range").slider("values", 0) +
+			" - $" + $("#slider-range").slider("values", 1));
+	});
+</script>
