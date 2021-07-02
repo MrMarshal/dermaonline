@@ -1,43 +1,13 @@
 <?php
-include "routes.php";
-include "classes/LoadModels.php";
-$view = new Front; //Para definir una vista
-$view->Header(["title" => "DERMA ONLINE"]); //La cabecera
-
-$admin = new Model;
-try {
-	$page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$range = isset($_GET['range']) ? $_GET['range'] : 0;
 	$pagination = $admin->products->GetProductsList(new Request(["page" => $page, "filter" => $_GET]));
-	try {
-		$prods = $pagination['products'];
-	} catch (Exception $ex) {
-		echo $ex->getMessage();
-	}
-	try {
-		$total_pages = $pagination['total_pages'];
-	} catch (Exception $ex) {
-		echo $ex->getMessage();
-	}
-	try {
-		$total_results = $pagination['total_results'];
-	} catch (Exception $ex) {
-		echo $ex->getMessage();
-	}
-} catch (Exception $ex) {
-	echo $ex->getMessage();
-}
-
-
-try {
+	$prods = $pagination['products'];
+	$total_results = $pagination['total_results'];
+	$total_pages = $pagination['total_pages'];
+	
 	$popular = $admin->products->GetPopularProducts();
-} catch (Exception $ex) {
-	echo $ex->getMessage();
-}
-try {
 	$categories = $admin->products->GetCategoriesList();
-} catch (Exception $ex) {
-	echo $ex->getMessage();
-}
+
 ?>
 
 
@@ -305,7 +275,7 @@ try {
 			<div id="slider-range"></div>
 
 			<label for="amount" class="mt-2">Precio:</label>
-			<input type="text" id="amount" disabled readonly value="<?php echo $_GET['range'] ?>" style="border:0;">
+			<input type="text" id="amount" disabled readonly value="<?php echo $range; ?>" style="border:0;">
 
 			<p class="mb-3 mt-5"><strong class="texts-store">Categorías</strong></p>
 			<?php foreach ($categories as $cat) { ?>
@@ -357,7 +327,7 @@ try {
 										<div class="text">Agregar al carrito</div>
 									</button>
 								</div>
-								<a href="tienda-1.php">
+								<a href="<?php echo __ROOT__.'/producto/'.$prod['id']; ?>">
 									<h5 class="name-product mb-0 text-center mt-3"><strong><?php echo $prod['name'] . "(" . $prod['id'] . ")"; ?></strong></h5>
 								</a>
 								<p class="price-product mb-0 text-center">$<?php echo $prod['price']; ?></p>
@@ -367,7 +337,7 @@ try {
 						<div class="col-12 text-center">
 							<p class="links-number">
 								<?php
-								echo '<a class="btn" href="tienda.php?page=1" > 1 </a>';
+								echo '<a class="btn" href="1" > 1 </a>';
 								if ($page > 3) {
 									echo '<a class="btn" onclick="gotopage(' . round($page / 2) . ')" > ... </a>';
 								}
@@ -395,14 +365,14 @@ try {
 
 <script type="text/javascript">
 	function gotopage(page) {
-		location.href = "tienda.php?page=" + page;
+		location.href = page;
 	}
 </script>
 
 </div>
-<?php
-$view->Footer(); // Footer
-?>
+
+
+
 <script>
 	$(function() {
 		$("#slider-range").slider({

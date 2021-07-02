@@ -1,0 +1,39 @@
+Módulos ecommerce:
+
+
+- Gestión de usuarios.
+	- Ver, Crear, Modificar, Eliminar (lógico) y suspender usuarios
+	- Ver actividad y roles
+	- Búsqueda 
+	- Manejar roles conforme a los módulos disponibles
+
+- Gestión de pedidos.
+	- Ver pedidos (status, clientes, costos, opciones de envío)
+	- Historial por fechas
+	- Ver montos y ventas
+	- Devoluciones
+	- Integración con métodos de pago
+	- Integración con métodos de envío
+	- Ver cupones aplicados
+
+- Gestión de inventario.
+	- Ver, Crear, Modificar, Eliminar (lógico) y cambiar status de productos
+	- Modificar Stock de productos
+	- Cambiar precios y ofertas
+	- Generar paquetes
+	- Administrar categorías (Crear, editar)
+
+- Gestion de clientes.
+	- Ver clientes registrados
+	- Suspender cuentas
+	- Resetear contraseñas
+	- Historial de pedidos
+	- Modificar información del cliente
+	- Contactar con el cliente
+	- Administrar comentarios y calificaciones	
+
+- Gestión de productos
+	- Activar promociones
+	- Suspender un producto
+	- Creación de promociones
+	- Administración de Cupones de descuento

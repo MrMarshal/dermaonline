@@ -1,13 +1,12 @@
-<?php
-include "routes.php";
-include "classes/LoadModels.php";
-$view = new Front("front"); //Para definir una vista
-$view->Header(["title" => "DERMA ONLINE"]); //La cabecera
-$admin = new Model;
-$prod = $admin->products->GetProductDetails(["id" => 1]);
+<?php include "views/partials/header.php"; ?>
+<?php include "views/partials/navbar.php"; ?>
 
-var_dump($_GET);
+<?php  
+	include "classes/LoadModels.php";
+	$admin = new Model;
+	$prod = $admin->products->GetProductDetails(["id" => $product]);
 ?>
+
 
 <div class="col-12">
 	<div class="row">
@@ -148,9 +147,7 @@ var_dump($_GET);
 			</div>
 		</div>
 
-
-
 	</div>
 </div>
-<?php
-$view->Footer();// Footer
+
+<?php include "views/partials/footer.php"; ?>
