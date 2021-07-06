@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-06-2021 a las 00:43:57
+-- Tiempo de generación: 06-07-2021 a las 16:26:41
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.2.12
 
@@ -44,6 +44,29 @@ INSERT INTO `brands` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `carts`
+--
+
+CREATE TABLE `carts` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `total` float NOT NULL,
+  `shipping` float NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `total`, `shipping`, `status`, `created_at`, `updated_at`) VALUES
+(1, 0, 6600, 0, 1, '2021-07-01 01:15:51', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `categories`
 --
 
@@ -62,6 +85,33 @@ INSERT INTO `categories` (`id`, `name`, `description`, `image`) VALUES
 (1, 'Categoría 1', '', ''),
 (2, 'Categoría 2', '', ''),
 (3, 'Categoría 3', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `cost` float(10,2) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `orders`
+--
+
+INSERT INTO `orders` (`id`, `cart_id`, `product_id`, `quantity`, `cost`, `status`) VALUES
+(1, 1, 8, 2, 1890.00, 1),
+(2, 1, 6, 1, 945.00, 1),
+(3, 1, 1, 1, 930.00, 1),
+(4, 1, 4, 1, 945.00, 1),
+(5, 1, 23, 2, 1890.00, 1),
+(6, 5, 1, 2, 1860.00, 1);
 
 -- --------------------------------------------------------
 
@@ -499,9 +549,21 @@ ALTER TABLE `brands`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indices de la tabla `carts`
+--
+ALTER TABLE `carts`
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indices de la tabla `categories`
 --
 ALTER TABLE `categories`
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indices de la tabla `orders`
+--
+ALTER TABLE `orders`
   ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -551,10 +613,22 @@ ALTER TABLE `brands`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `prices`
