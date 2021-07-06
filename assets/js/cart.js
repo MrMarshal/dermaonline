@@ -1,5 +1,6 @@
 $(document).ready(function () {
-  if (false){//localStorage.getItem("cart")) {
+  if (false) {
+    //localStorage.getItem("cart")) {
     let html = "";
     let subtotal = 0.0;
     let shipcost = 0.0;
@@ -101,16 +102,37 @@ $(document).ready(function () {
 
 const addToCart = (id) => {
   $.ajax({
-      type:"post",
-      url:"../bridge/routes.php?action=addToCart",
-      data:{
-          id:id,
-          quantity:1
-      },
-      success:function(res) {
-        console.log(res)
-          alert("Producto añadido con éxito");
+    type: "post",
+    url: "./bridge/routes.php?action=addToCart",
+    data: {
+      id: id,
+      quantity: 1,
+    },
+    success: function (res) {
+      console.log(res);
+      alert("Producto añadido con éxito");
+    },
+    error: (error) => {
+      debugger;
+      switch (error.status) {
+        case 400:
+          alert("Algo salió mal, intenta más tarde X001BR");
+          break;
+        case 404:
+          alert("El recurso no se ha encontrado");
+          break;
+        case 401:
+          alert("No estás autorizado para esta operación");
+          break;
+        case 500:
+          alert(
+            "Ha ocurrido un error en nuestros servidores, intenta más tarde X001BE"
+          );
+          break;
+        default:
+          break;
       }
+    },
   });
 };
 const removeFromCart = (id) => {
