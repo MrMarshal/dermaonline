@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  getCart();
   if (false) {
     //localStorage.getItem("cart")) {
     let html = "";
@@ -103,21 +104,21 @@ $(document).ready(function () {
 const addToCart = (id) => {
   $.ajax({
     type: "post",
-    url: "../bridge/routes.php?action=addToCart",
+    url: "./bridge/routes.php?action=addToCart",
     data: {
       id: id,
       quantity: 1,
     },
     success: function (res) {
       alert({
-        title:"Listo",
-        text:"Producto añadido con éxito",
-        button:"success",
-        time:2000
+        title: "Listo",
+        text: "Producto añadido con éxito",
+        button: "success",
+        time: 2000,
       });
     },
     error: (error) => {
-      console.log(error)
+      console.log(error);
       switch (error.status) {
         case 400:
           alert("Algo salió mal, intenta más tarde X001BR");
@@ -152,4 +153,84 @@ const removeFromCart = (id) => {
     }
     window.location.reload();
   }
+};
+const getCart = () => {
+  $.ajax({
+    type: "get",
+    url: "./bridge/routes.php?action=getCart",
+    data: {},
+    success: function (res) {
+      let data = JSON.parse(res);
+      draw(data.orders);
+    },
+    error: (error) => {
+      debugger;
+      console.log(error);
+      switch (error.status) {
+        case 400:
+          alert("Algo salió mal, intenta más tarde X001BR");
+          break;
+        case 404:
+          alert("El recurso no se ha encontrado");
+          break;
+        case 401:
+          alert("No estás autorizado para esta operación");
+          break;
+        case 500:
+          alert(
+            "Ha ocurrido un error en nuestros servidores, intenta más tarde X001BE"
+          );
+          break;
+        default:
+          break;
+      }
+    },
+  });
+};
+const draw = (list = []) => {
+  debugger;
+  let aux = "";
+  let total = 0.0;
+  let subtotal = 0.0;
+  let ship = 0.0;
+  list.forEach((x) => {
+    subtotal = subtotal + parseFloat(x.cost) * parseFloat(x.quantity);
+    aux += `
+    <div class='row mt-3'>
+		<div class='col-1 col-sm-2 pt-5 text-right'>
+			<button class='btn mx-3 px-0'>x
+			</button>
+
+		</div>
+		<div class='col-5 col-sm-2 p-0'>
+			<img src='${x.product_img.url}' class='img-fluid'>
+		</div>
+		<div class='col-6 col-sm-2 pt-5 text-center'>
+			<strong class='d-block d-md-none'>
+				PRODUCTO
+			</strong>
+      ${x.product.name}
+		</div>
+		<div class='col-6 col-sm-2 pt-5 text-center'>
+			<strong class='d-block d-md-none'>
+				PRECIO
+			</strong>${x.cost}</div>
+		<div class='col-6 col-sm-2 pt-5 text-center'>
+			<strong class='d-block d-md-none'>
+				CANTIDAD
+			</strong>
+			${x.quantity}
+		</div>
+		<div class='col-6 col-sm-2 pt-5 text-center'>
+			<strong class='d-block d-md-none'>
+				SUBTOTAL
+			</strong>
+			${parseFloat(x.cost) * parseFloat(x.quantity)}
+		</div>
+	</div>`;
+  });
+  $("#draw_cart").html(aux);
+  $("#total").html(subtotal + ship);
+  $("#ship").html(ship);
+  $("#subtotal").html(subtotal);
 };

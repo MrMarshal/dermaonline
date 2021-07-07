@@ -32,21 +32,21 @@
 				</div>
 			</div>
 			<div class="col-12 col-lg-7">
-				<img src="https://via.placeholder.com/650x300" alt="" class="w-100">
+				<img src="./assets/images/products/acerca/1.jpg" alt="" class="w-100">
 			</div>
 		</div>
 	</div>
 </section>
 
 <div class="my-5 py-5">
-	<img src="https://via.placeholder.com/1600x450" alt="" class="w-100">
+	<img src="./assets/images/products/acerca/1.jpg" alt="" class="w-100">
 </div>
 
 <section>
 	<div class="container">
 		<div class="row col-12 mx-0 px-0">
 			<div class="col-12 col-lg-7 order-2 order-lg-1">
-				<img src="https://via.placeholder.com/650x300" alt="" class="w-100">
+				<img src="./assets/images/products/acerca/2.jpg" alt="" class="w-100">
 			</div>
 			<div class="col-12 col-lg-5 order-1 order-lg-2">
 				<div class="col-12 col-lg-11 mx-auto mx-0 px-0 centered-lg">
@@ -78,7 +78,7 @@
 				</div>
 			</div>
 			<div class="col-12 col-lg-7">
-				<img src="https://via.placeholder.com/650x300" alt="" class="w-100">
+				<img src="./assets/images/products/acerca/3.jpg" alt="" class="w-100">
 			</div>
 		</div>
 	</div>

@@ -16,7 +16,7 @@
                             <div class="mt-3 text-left">
                                 <a href="">
                                     <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                                        Tienda
+                                        Visitar tienda
                                     </button>
                                 </a>
                             </div>
@@ -41,7 +41,7 @@
                             <div class="mt-3 text-left">
                                 <a href="">
                                     <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                                        Tienda
+                                        Visitar tienda
                                     </button>
                                 </a>
                             </div>
@@ -66,7 +66,7 @@
                             <div class="mt-3 text-left">
                                 <a href="">
                                     <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                                        Tienda
+                                        Visitar tienda
                                     </button>
                                 </a>
                             </div>
@@ -94,9 +94,9 @@
                             <h4>Las mejores marcas Dermocosméticas
                                 para una piel sana</h4>
                             <div class="mt-3 text-left">
-                                <a href="tienda.php">
+                                <a href="./tienda/1">
                                     <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                                        Tienda
+                                        Visitar tienda
                                     </button>
                                 </a>
                             </div>
@@ -121,7 +121,7 @@
                             <div class="mt-3 text-left">
                                 <a href="">
                                     <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                                        Tienda
+                                        Visitar tienda
                                     </button>
                                 </a>
                             </div>
@@ -146,7 +146,7 @@
                             <div class="mt-3 text-left">
                                 <a href="">
                                     <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                                        Tienda
+                                        Visitar tienda
                                     </button>
                                 </a>
                             </div>
@@ -174,9 +174,9 @@
                             <h4>Las mejores marcas Dermocosméticas
                                 para una piel sana</h4>
                             <div class="mt-3 text-left">
-                                <a href="tienda.php">
+                                <a href="./tienda/1">
                                     <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                                        Tienda
+                                        Visitar tienda
                                     </button>
                                 </a>
                             </div>
@@ -201,7 +201,7 @@
                             <div class="mt-3 text-left">
                                 <a href="">
                                     <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                                        Tienda
+                                        Visitar tienda
                                     </button>
                                 </a>
                             </div>
@@ -226,7 +226,7 @@
                             <div class="mt-3 text-left">
                                 <a href="">
                                     <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                                        Tienda
+                                        Visitar tienda
                                     </button>
                                 </a>
                             </div>
@@ -239,34 +239,84 @@
 </div>
 
 
-<section>
+<section class="">
     <div class="text-center mx-auto my-5 col-12 col-lg-6 mx-0 px-0">
         <h1 class="subtitle-dark">Nuestros productos de Dermocosmética</h1>
     </div>
     <div class="container">
         <div class="row col-12 mx-0 px-0">
+
             <div class="col-12 col-md-6 col-lg-4 p-5">
-                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/1.jpg" alt="" class="w-100 h-100"></a>
+                <div class="container-2">
+                    <img src="./assets/images/products/index/1.jpg" alt="Avatar" class="image w-100 h-100">
+                    <a href="./tienda/1" class="middle text-dark">
+                        <div class="text">Ver más</div>
+                    </a>
+                </div>
+                <!-- <a href="./tienda/1">
+                <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
+            </a> -->
             </div>
             <div class="col-12 col-md-6 col-lg-4 p-5">
-                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/2.jpg" alt="" class="w-100 h-100"></a>
+                <div class="container-2">
+                    <img src="./assets/images/products/index/2.jpg" alt="Avatar" class="image w-100 h-100">
+                    <a href="./tienda/1" class="middle text-dark">
+                        <div class="text">Ver más</div>
+                    </a>
+                </div>
+                <!-- <a href="./tienda/1">
+                <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
+            </a> -->
             </div>
             <div class="col-12 col-md-6 col-lg-4 p-5">
-                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/3.jpg" alt="" class="w-100 h-100"></a>
+                <div class="container-2">
+                    <img src="./assets/images/products/index/3.jpg" alt="Avatar" class="image w-100 h-100">
+                    <a href="./tienda/1" class="middle text-dark">
+                        <div class="text">Ver más</div>
+                    </a>
+                </div>
+                <!-- <a href="./tienda/1">
+                <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
+            </a> -->
             </div>
             <div class="col-12 col-md-6 col-lg-4 p-5">
-                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/4.jpg" alt="" class="w-100 h-100"></a>
+                <div class="container-2">
+                    <img src="./assets/images/products/index/4.jpg" alt="Avatar" class="image w-100 h-100">
+                    <a href="./tienda/1" class="middle text-dark">
+                        <div class="text">Ver más</div>
+                    </a>
+                </div>
+                <!-- <a href="./tienda/1">
+                <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
+            </a> -->
             </div>
             <div class="col-12 col-md-6 col-lg-4 p-5">
-                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/5.jpg" alt="" class="w-100 h-100"></a>
+                <div class="container-2">
+                    <img src="./assets/images/products/index/5.jpg" alt="Avatar" class="image w-100 h-100">
+                    <a href="./tienda/1" class="middle text-dark">
+                        <div class="text">Ver más</div>
+                    </a>
+                </div>
+                <!-- <a href="./tienda/1">
+                <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
+            </a> -->
             </div>
             <div class="col-12 col-md-6 col-lg-4 p-5">
-                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/6.jpg" alt="" class="w-100 h-100"></a>
+                <div class="container-2">
+                    <img src="./assets/images/products/index/6.jpg" alt="Avatar" class="image w-100 h-100">
+                    <a href="./tienda/1" class="middle text-dark">
+                        <div class="text">Ver más</div>
+                    </a>
+                </div>
+                <!-- <a href="./tienda/1">
+                <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
+            </a> -->
             </div>
+
             <div class="mx-auto my-5">
-                <a href="tienda.php">
+                <a href="./tienda/1">
                     <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                        Tienda
+                        Visitar tienda
                     </button>
                 </a>
             </div>
@@ -278,16 +328,16 @@
     <div class="container">
         <div class="row col-12 mx-0 px-0">
             <div class="col-12 col-md-6">
-                <img src="https://via.placeholder.com/500x600" alt="" class="img-fluid">
+                <img src="./assets/images/products/index/long.jpg" alt="" class="img-fluid">
             </div>
             <div class="col-12 col-md-6 mx-0 px-0">
                 <div class="col-12 centered-md">
                     <h1 class="subtitle-dark">10% de descuento
                         con tu Suscripción!</h1>
                     <h5 style="color: #5f5f5f;">Aprovecha nuestras ofertas de primera mano. Nuestro programa de clientes frecuentes otorgara descuentos en paquetes así como envíos gratuitos en paquetes dentro de nuestro programa</h5>
-                    <a href="tienda.php">
+                    <a href="./tienda/1">
                         <button class="btn btn-transparent-yellow px-5 mt-2 mr-3">
-                            Tienda
+                            Ver productos
                         </button>
                     </a>
                 </div>
@@ -297,15 +347,42 @@
 </section>
 
 <div class="container">
-    <div class="row col-12 mx-0 px-0 my-5 py-5">
-        <div class="col-12 col-md-6 col-lg-4 p-2 mx-auto">
-            <img src="https://via.placeholder.com/450x400" alt="" class="w-100">
+    <div class="text-center mx-auto mt-5 col-12 col-lg-6 pt-5 mx-0 px-0">
+        <h1 class="subtitle-dark">Nuestros producto más vendidos</h1>
+    </div>
+    <div class="row col-12 mx-0 px-0 mb-5 py-5">
+        <div class="col-12 col-md-4 mb-5">
+            <div class="container-2">
+                <img src="./assets/images/products/index/1_1.jpg" alt="Avatar" class="image col-12">
+                <a href="./tienda/1" class="middle text-dark">
+                    <div class="text">Ver más</div>
+                </a>
+            </div>
+            <a href="./tienda/1">
+                <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
+            </a>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 p-2 mx-auto">
-            <img src="https://via.placeholder.com/450x400" alt="" class="w-100">
+        <div class="col-12 col-md-4 mb-5">
+            <div class="container-2">
+                <img src="./assets/images/products/index/2_1.jpg" alt="Avatar" class="image col-12">
+                <a href="./tienda/1" class="middle text-dark">
+                    <div class="text">Ver más</div>
+                </a>
+            </div>
+            <a href="./tienda/1">
+                <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Gel Moussant 200 ml</strong></h5>
+            </a>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 p-2 mx-auto">
-            <img src="https://via.placeholder.com/450x400" alt="" class="w-100">
+        <div class="col-12 col-md-4 mb-5">
+            <div class="container-2">
+                <img src="./assets/images/products/index/3_1.jpg" alt="Avatar" class="image col-12">
+                <a href="./tienda/1" class="middle text-dark">
+                    <div class="text">Ver más</div>
+                </a>
+            </div>
+            <a href="./tienda/1">
+                <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Agua Micellar</strong></h5>
+            </a>
         </div>
     </div>
 </div>
@@ -329,15 +406,15 @@
                 </div>
             </div>
             <div class="col-12 col-lg-6 mx-0 px-0">
-                <img src="https://via.placeholder.com/450x400" alt="" class="w-100">
+                <img src="./assets/images/products/index/long_2.jpg" alt="" class="w-100">
             </div>
         </div>
     </div>
 </section>
 
 <section>
-    <div class="col-12 col-lg-4 text-center mx-auto my-5 pt-3 mx-0 px-0">
-        <h1 class="subtitle-dark">Visítanos en nuestra sucursal</h1>
+    <div class="col-12 col-lg-4 text-center mx-auto my-5 pt-5 mx-0 px-0">
+        <h1 class="subtitle-dark mt-5">Visítanos en nuestra sucursal</h1>
     </div>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.7908361275618!2d-99.16392268509549!3d19.29146008696465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce014757e1e5a7%3A0xc0ff591d4f4a1c74!2sDermaOnline!5e0!3m2!1ses-419!2smx!4v1624405215562!5m2!1ses-419!2smx" class="col-12 mx-0 px-0" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </section>
