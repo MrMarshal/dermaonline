@@ -1,7 +1,6 @@
 <?php
     require 'flight/Flight.php';
     include "classes/LoadModels.php";
-    Flight::set('flight.log_errors', true);
     define('__ROOT__', "http://localhost/deskrive/dermaonline");
 
     Flight::route('/', function(){
@@ -37,6 +36,14 @@
     Flight::route('/carrito', function(){
         $admin = new Model;
         Flight::render('shop/cart', ['title' => 'Nosotros', 'desc' => 'lll',"admin"=>$admin]);
+    });
+
+
+
+    Flight::route('/admin/', function(){
+        $admin = new Model;
+        Flight::set('flight.views.path', 'intranet');
+        Flight::render('dashboard/index', ['title' => 'Nosotros', 'desc' => 'lll',"admin"=>$admin]);
     });
 
 
