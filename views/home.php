@@ -245,23 +245,23 @@
     </div>
     <div class="container">
         <div class="row col-12 mx-0 px-0">
-            <div class="col-12 col-md-6 col-lg-4 p-2">
-                <img src="https://via.placeholder.com/400x500" alt="" class="w-100">
+            <div class="col-12 col-md-6 col-lg-4 p-5">
+                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/1.jpg" alt="" class="w-100 h-100"></a>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-2">
-                <img src="https://via.placeholder.com/400x500" alt="" class="w-100">
+            <div class="col-12 col-md-6 col-lg-4 p-5">
+                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/2.jpg" alt="" class="w-100 h-100"></a>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-2">
-                <img src="https://via.placeholder.com/400x500" alt="" class="w-100">
+            <div class="col-12 col-md-6 col-lg-4 p-5">
+                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/3.jpg" alt="" class="w-100 h-100"></a>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-2">
-                <img src="https://via.placeholder.com/400x500" alt="" class="w-100">
+            <div class="col-12 col-md-6 col-lg-4 p-5">
+                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/4.jpg" alt="" class="w-100 h-100"></a>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-2">
-                <img src="https://via.placeholder.com/400x500" alt="" class="w-100">
+            <div class="col-12 col-md-6 col-lg-4 p-5">
+                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/5.jpg" alt="" class="w-100 h-100"></a>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-2">
-                <img src="https://via.placeholder.com/400x500" alt="" class="w-100">
+            <div class="col-12 col-md-6 col-lg-4 p-5">
+                <a href="./tienda.php?page=1"><img src="./assets/images/products/index/6.jpg" alt="" class="w-100 h-100"></a>
             </div>
             <div class="mx-auto my-5">
                 <a href="tienda.php">
