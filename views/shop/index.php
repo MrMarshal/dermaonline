@@ -7,7 +7,6 @@
 	
 	$popular = $admin->products->GetPopularProducts();
 	$categories = $admin->products->GetCategoriesList();
-
 ?>
 
 
@@ -319,11 +318,7 @@
 							<div class="col-12 col-md-6 mb-5">
 								<div class="container-2">
 									<img src="<?php echo $prod['main_image']; ?>" alt="Avatar" class="image col-12">
-									<button class="middle" onclick="addToCart(<?php echo $prod['id']; ?>,
-																			 '<?php echo $prod['name']; ?>',
-																			 '<?php echo $prod['price']; ?>',
-																			 '<?php echo $prod['main_image']; ?>',
-																			 <?php echo $prod['existence']; ?>)">
+									<button class="middle" onclick="addToCart(<?php echo $prod['id']; ?>)">
 										<div class="text">Agregar al carrito</div>
 									</button>
 								</div>
@@ -375,6 +370,7 @@
 
 <script>
 	$(function() {
+
 		$("#slider-range").slider({
 			range: true,
 			min: 0,

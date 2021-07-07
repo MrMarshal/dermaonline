@@ -15,22 +15,22 @@
         <link rel="stylesheet" href="<?php echo __ROOT__?>/assets/OwlCarousel/css/owl.theme.default.min.css">
         <link rel="stylesheet" href="<?php echo __ROOT__?>/assets/jquery-ui/jquery-ui.css">
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
         <script src="<?php echo __ROOT__?>/assets/jquery/jquery.js"></script>
         <script src="<?php echo __ROOT__?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
             $(function() {
-                $("#slider-range").slider({
-                    range: true,
-                    min: 0,
-                    max: 500,
-                    values: [75, 300],
-                    slide: function(event, ui) {
-                        $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-                    }
-                });
-                $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-                    " - $" + $("#slider-range").slider("values", 1));
+                window.alert = function(params) {
+                    Swal.fire({
+                         title: params.title||"Alerta",
+                         text: params.text||"Alerta",
+                         confirmButtonText: params.button||"Okey", // Text on button
+                         icon: params.icon||"success", //built in icons: success, warning, error, info
+                         timer: params.time||3000, //timeOut for auto-close
+                    });
+                }
+
             });
         </script>
 

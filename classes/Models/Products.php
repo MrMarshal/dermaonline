@@ -18,7 +18,7 @@
 			$max = $filter->get("max_price");
 			$f = "true ";
 
-			$page = $data->get("page");
+			$page = $data->get("page",0);
 			
 			if ($category!=null){
 				$f.="AND (cate.id = ".$category.")";

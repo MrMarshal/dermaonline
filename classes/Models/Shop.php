@@ -29,6 +29,7 @@
 
 		public function AddProductToCart(Request $request)
 		{
+			return "Nada";
 			session_start();
 			$cart_id = isset($_SESSION['cart_id'])?$_SESSION['cart_id']:null;
 			if ($cart_id==null)

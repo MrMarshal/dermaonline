@@ -22,9 +22,9 @@
 			$this->id = (isset($this->obj['id'])?$this->obj['id']:null);
 		}
 
-		public function get($val)
+		public function get($val,$default = null)
 		{
-			return (isset($this->obj[$val])?($this->obj[$val]==null?"":$this->obj[$val]):null);
+			return (isset($this->obj[$val])?($this->obj[$val]==null?$default:$this->obj[$val]):$default);
 		}
 
 		public function put($key, $val)
