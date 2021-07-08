@@ -40,7 +40,7 @@ class Shop extends Admin
 		$product_price = $this->productModel->GetPrice($request);
 		$price = $product_price['normal'];
 
-		$s = $this->query->select("*", self::TABLE_ORDERS, "product_id = " . $request->id . " AND cart_id = " . $cart_id." AND status = 1");
+		$s = $this->query->select("*", self::TABLE_ORDERS, "product_id = " . $request->id . " AND cart_id = " . $cart_id . " AND status = 1");
 		$order = $this->GetFirst($s);
 		if ($order == null) {
 			$q = $request->get("quantity");
@@ -66,11 +66,12 @@ class Shop extends Admin
 		$order_id = $request->get("order_id");
 		$quantity = $request->get("quantity");
 		$order = $this->GetById(self::TABLE_ORDERS, $order_id);
+		return "Ok";
 		$product = $this->productModel->View(new Request(["id" => $order['product_id']]));
 		$c = $quantity * $product['price'];
-		$this->Save(self::TABLE_ORDERS, ["quantity" => $quantity, "cost" => $c], $order['id']);
-		$cart_cost = $this->SetCartCost($order['cart_id']);
-		return ["quantity" => $quantity, "cost" => $c, "total" => $cart_cost['total'], "subtotal" => $cart_cost['subtotal']];
+		// $this->Save(self::TABLE_ORDERS, ["quantity" => $quantity, "cost" => $c], $order['id']);
+		// $cart_cost = $this->SetCartCost($order['cart_id']);
+		// return ["quantity" => $quantity, "cost" => $c, "total" => $cart_cost['total'], "subtotal" => $cart_cost['subtotal']];
 	}
 
 	public function DeleteOrder(Request $request)
