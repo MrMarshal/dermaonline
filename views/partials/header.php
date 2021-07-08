@@ -15,8 +15,14 @@
         <link rel="stylesheet" href="<?php echo __ROOT__?>/assets/OwlCarousel/css/owl.theme.default.min.css">
         <link rel="stylesheet" href="<?php echo __ROOT__?>/assets/jquery-ui/jquery-ui.css">
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <?php if (isset($css)) {
+            foreach ($css as $c) { ?>
+                <link rel="stylesheet" href="<?php echo __ROOT__?>/assets/css/<?php echo $c ?>.css">
+        <?php   
+            }
+         } ?>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         <script src="<?php echo __ROOT__?>/assets/jquery/jquery.js"></script>
         <script src="<?php echo __ROOT__?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
@@ -35,8 +41,16 @@
                     });
                 }
 
+                const formatter = new Intl.NumberFormat('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                });
+
+                window.toMoney = (string)=>{
+                    let r = formatter.format(string);
+                    return r.replace(".00","");
+                }
+
             });
         </script>
-
-        <!-- <link rel='stylesheet' id='fusion-dynamic-css-css' href="assets/css/parallax.min.css" type='text/css' media='all' /> -->
     </head>

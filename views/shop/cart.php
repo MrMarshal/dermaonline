@@ -55,9 +55,9 @@
 				<div class='row h-100' style='background-color: #F2F2F0 !important;'>
 					<div class='col-12 py-3 px-4'>
 						<h1 class='mt-2'>TOTAL</h1>
-						<p class='mt-2 mb-1'><strong>SUBTOTAL &nbsp;&nbsp;&nbsp;<span>$<span id='subtotal'></span></span></strong></p>
-						<p class='mt-2 mb-1'><strong>ENVÍO &nbsp;&nbsp;&nbsp;<span>$<span id='ship'></span></span></strong></p>
-						<p class='mt-4 mb-1'><strong>TOTAL &nbsp;&nbsp;&nbsp;<span>$<span id='total'></span></span></strong></p>
+						<p class='mt-2 mb-1'><strong>SUBTOTAL &nbsp;&nbsp;&nbsp;<span><span id='subtotal'></span></span></strong></p>
+						<p class='mt-2 mb-1'><strong>ENVÍO &nbsp;&nbsp;&nbsp;<span><span id='ship'></span></span></strong></p>
+						<p class='mt-4 mb-1'><strong>TOTAL &nbsp;&nbsp;&nbsp;<span><span id='total'></span></span></strong></p>
 						<a class='btn b-tags col-12 mt-3' href='tienda/1'>Volver a la tienda</a>
 					</div>
 				</div>

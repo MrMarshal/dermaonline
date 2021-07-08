@@ -24,7 +24,7 @@
 				$f.="AND (cate.id = ".$category.")";
 			}
 			if ($min!=null){
-				$f.="AND (pric.normal > ".$min." AND pric.normal < ".$max.")";
+				$f.="AND (pric.normal >= ".$min." AND pric.normal <= ".$max.")";
 			}
 
 			$total_pages_sql = $this->query->select_join("COUNT(*)",
@@ -133,7 +133,9 @@
 		
 		public function View(Request $request)
 		{
-			return $this->GetById(self::TABLE_PRODUCTS,$request->id);
+			$pr = $this->GetById(self::TABLE_PRODUCTS,$request->id);
+			$pr['price'] = $this->GetPrice($request);
+			return $pr;
 		}
 
 		public function GetPrice(Request $data)

@@ -107,6 +107,7 @@ const updateCart = (order_id, quantity) => {
       quantity: quantity,
     },
     success: function (res) {
+      console.log(res);
       getCart();
     },
     error: (error) => {
@@ -142,31 +143,35 @@ const draw = (container, list = []) => {
 		<div class='col-6 col-sm-2 pt-5 text-center'>
 			<strong class='d-block d-md-none'>
 				PRECIO
-			</strong>${x.cost / x.quantity}</div>
+			</strong>${toMoney(x.cost / x.quantity)}</div>
 		<div class='col-6 col-sm-2 pt-5 text-center'>
 			<strong class='d-block d-md-none'>
 				CANTIDAD
 			</strong>
-			<button class="btn" onclick="changeQuantity(${x.quantity - 1},${
+			<button class="btn" onclick="changeQuantity(${Number(x.quantity) - 1},${
       x.id
     })"><</button>${x.quantity}<button class="btn"onclick="changeQuantity(${
-      x.quantity + 1
+      Number(x.quantity) + 1
     },${x.id})">></button>
 		</div>
 		<div class='col-6 col-sm-2 pt-5 text-center'>
 			<strong class='d-block d-md-none'>
 				SUBTOTAL
 			</strong>
-			${x.cost}
+			${toMoney(x.cost)}
 		</div>
 	</div>`;
   });
   $("#" + container).html(aux);
-  $("#total").html(subtotal + ship);
-  $("#ship").html(ship);
-  $("#subtotal").html(subtotal);
+  $("#total").html(toMoney(subtotal + ship));
+  $("#ship").html(toMoney(ship));
+  $("#subtotal").html(toMoney(subtotal));
 };
 const changeQuantity = (value, id) => {
   console.log(id);
-  updateCart(id, value);
+  if (value==0){
+    removeFromCart(id);
+  }else{
+    updateCart(id, value);
+  }
 };
