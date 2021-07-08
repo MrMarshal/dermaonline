@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  getCart();
+  
   if (false) {
     //localStorage.getItem("cart")) {
     let html = "";
@@ -101,106 +101,121 @@ $(document).ready(function () {
   }
 });
 
+
+
+const errorHandle = (error)=>{
+  console.log(error);
+  switch (error.status) {
+    case 400:
+      alert("Algo salió mal, intenta más tarde X001BR");
+      break;
+    case 404:
+      alert("El recurso no se ha encontrado");
+      break;
+    case 401:
+      alert("No estás autorizado para esta operación");
+      break;
+    case 500:
+      alert(
+        "Ha ocurrido un error en nuestros servidores, intenta más tarde X001BE"
+      );
+      break;
+    default:
+      break;
+  }
+}
+
 const addToCart = (id) => {
   $.ajax({
     type: "post",
-    url: "./bridge/routes.php?action=addToCart",
+    url: "../bridge/routes.php?action=addToCart",
     data: {
       id: id,
       quantity: 1,
     },
     success: function (res) {
+      console.log(res)
       alert({
         title: "Listo",
         text: "Producto añadido con éxito",
-        button: "success",
+        icon: "success",
+        button: "Listo",
         time: 2000,
       });
     },
     error: (error) => {
-      console.log(error);
-      switch (error.status) {
-        case 400:
-          alert("Algo salió mal, intenta más tarde X001BR");
-          break;
-        case 404:
-          alert("El recurso no se ha encontrado");
-          break;
-        case 401:
-          alert("No estás autorizado para esta operación");
-          break;
-        case 500:
-          alert(
-            "Ha ocurrido un error en nuestros servidores, intenta más tarde X001BE"
-          );
-          break;
-        default:
-          break;
-      }
+      errorHandle(error);
     },
   });
 };
+
 const removeFromCart = (id) => {
-  let array = localStorage.getItem("cart")
-    ? JSON.parse(localStorage.getItem("cart"))
-    : [];
-  let index = array.findIndex((x) => x.id == id);
-  if (index > -1) {
-    array.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(array));
-    if (array.length === 0) {
-      localStorage.removeItem("cart");
-    }
-    window.location.reload();
-  }
+  Swal.fire({
+    title: '¿Deseas eliminar esta orden del carrito?',
+    showDenyButton: true,
+    showCancelButton: true,
+    icon:"warning",
+    confirmButtonText: `Eliminar`,
+    denyButtonText: `Cancelar`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "get",
+        url: "./bridge/routes.php?action=deleteOrder",
+        data: {
+          id:id
+        },
+        success: function (res) {
+          console.log(res);
+          let data = JSON.parse(res);
+          getCart();
+          alert({
+            title: "Listo",
+            text: "Orden eliminada con éxito",
+            icon: "success",
+            button: "Listo",
+            time: 2000,
+          });
+        },
+        error: (error) => {
+          errorHandle(error)
+        },
+      }); 
+    } else if (result.isDenied) {}
+  });
 };
-const getCart = () => {
+
+const getCart = (container = "draw_cart") => {
   $.ajax({
     type: "get",
     url: "./bridge/routes.php?action=getCart",
     data: {},
     success: function (res) {
       let data = JSON.parse(res);
-      draw(data.orders);
+      if (data.orders.length==0)
+        window.location.reload();
+      draw(container, data.orders);
     },
     error: (error) => {
-      debugger;
-      console.log(error);
-      switch (error.status) {
-        case 400:
-          alert("Algo salió mal, intenta más tarde X001BR");
-          break;
-        case 404:
-          alert("El recurso no se ha encontrado");
-          break;
-        case 401:
-          alert("No estás autorizado para esta operación");
-          break;
-        case 500:
-          alert(
-            "Ha ocurrido un error en nuestros servidores, intenta más tarde X001BE"
-          );
-          break;
-        default:
-          break;
-      }
+      errorHandle(error);
     },
   });
 };
-const draw = (list = []) => {
-  debugger;
+
+
+
+const draw = (container, list = []) => {
   let aux = "";
   let total = 0.0;
   let subtotal = 0.0;
   let ship = 0.0;
+  console.log(list);
   list.forEach((x) => {
-    subtotal = subtotal + parseFloat(x.cost) * parseFloat(x.quantity);
+    subtotal = subtotal + parseFloat(x.cost);
     aux += `
     <div class='row mt-3'>
 		<div class='col-1 col-sm-2 pt-5 text-right'>
-			<button class='btn mx-3 px-0'>x
-			</button>
-
+			<button class='btn mx-3 px-0' onclick="removeFromCart(${x.id})"><i class="fas fa-times"></i></button>
 		</div>
 		<div class='col-5 col-sm-2 p-0'>
 			<img src='${x.product_img.url}' class='img-fluid'>
@@ -214,7 +229,7 @@ const draw = (list = []) => {
 		<div class='col-6 col-sm-2 pt-5 text-center'>
 			<strong class='d-block d-md-none'>
 				PRECIO
-			</strong>${x.cost}</div>
+			</strong>${x.cost/x.quantity}</div>
 		<div class='col-6 col-sm-2 pt-5 text-center'>
 			<strong class='d-block d-md-none'>
 				CANTIDAD
@@ -225,11 +240,11 @@ const draw = (list = []) => {
 			<strong class='d-block d-md-none'>
 				SUBTOTAL
 			</strong>
-			${parseFloat(x.cost) * parseFloat(x.quantity)}
+			${x.cost}
 		</div>
 	</div>`;
   });
-  $("#draw_cart").html(aux);
+  $("#"+container).html(aux);
   $("#total").html(subtotal + ship);
   $("#ship").html(ship);
   $("#subtotal").html(subtotal);

@@ -22,6 +22,10 @@
         <script>
             $(function() {
                 window.alert = function(params) {
+                    if (!params.text){
+                        let a = params;
+                        params = {text:a};
+                    }
                     Swal.fire({
                          title: params.title||"Alerta",
                          text: params.text||"Alerta",

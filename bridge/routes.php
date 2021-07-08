@@ -39,8 +39,8 @@
 	// $router->New("getProductsByFilter","products/GetByFilters");
 	$router->New("addToCart","shop/AddProductToCart");
 	$router->New("getCart","shop/GetCurrentCart");
-	// $router->New("updateOrder","shop/UpdateOrder");
-	// $router->New("deleteOrder","shop/DeleteOrder");
+	$router->New("deleteOrder","shop/DeleteOrder");
+	$router->New("updateOrder","shop/UpdateOrder");
 	// $router->New("getProductDetails","products/GetProductDetails");
 	// $router->New("getProductCustomData","products/GetProductCustomData");
 

@@ -40,7 +40,7 @@ class Shop extends Admin
 		$product_price = $this->productModel->GetPrice($request);
 		$price = $product_price['normal'];
 
-		$s = $this->query->select("*", self::TABLE_ORDERS, "product_id = " . $request->id . " AND cart_id = " . $cart_id);
+		$s = $this->query->select("*", self::TABLE_ORDERS, "product_id = " . $request->id . " AND cart_id = " . $cart_id." AND status = 1");
 		$order = $this->GetFirst($s);
 		if ($order == null) {
 			$q = $request->get("quantity");
