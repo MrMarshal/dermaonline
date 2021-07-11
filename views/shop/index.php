@@ -29,7 +29,7 @@
 				</div>
 			</div>
 
-			<p class="mb-3 mt-5"><strong class="texts-store">Categorías</strong></p>
+			<p class="mb-3 mt-5"><strong class="texts-store">Categorías</strong><a class="btn" onclick="set_category(0)">Ver todas</a></p>
 			<?php foreach ($categories as $cat) { ?>
 				<p class="mb-2"><a class="btn" onclick="set_category(<?php echo $cat['id']; ?>)" class="link-p"><?php echo $cat['name']; ?></a></p>
 			<?php } ?>
@@ -75,7 +75,7 @@
 										<div class="text">Agregar al carrito</div>
 									</button>
 								</div>
-								<a href="<?php echo __ROOT__.'/producto/'.$prod['id']; ?>">
+								<a href="<?php echo __ROOT__.'/producto/'.$prod['seo_name']; ?>">
 									<h5 class="name-product mb-0 text-center mt-3"><strong><?php echo $prod['name'] . "(" . $prod['id'] . ")"; ?></strong></h5>
 								</a>
 								<p class="price-product mb-0 text-center">$<?php echo $prod['price']; ?></p>
@@ -133,7 +133,7 @@
 	}
 
 	function realoadPage() {
-		location.href = "<?php echo __ROOT__; ?>/tienda/"+page+"/"+min_price+"-"+max_price+"/"+category;
+		location.href = "<?php echo __ROOT__; ?>/tienda/"+page+"/"+min_price+"-"+max_price+(category!=0?("/"+category):"");
 	}
 </script>
 

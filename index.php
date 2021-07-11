@@ -38,6 +38,11 @@ Flight::route('/carrito', function () {
     Flight::render('shop/cart', ['title' => 'Nosotros', 'desc' => 'lll', "admin" => $admin]);
 });
 
+Flight::route('/finalizar-compra', function () {
+    $admin = new Model;
+    Flight::render('shop/end_purchase', ['title' => 'Nosotros', 'desc' => 'lll', "admin" => $admin]);
+});
+
 
 
 Flight::route('/admin/', function () {

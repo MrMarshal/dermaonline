@@ -41,7 +41,7 @@
 			$total_rows = $result['COUNT(*)'];
 			$total_pages = ceil($total_rows / $this->no_of_records_per_page);
 			$offset = ($page-1) * $this->no_of_records_per_page;
-			$s = $this->query->select_join("p.id, p.sku as code,p.description,p.tags, p.name, stoc.quantity as existence, pric.normal as price",
+			$s = $this->query->select_join("p.id,p.seo_name, p.sku as code,p.description,p.tags, p.name, stoc.quantity as existence, pric.normal as price",
 				self::TABLE_PRODUCTS,
 				[
 					self::TABLE_STOCK=>"stoc.product_id = p.id",
@@ -72,13 +72,18 @@
 			if (!$data instanceof Request){
 				$data = new Request($data);
 			}
+			if ($data->id!=null){
+				$where = "p.id = ".$data->id;
+			}else{
+				$where = "p.seo_name = '".$data->get("seo_name")."'";
+			}
 			$s = $this->query->select_join("p.id, p.sku as sku,p.description, p.short_description, p.name, p.advantages, pric.normal as price, stoc.quantity as existence",
 				self::TABLE_PRODUCTS,
 				[
 					self::TABLE_STOCK=>"stoc.product_id = p.id",
 					self::TABLE_PRICES=>"pric.product_id = p.id"
 				],
-				"p.id = ".$data->id
+				$where
 			);
 			$p = $this->GetFirst($s);
 			$p['images'] = $this->GetList(self::TABLE_PRODUCT_IMAGES,"product_id = ".$p['id']);
@@ -111,6 +116,18 @@
 			return $catego;
 		}
 
+
+		public function format_uri( $string, $separator = '-' )
+		{
+		    $accents_regex = '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i';
+		    $special_cases = array( '&' => 'and', "'" => '');
+		    $string = mb_strtolower( trim( $string ), 'UTF-8' );
+		    $string = str_replace( array_keys($special_cases), array_values( $special_cases), $string );
+		    $string = preg_replace( $accents_regex, '$1', htmlentities( $string, ENT_QUOTES, 'UTF-8' ) );
+		    $string = preg_replace("/[^a-z0-9]/u", "$separator", $string);
+		    $string = preg_replace("/[$separator]+/u", "$separator", $string);
+		    return $string;
+		}
 
 
 		public function SaveProduct(Request $request){

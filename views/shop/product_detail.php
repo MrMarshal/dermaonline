@@ -1,12 +1,6 @@
-<?php include "views/partials/header.php"; ?>
-<?php include "views/partials/navbar.php"; ?>
-
-<?php  
-	include "classes/LoadModels.php";
-	$admin = new Model;
-	$prod = $admin->products->GetProductDetails(["id" => $product]);
+<?php 
+	$prod = $admin->products->GetProductDetails(["seo_name" => $product]);
 ?>
-
 
 <div class="col-12">
 	<div class="row">
