@@ -1,5 +1,7 @@
 $(document).ready(function () {});
 
+const hostname = "http://localhost/deskrive/dermaonline";
+
 const errorHandle = (error) => {
   console.log(error);
   switch (error.status) {
@@ -25,7 +27,7 @@ const errorHandle = (error) => {
 const addToCart = (id) => {
   $.ajax({
     type: "post",
-    url: "../bridge/routes.php?action=addToCart",
+    url: hostname+"/bridge/routes.php?action=addToCart",
     data: {
       id: id,
       quantity: 1,

@@ -44,7 +44,6 @@ Flight::route('/finalizar-compra', function () {
 });
 
 
-
 Flight::route('/admin/', function () {
     $admin = new Model;
     Flight::set('flight.views.path', 'intranet');
