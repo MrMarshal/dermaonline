@@ -83,7 +83,7 @@ const removeFromCart = (id) => {
   });
 };
 
-const getCart = (container = "draw_cart", type="all") => {
+const getCart = (container = "draw_cart") => {
   $.ajax({
     type: "get",
     url: "./bridge/routes.php?action=getCart",
@@ -91,7 +91,7 @@ const getCart = (container = "draw_cart", type="all") => {
     success: function (res) {
       let data = JSON.parse(res);
       if (data.orders.length == 0) window.location.reload();
-      draw(container, data.orders,type);
+      draw(container, data.orders);
     },
     error: (error) => {
       errorHandle(error);
@@ -107,7 +107,6 @@ const updateCart = (order_id, quantity) => {
       quantity: quantity,
     },
     success: function (res) {
-      console.log(res);
       getCart();
     },
     error: (error) => {
@@ -116,7 +115,7 @@ const updateCart = (order_id, quantity) => {
   });
 };
 
-const draw = (container, list = [], type) => {
+const draw = (container, list = []) => {
   let aux = "";
   let total = 0.0;
   let subtotal = 0.0;
@@ -125,15 +124,13 @@ const draw = (container, list = [], type) => {
     subtotal = subtotal + parseFloat(x.cost);
     console.log(x);
     aux += `
-    <div class='row mt-3'>`;
-		if (type=="all")
-      aux+=	`<div class='col-1 col-sm-2 pt-5 text-right'>
-      <button class='btn mx-3 px-0' onclick="removeFromCart(${
+    <div class='row mt-3'>
+		<div class='col-1 col-sm-2 pt-5 text-right'>
+			<button class='btn mx-3 px-0' onclick="removeFromCart(${
         x.id
       })"><i class="fas fa-times"></i></button>
-      </div>`;
-		
-    aux+=`<div class='col-5 col-sm-2 p-0'>
+		</div>
+		<div class='col-5 col-sm-2 p-0'>
 			<img src='${x.product_img.url}' class='img-fluid'>
 		</div>
 		<div class='col-6 col-sm-2 pt-5 text-center'>
@@ -141,48 +138,35 @@ const draw = (container, list = [], type) => {
 				PRODUCTO
 			</strong>
       ${x.product.name}
-		</div>`;
-
-    if (type=='resume')
-      aux+=`<div class='col-6 col-sm-2 pt-5 text-center'>
-        <strong class='d-block d-md-none'>
-          CANTIDAD
-        </strong>
-        x<small>${x.quantity}</small>
-      </div>`;
-    if (type=='all')  
-  		aux+=`<div class='col-6 col-sm-2 pt-5 text-center'>
-  			<strong class='d-block d-md-none'>
-  				PRECIO
-  			</strong>${toMoney(x.cost / x.quantity)}</div>
-  		<div class='col-6 col-sm-2 pt-5 text-center'>
-  			<strong class='d-block d-md-none'>
-  				CANTIDAD
-  			</strong>
-  			<button class="btn" onclick="changeQuantity(${Number(x.quantity) - 1},${
-        x.id
-      })"><</button>${x.quantity}<button class="btn"onclick="changeQuantity(${
-        Number(x.quantity) + 1
-      },${x.id})">></button>
-  		</div>`;
-		aux+=`<div class='col-6 col-sm-2 pt-5 text-center'>
+		</div>
+		<div class='col-6 col-sm-2 pt-5 text-center'>
+			<strong class='d-block d-md-none'>
+				PRECIO
+			</strong>${x.cost / x.quantity}</div>
+		<div class='col-6 col-sm-2 pt-5 text-center'>
+			<strong class='d-block d-md-none'>
+				CANTIDAD
+			</strong>
+			<button class="btn" onclick="changeQuantity(${x.quantity - 1},${
+      x.id
+    })"><</button>${x.quantity}<button class="btn"onclick="changeQuantity(${
+      x.quantity + 1
+    },${x.id})">></button>
+		</div>
+		<div class='col-6 col-sm-2 pt-5 text-center'>
 			<strong class='d-block d-md-none'>
 				SUBTOTAL
 			</strong>
-			${toMoney(x.cost)}
+			${x.cost}
 		</div>
 	</div>`;
   });
   $("#" + container).html(aux);
-  $("#total").html(toMoney(subtotal + ship));
-  $("#ship").html(toMoney(ship));
-  $("#subtotal").html(toMoney(subtotal));
+  $("#total").html(subtotal + ship);
+  $("#ship").html(ship);
+  $("#subtotal").html(subtotal);
 };
-
 const changeQuantity = (value, id) => {
-  if (value==0){
-    removeFromCart(id);
-  }else{
-    updateCart(id, value);
-  }
+  console.log(id);
+  updateCart(id, value);
 };
