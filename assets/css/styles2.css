@@ -25,6 +25,12 @@
 .b-tags {
   border: solid 3px #b37737;
 }
+
+.b-tags-selected {
+  border: solid 3px #b37737;
+  background-color: #b37737;
+  color: white;
+}
 .name-product {
   font-weight: normal;
   font-stretch: normal;

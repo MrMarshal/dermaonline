@@ -119,21 +119,24 @@ $categories = $admin->products->GetCategoriesList();
 <script>
 	let total_results = 0;
 	let total_pages = 0;
+	let tags = [];
+	let tags_selected = [];
+	let products = []
 	let page = <?php echo $page; ?>;
 	$(document).ready(() => {
-		loadProducts(onSuccess);
+		loadProducts(<?php echo $category ?  "'" . $category . "'" : "''"; ?>, <?php echo "'" . $max_price . "'"; ?>, <?php echo "'" . $min_price . "'"; ?>, onSuccess);
 	})
 
-	function loadProducts(onSuccess = () => {}) {
+	function loadProducts(category, max, min, onSuccess = () => {}) {
 
-		let products = []
+		products = []
 		$.ajax({
 			type: "post",
 			url: `<?php echo __ROOT__; ?>/bridge/routes.php?action=getProducts`,
 			data: {
-				category: <?php echo $category ?  "'" . $category . "'" : "''"; ?>,
-				min_price: <?php echo "'" . $min_price . "'"; ?>,
-				max_price: <?php echo "'" . $max_price . "'"; ?>,
+				category: category,
+				min_price: min,
+				max_price: max,
 			},
 			success: function(res) {
 
@@ -141,7 +144,7 @@ $categories = $admin->products->GetCategoriesList();
 
 				products = resp.products;
 				onSuccess(products, resp.total_results, resp.total_pages);
-				dragTags(products);
+				foreachTags(products);
 			},
 			error: (error) => {
 
@@ -170,7 +173,7 @@ $categories = $admin->products->GetCategoriesList();
 		total_results = total_results;
 		total_pages = total_pages;
 		$("#products_galery").html(html);
-		$("#count").html(products.length);
+		$("#count").html(products.length + " de " + total_results);
 		drawPages(total_pages);
 	}
 
@@ -195,21 +198,69 @@ $categories = $admin->products->GetCategoriesList();
 		$("#pages").html(html);
 	}
 
-	function dragTags(prods) {
+	function foreachTags(prods) {
 		let c = 0;
 		let arr = []
-		let html = "";
+		tags = [];
+		tags_select = [];
 		prods.forEach(pr => {
-			debugger;
 			if (c == 10) return;
-
 			arr = pr.tags.split('#');
 			key = Math.floor(Math.random() * (9 - 0)) + 0;
 			if (arr[key] != "") {
-				html += `<div class="b-tags px-3 py-1 my-1 mx-1" onclick="alert('bien')">${arr[key]}</div>`
-				c++;
+				// Con esto evita tags repetidas y en blanco
+				let index = tags.find(x => x === arr[key]);
+
+				if (!index) {
+					tags.push(arr[key]);
+					c++;
+				}
 			}
 		});
+		dragTags();
+	}
+
+	function dragTags() {
+		let html = "";
+		tags.forEach(x => {
+			let find = tags_selected.find(y => y === x);
+			html += `<div class="${find?"b-tags-selected ":"b-tags "} px-3 py-1 my-1 mx-1" onclick="onSelectTag('${x}')">${x}</div>`
+		});
 		$("#tags").html(html);
+	}
+
+	function onSelectTag(tag) {
+		let index = tags_selected.findIndex(x => x === tag);
+		if (index > -1) {
+			tags_selected.splice(index, 1);
+		} else {
+			tags_selected.push(tag);
+		}
+		dragTags();
+		setTimeout(() => {
+			// Después de haber recorrido las tags hace una busqueda de productos por esas tags
+			findProductsByTags();
+		}, 1000);
+	}
+
+	function findProductsByTags() {
+		let productsToDraw = [];
+		products.forEach(product => {
+			debugger;
+			let findProduct = null;
+			tags_selected.forEach(tag => {
+				debugger;
+				if (!findProduct) {
+					if (product.tags.includes(tag)) {
+						findProduct = product;
+					};
+				}
+			});
+			if (findProduct) {
+				productsToDraw.push(findProduct);
+			}
+		});
+		onSuccess(productsToDraw, total_results, total_pages);
+
 	}
 </script>
