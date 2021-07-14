@@ -1,3 +1,5 @@
 # Rutas para ignorar
 .htaccess
 ./index.php
+.index.php
+index.php
