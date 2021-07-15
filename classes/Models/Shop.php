@@ -96,4 +96,9 @@ class Shop extends Admin
 		$this->Save(self::TABLE_CARTS, ["total" => $total], $cart_id);
 		return ["total" => $total, "subtotal" => $subtotal];
 	}
+
+	public function FinishBuying(Request $data)
+	{
+		return "OK";
+	}
 }

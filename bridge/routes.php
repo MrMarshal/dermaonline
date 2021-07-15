@@ -43,6 +43,8 @@ $router->New("getCart", "shop/GetCurrentCart");
 $router->New("verifyCoupon", "coupons/ValidateCoupon");
 $router->New("deleteOrder", "shop/DeleteOrder");
 $router->New("updateOrder", "shop/UpdateOrder");
+$router->New("finishBuying", "shop/FinishBuying");
+
 
 // $router->New("getProductDetails","products/GetProductDetails");
 // $router->New("getProductCustomData","products/GetProductCustomData");
