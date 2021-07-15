@@ -40,6 +40,7 @@ $router = new Router;
 $router->New("getProducts", "products/GetProductsList2");
 $router->New("addToCart", "shop/AddProductToCart");
 $router->New("getCart", "shop/GetCurrentCart");
+$router->New("verifyCoupon", "coupons/ValidateCoupon");
 $router->New("deleteOrder", "shop/DeleteOrder");
 $router->New("updateOrder", "shop/UpdateOrder");
 
