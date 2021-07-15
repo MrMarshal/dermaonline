@@ -85,11 +85,13 @@ $categories = $admin->products->GetCategoriesList();
 	function set_range() {
 		min_price = $("#slider-range").slider("values", 0);
 		max_price = $("#slider-range").slider("values", 1);
+		page = 1;
 		realoadPage();
 	}
 
 	function set_category(c) {
 		category = c;
+		page = 1;
 		realoadPage();
 	}
 
@@ -122,7 +124,7 @@ $categories = $admin->products->GetCategoriesList();
 	let tags = [];
 	let tags_selected = [];
 	let products = []
-	let page = <?php echo $page; ?>;
+	let page = <?php echo $page??1; ?>;
 	$(document).ready(() => {
 		loadProducts(<?php echo $category ?  "'" . $category . "'" : "''"; ?>, <?php echo "'" . $max_price . "'"; ?>, <?php echo "'" . $min_price . "'"; ?>, onSuccess);
 	})
@@ -192,7 +194,7 @@ $categories = $admin->products->GetCategoriesList();
 		}
 
 		if ((total_pages - page) > 2) {
-			html += `<a class="btn" onclick="set_page(${parseInt((total_pages + page) / 2)} > ... </a>`;
+			html += `<a class="btn" onclick="set_page('${parseInt((total_pages + page) / 2)}')" > ... </a>`;
 		}
 		html += `<a class="btn" onclick="set_page(${total_pages})" >${total_pages}</a>`;
 		$("#pages").html(html);
@@ -224,7 +226,8 @@ $categories = $admin->products->GetCategoriesList();
 		let html = "";
 		tags.forEach(x => {
 			let find = tags_selected.find(y => y === x);
-			html += `<div class="${find?"b-tags-selected ":"b-tags "} px-3 py-1 my-1 mx-1" onclick="onSelectTag('${x}')">${x}</div>`
+			if (x)
+				html += `<div class="${find?"b-tags-selected ":"b-tags "} px-3 py-1 my-1 mx-1" onclick="onSelectTag('${x}')">${x}</div>`
 		});
 		$("#tags").html(html);
 	}
@@ -237,29 +240,29 @@ $categories = $admin->products->GetCategoriesList();
 			tags_selected.push(tag);
 		}
 		dragTags();
-		setTimeout(() => {
-			// Después de haber recorrido las tags hace una busqueda de productos por esas tags
-			findProductsByTags();
-		}, 1000);
+		findProductsByTags();
 	}
 
 	function findProductsByTags() {
 		let productsToDraw = [];
-		products.forEach(product => {
-			debugger;
-			let findProduct = null;
-			tags_selected.forEach(tag => {
-				debugger;
-				if (!findProduct) {
-					if (product.tags.includes(tag)) {
-						findProduct = product;
-					};
+		if (tags_selected.length==0){
+			productsToDraw = products;
+		}else{
+			products.forEach(product => {
+				let findProduct = null;
+				tags_selected.forEach(tag => {
+					if (!findProduct) {
+						if (product.tags.includes(tag)) {
+							findProduct = product;
+						};
+					}
+				});
+				if (findProduct) {
+					productsToDraw.push(findProduct);
 				}
 			});
-			if (findProduct) {
-				productsToDraw.push(findProduct);
-			}
-		});
+		}
+
 		onSuccess(productsToDraw, total_results, total_pages);
 
 	}

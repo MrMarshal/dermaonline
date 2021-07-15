@@ -149,10 +149,10 @@ const draw = (container, list = []) => {
 			<strong class='d-block d-md-none'>
 				CANTIDAD
 			</strong>
-			<button class="btn" onclick="changeQuantity(${x.quantity - 1},${
+			<button class="btn" onclick="changeQuantity(${Number(x.quantity) - 1},${
       x.id
     })"><</button>${x.quantity}<button class="btn"onclick="changeQuantity(${
-      x.quantity + 1
+      Number(x.quantity) + 1
     },${x.id})">></button>
 		</div>
 		<div class='col-6 col-sm-2 pt-5 text-center'>
