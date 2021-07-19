@@ -1,5 +1,4 @@
-<div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -34,19 +33,19 @@
     function showProduct(id) {
         $("#selected_product_id").val(id);
         $.ajax({
-            type:"get",
-            url:"../bridge/routes.php?action=getProduct",
-            data:{
-                id:id
+            type: "get",
+            url: "../bridge/routes.php?action=getProduct",
+            data: {
+                id: id
             },
-            success:function(res) {
+            success: function(res) {
                 let prod = JSON.parse(res);
                 let im = prod.image_1;
-                if (im.includes("https://drive.google.com/open")){
-                    im = "https://drive.google.com/uc?export=view&id="+pr.image_1.split("id=")[1];
+                if (im.includes("https://drive.google.com/open")) {
+                    im = "https://drive.google.com/uc?export=view&id=" + pr.image_1.split("id=")[1];
                 }
                 $("#product_detail_name").html(prod.name);
-                $("#product_detail_img").attr("src",im);
+                $("#product_detail_img").attr("src", im);
                 $("#product_detail_description").html(prod.description);
                 $("#product_detail_price").html(prod.price);
                 $("#productDetailModal").modal("show");
@@ -56,14 +55,15 @@
 
 
     function addToCart() {
+        debugger;
         $.ajax({
-            type:"post",
-            url:"../bridge/routes.php?action=addToCart",
-            data:{
-                id:$("#selected_product_id").val(),
-                quantity:1
+            type: "post",
+            url: "../bridge/routes.php?action=addToCart",
+            data: {
+                id: $("#selected_product_id").val(),
+                quantity: 1
             },
-            success:function(res) {
+            success: function(res) {
                 alert("Producto añadido con éxito");
                 $("#productDetailModal").modal("hide");
             }

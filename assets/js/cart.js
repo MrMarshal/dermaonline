@@ -1,6 +1,11 @@
 $(document).ready(function () {});
 
-const hostname = "http://localhost/deskrive/dermaonline";
+const hostname = "/dermaonline";
+let aux = "";
+let total = 0.0;
+let subtotal = 0.0;
+let ship = 0.0;
+let discount = 0;
 
 const errorHandle = (error) => {
   console.log(error);
@@ -27,7 +32,7 @@ const errorHandle = (error) => {
 const addToCart = (id) => {
   $.ajax({
     type: "post",
-    url: hostname+"/bridge/routes.php?action=addToCart",
+    url: hostname + "/bridge/routes.php?action=addToCart",
     data: {
       id: id,
       quantity: 1,
@@ -118,10 +123,11 @@ const updateCart = (order_id, quantity) => {
 };
 
 const draw = (container, list = []) => {
-  let aux = "";
-  let total = 0.0;
-  let subtotal = 0.0;
-  let ship = 0.0;
+  aux = "";
+  total = 0.0;
+  subtotal = 0.0;
+  ship = 0.0;
+  discount = 0;
   list.forEach((x) => {
     subtotal = subtotal + parseFloat(x.cost);
     console.log(x);
@@ -164,11 +170,47 @@ const draw = (container, list = []) => {
 	</div>`;
   });
   $("#" + container).html(aux);
-  $("#total").html(subtotal + ship);
+  $("#total").html(subtotal + ship - discount);
   $("#ship").html(ship);
+  $("#discount").html(discount);
   $("#subtotal").html(subtotal);
 };
 const changeQuantity = (value, id) => {
   console.log(id);
   updateCart(id, value);
+};
+const checkCoupon = (code = "") => {
+  $.ajax({
+    type: "post",
+    url: "./bridge/routes.php?action=verifyCoupon",
+    data: {
+      code,
+    },
+    success: function (data) {
+      let textToDiscount = "";
+      let resp = JSON.parse(data);
+      debugger;
+      switch (resp.type) {
+        case "percent":
+          discount = (resp.discount * subtotal + ship) / 100;
+          textToDiscount = `-$${discount} (${resp.discount}%) `;
+          break;
+        case "amount":
+          textToDiscount = `-$${discount}`;
+          discount = resp.discount;
+          break;
+        default:
+          break;
+      }
+      $("#total").html(subtotal + ship - discount);
+      $("#ship").html(ship);
+      $("#discount").html(textToDiscount);
+      $("#subtotal").html(subtotal);
+      alert("Descuento aplicado con éxito");
+    },
+    error: (error) => {
+      debugger;
+      errorHandle(error);
+    },
+  });
 };
