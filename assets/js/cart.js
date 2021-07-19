@@ -196,8 +196,8 @@ const checkCoupon = (code = "") => {
           textToDiscount = `-$${discount} (${resp.discount}%) `;
           break;
         case "amount":
-          textToDiscount = `-$${discount}`;
           discount = resp.discount;
+          textToDiscount = `-$${discount}`;
           break;
         default:
           break;
@@ -209,7 +209,6 @@ const checkCoupon = (code = "") => {
       alert("Descuento aplicado con éxito");
     },
     error: (error) => {
-      debugger;
       errorHandle(error);
     },
   });

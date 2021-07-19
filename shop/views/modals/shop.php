@@ -55,7 +55,7 @@
 
 
     function addToCart() {
-        debugger;
+
         $.ajax({
             type: "post",
             url: "../bridge/routes.php?action=addToCart",

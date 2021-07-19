@@ -60,7 +60,7 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 							<p class='mt-2 mb-1'><strong>ENVÍO &nbsp;&nbsp;&nbsp;<span><span id='ship'></span></span></strong></p>
 							<p class='mt-2 mb-1'><strong>DESCUENTO &nbsp;&nbsp;&nbsp;<span><span id='discount'></span></span></strong></p>
 							<p class='mt-4 mb-1'><strong>TOTAL &nbsp;&nbsp;&nbsp;<span><span id='total'></span></span></strong></p>
-							<a class='btn b-tags col-12 mt-3' href='finalizar-compra'>Finalizar compra</a>
+							<a class='btn b-tags col-12 mt-3' onclick="redirect()">Finalizar compra</a>
 						</div>
 					</div>
 				</div>
@@ -77,3 +77,13 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 	</div>
 	</div>
 <?php } ?>
+<script>
+	const redirect = () => {
+		let code = $('#coupon').val();
+		if (code) {
+			window.location.href = 'finalizar-compra?code=' + code;
+		} else {
+			window.location.href = 'finalizar-compra';
+		}
+	}
+</script>
