@@ -44,6 +44,8 @@ $router->New("verifyCoupon", "coupons/ValidateCoupon");
 $router->New("deleteOrder", "shop/DeleteOrder");
 $router->New("updateOrder", "shop/UpdateOrder");
 $router->New("finishBuying", "shop/FinishBuying");
+$router->New("registerNewUser", "users/RegisterNewUser");
+$router->New("registerNewAddress", "users/RegisterNewAddress");
 
 
 // $router->New("getProductDetails","products/GetProductDetails");
