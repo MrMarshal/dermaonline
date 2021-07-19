@@ -7,7 +7,6 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 ?>
 	<script type="text/javascript">
 		$(document).ready(function() {
-
 			const valores = window.location.search;
 			const urlParams = new URLSearchParams(valores);
 			var code = urlParams.get('code');

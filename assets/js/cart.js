@@ -1,6 +1,6 @@
 $(document).ready(function () {});
 
-const hostname = "/dermaonline";
+const hostname = "/deskrive/dermaonline";
 let aux = "";
 let total = 0.0;
 let subtotal = 0.0;
@@ -98,6 +98,9 @@ const getCart = (container = "draw_cart") => {
     success: function (res) {
       let data = JSON.parse(res);
       if (data.orders.length == 0) window.location.reload();
+      console.log(data)
+      ship = Number(data.shipping);
+      discount = Number(data.discount);
       draw(container, data.orders);
     },
     error: (error) => {
@@ -105,6 +108,7 @@ const getCart = (container = "draw_cart") => {
     },
   });
 };
+
 const updateCart = (order_id, quantity) => {
   $.ajax({
     type: "post",
@@ -124,13 +128,8 @@ const updateCart = (order_id, quantity) => {
 
 const draw = (container, list = []) => {
   aux = "";
-  total = 0.0;
-  subtotal = 0.0;
-  ship = 0.0;
-  discount = 0;
   list.forEach((x) => {
     subtotal = subtotal + parseFloat(x.cost);
-    console.log(x);
     aux += `
     <div class='row mt-3'>
 		<div class='col-1 col-sm-2 pt-5 text-right'>
@@ -150,7 +149,7 @@ const draw = (container, list = []) => {
 		<div class='col-6 col-sm-2 pt-5 text-center'>
 			<strong class='d-block d-md-none'>
 				PRECIO
-			</strong>${x.cost / x.quantity}</div>
+			</strong>${toMoney(x.cost / x.quantity)}</div>
 		<div class='col-6 col-sm-2 pt-5 text-center'>
 			<strong class='d-block d-md-none'>
 				CANTIDAD
@@ -165,51 +164,73 @@ const draw = (container, list = []) => {
 			<strong class='d-block d-md-none'>
 				SUBTOTAL
 			</strong>
-			${x.cost}
+			${toMoney(x.cost)}
 		</div>
 	</div>`;
   });
   $("#" + container).html(aux);
-  $("#total").html(subtotal + ship - discount);
-  $("#ship").html(ship);
-  $("#discount").html(discount);
-  $("#subtotal").html(subtotal);
+  $("#total").html(toMoney(subtotal + ship - discount));
+  $("#ship").html(toMoney(ship));
+  $("#discount").html(toMoney(discount));
+  $("#subtotal").html(toMoney(subtotal));
+  total = subtotal + ship - discount;
 };
+
 const changeQuantity = (value, id) => {
-  console.log(id);
   updateCart(id, value);
 };
+
 const checkCoupon = (code = "") => {
   $.ajax({
     type: "post",
     url: "./bridge/routes.php?action=verifyCoupon",
     data: {
       code,
+      amount:total
     },
     success: function (data) {
-      let textToDiscount = "";
       let resp = JSON.parse(data);
-      debugger;
-      switch (resp.type) {
-        case "percent":
-          discount = (resp.discount * subtotal + ship) / 100;
-          textToDiscount = `-$${discount} (${resp.discount}%) `;
-          break;
-        case "amount":
-          discount = resp.discount;
-          textToDiscount = `-$${discount}`;
-          break;
-        default:
-          break;
+      if (resp.valid==true){
+        switch (resp.type) {
+          case "percent":
+            discount = (resp.discount * subtotal + ship) / 100;
+            break;
+          case "amount":
+            discount = resp.discount;
+            break;
+          default:
+            break;
+        }
+        $("#total").html(toMoney(subtotal + ship - discount));
+        $("#ship").html(toMoney(ship));
+        $("#discount").html("-"+toMoney(discount)+(resp.type=='percent'?(" ("+resp.discount+"%)"):""));
+        $("#subtotal").html(toMoney(subtotal));
+        alert("Descuento aplicado con éxito");
+      }else{
+        alert({
+          title:"Error",
+          text:resp.message
+        })
       }
-      $("#total").html(subtotal + ship - discount);
-      $("#ship").html(ship);
-      $("#discount").html(textToDiscount);
-      $("#subtotal").html(subtotal);
-      alert("Descuento aplicado con éxito");
     },
     error: (error) => {
       errorHandle(error);
     },
   });
 };
+
+const finishBuying = () => {
+    let code = $('#coupon').val();
+    let cart_id = $("#cart_id").val();
+    $.ajax({
+      url:"./bridge/routes.php?action=finishBuying",
+      type:"post",
+      data:{
+        cart_id:cart_id,
+        code:code||null
+      },
+      success:function(res){
+        window.location.href = 'finalizar-compra';
+      }
+    });
+  }

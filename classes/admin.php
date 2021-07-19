@@ -8,13 +8,15 @@
 		const TABLE_PRODUCT_IMAGES = "product_images";
 		const TABLE_CARTS = "carts";
 		const TABLE_ORDERS = "orders";
+		const TABLE_COUPONS = "coupons";
+		const TABLE_USERS = "users";
+		const TABLE_ADDRESSES = "addresses";
 		
 		const TABLE_MANUFACTURERS = "manufacturers";
 		const TABLE_COLORS = "colors";
 		const TABLE_TYPES = "types";
 		const TABLE_CUSTOM_DATA = "custom_data";
 		const TABLE_PRODUCT_CUSTOM_DATA = "product_custom_data";
-		const TABLE_USERS = "users";
 		const TABLE_STOCK = "stock";
 
 		public $db;

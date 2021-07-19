@@ -1,10 +1,8 @@
 <?php
 $cart = $admin->shop->GetCurrentCart();
 if ($cart['orders'] && count($cart['orders']) > 0) {
-	$subtotal = 0;
-	$total = 0;
-	$shipcost = 0;
 ?>
+	<input type="hidden" value="<?php echo $cart['id']; ?>" id="cart_id">
 	<script type="text/javascript">
 		$(document).ready(function() {
 			getCart();
@@ -46,8 +44,10 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 					<div id='draw_cart'></div>
 					<div class='row col-12 col-md-9 mx-auto p-0 mt-3'>
 						<div class='col-12'>
-							<input class='b-tags p-2 text-center' type='text' placeholder='CÓDIGO DE CUPÓN' id="coupon" />
-							<button class='btn btn-bor-bottom mx-3 px-0' onclick='checkCoupon($("#coupon").val())'>Aplicar cupón</button>
+							<?php if ($cart['coupon_id']==0){ ?>
+								<input class='b-tags p-2 text-center' type='text' placeholder='CÓDIGO DE CUPÓN' id="coupon" />
+								<button class='btn btn-bor-bottom mx-3 px-0' onclick='checkCoupon($("#coupon").val())'>Aplicar cupón</button>
+							<?php } ?>
 							<button class='btn btn-bor-bottom mx-3 px-0' onclick='window.location.reload()'>Actualizar carrito</button>
 						</div>
 					</div>
@@ -60,7 +60,7 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 							<p class='mt-2 mb-1'><strong>ENVÍO &nbsp;&nbsp;&nbsp;<span><span id='ship'></span></span></strong></p>
 							<p class='mt-2 mb-1'><strong>DESCUENTO &nbsp;&nbsp;&nbsp;<span><span id='discount'></span></span></strong></p>
 							<p class='mt-4 mb-1'><strong>TOTAL &nbsp;&nbsp;&nbsp;<span><span id='total'></span></span></strong></p>
-							<a class='btn b-tags col-12 mt-3' onclick="redirect()">Finalizar compra</a>
+							<a class='btn b-tags col-12 mt-3' onclick="finishBuying()">Finalizar compra</a>
 						</div>
 					</div>
 				</div>
@@ -77,13 +77,3 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 	</div>
 	</div>
 <?php } ?>
-<script>
-	const redirect = () => {
-		let code = $('#coupon').val();
-		if (code) {
-			window.location.href = 'finalizar-compra?code=' + code;
-		} else {
-			window.location.href = 'finalizar-compra';
-		}
-	}
-</script>

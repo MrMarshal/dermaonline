@@ -32,6 +32,9 @@
                         let a = params;
                         params = {text:a};
                     }
+                    if (params.title=="Error"){
+                        params.icon = "error";  
+                    }
                     Swal.fire({
                          title: params.title||"Alerta",
                          text: params.text||"Alerta",

@@ -4,11 +4,13 @@ class Shop extends Admin
 {
 
 	public $productModel;
+	public $couponModel;
 
 	function __construct()
 	{
 		parent::__construct();
 		$this->productModel = new Products;
+		$this->couponModel = new Coupons;
 	}
 
 	public function GetCurrentCart()
@@ -51,7 +53,7 @@ class Shop extends Admin
 			$c = $q * $price;
 			$this->Save(self::TABLE_ORDERS, ["quantity" => $q, "cost" => $c], $order['id']);
 		}
-		$this->SetCartCost($cart_id);
+		$this->SetCartTotal($cart_id);
 		return ["quantity" => $q, "cost" => $c];
 	}
 
@@ -69,7 +71,7 @@ class Shop extends Admin
 		$product = $this->productModel->View(new Request(["id" => $order['product_id']]));
 		$c = $quantity * $product['price']['normal'];
 		$this->Save(self::TABLE_ORDERS, ["quantity" => $quantity, "cost" => $c], $order['id']);
-		$cart_cost = $this->SetCartCost($order['cart_id']);
+		$cart_cost = $this->SetCartTotal($order['cart_id']);
 		return ["quantity" => $quantity, "cost" => $c, "total" => $cart_cost['total'], "subtotal" => $cart_cost['subtotal']];
 		return $product;
 	}
@@ -79,11 +81,11 @@ class Shop extends Admin
 		$order_id = $request->id;
 		$this->Save(self::TABLE_ORDERS, ["status" => 2], $order_id);
 		$order = $this->GetById(self::TABLE_ORDERS, $order_id);
-		$total = $this->SetCartCost($order['cart_id']);
+		$total = $this->SetCartTotal($order['cart_id']);
 		return $total;
 	}
 
-	public function SetCartCost($cart_id)
+	public function SetCartTotal($cart_id)
 	{
 		$subtotal = 0;
 		$s = $this->query->select("*", self::TABLE_ORDERS, "cart_id = " . $cart_id . " AND status != 2");
@@ -93,12 +95,33 @@ class Shop extends Admin
 		}
 		$cart = $this->GetById(self::TABLE_CARTS, $cart_id);
 		$total = $subtotal + $cart['shipping'];
+		$this->SetCartCost($cart_id,$total);
+		return ["total" => $total,"subtotal"=>$subtotal];
+	}
+
+	public function SaveCartCost($cart_id,$total)
+	{
 		$this->Save(self::TABLE_CARTS, ["total" => $total], $cart_id);
-		return ["total" => $total, "subtotal" => $subtotal];
+		return ["total" => $total];
 	}
 
 	public function FinishBuying(Request $data)
 	{
-		return "OK";
+		$cart = $this->GetById(self::TABLE_CARTS,$data->get("cart_id"));
+		$data->put("amount",$cart['total']);
+		$co = $this->couponModel->ValidateCoupon($data);
+		if ($co['valid']==true){
+			$total = $cart['total'];
+			$discount = 0;
+			if ($co['type']=='percent'){
+			  $discount = ($co['discount'] * $total) / 100;	
+			}
+			if ($co['type']=='amount'){
+			  $discount = $co['discount'];
+			}
+			$total=$total-$discount;
+			$this->couponModel->ApplyCouponToCart($cart['id'],$co['id'],$discount);
+			return $this->SaveCartCost($cart['id'],$total);
+		}
 	}
 }
