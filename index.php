@@ -47,6 +47,9 @@ Flight::route('/finalizar-compra', function () {
 Flight::route('/login', function () {
     Flight::render('login', ['title' => 'Iniciar sesión', 'desc' => 'lll']);
 });
+Flight::route('/register', function () {
+    Flight::render('register', ['title' => 'Registro', 'desc' => 'lll']);
+});
 
 
 

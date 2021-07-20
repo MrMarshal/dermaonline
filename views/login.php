@@ -2,8 +2,8 @@
     <div class="order-12 order-md-1 col-12 col-md-6 mx-auto px-5 my-5 border-right-1">
         <h1>INICIA SESIÓN</h1>
         <form id="login" class="mt-3">
-            <input type="email" id="email" required class="form-control my-2" value="" placeholder="Correo electrónico" />
-            <input type="password" id="password" requiered class="form-control" value="" placeholder="Contraseña" />
+            <input type="email" id="email" style="height: 3rem !important;" required class="form-control my-2" value="" placeholder="Correo electrónico" />
+            <input type="password" id="password" style="height: 3rem !important;" requiered class="form-control" value="" placeholder="Contraseña" />
             <p class="text-right"><small>¿Olvidaste tu contraseña?</small></p>
             <input type="submit" class="btn btn-2 col-12 py-2" value="Entrar" />
         </form>
