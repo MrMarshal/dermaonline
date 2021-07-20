@@ -235,3 +235,11 @@ hr {
     display: none;
   }
 }
+@media (min-width: 900px) {
+  .border-right-1 {
+    border-right: 1px solid rgb(78, 78, 78);
+  }
+}
+.text-yellow {
+  color: #b37737 !important;
+}
