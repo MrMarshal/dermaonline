@@ -109,6 +109,25 @@ const getCart = (container = "draw_cart") => {
     },
   });
 };
+const getCartNoEditable = (container = "draw_cart") => {
+  $.ajax({
+    type: "get",
+    url: "./bridge/routes.php?action=getCart",
+    data: {},
+    success: function (res) {
+      let data = JSON.parse(res);
+      if (data.orders.length == 0) window.location.reload();
+      console.log(data);
+      ship = Number(data.shipping);
+      debugger;
+      discount = data.discount ? Number(data.discount) : 0;
+      drawNoEditable(container, data.orders);
+    },
+    error: (error) => {
+      errorHandle(error);
+    },
+  });
+};
 
 const updateCart = (order_id, quantity) => {
   $.ajax({
@@ -160,6 +179,47 @@ const draw = (container, list = []) => {
     })"><</button>${x.quantity}<button class="btn"onclick="changeQuantity(${
       Number(x.quantity) + 1
     },${x.id})">></button>
+		</div>
+		<div class='col-6 col-sm-2 pt-5 text-center'>
+			<strong class='d-block d-md-none'>
+				SUBTOTAL
+			</strong>
+			${toMoney(x.cost)}
+		</div>
+	</div>`;
+  });
+  $("#" + container).html(aux);
+  $("#total").html(toMoney(subtotal + ship - discount));
+  $("#ship").html(toMoney(ship));
+  $("#discount").html(toMoney(discount));
+  $("#subtotal").html(toMoney(subtotal));
+  total = subtotal + ship - discount;
+};
+
+const drawNoEditable = (container, list = []) => {
+  aux = "";
+  list.forEach((x) => {
+    subtotal = subtotal + parseFloat(x.cost);
+    aux += `
+    <div class='row mt-3'>
+		<div class='col-5 col-sm-3 p-0'>
+			<img src='${x.product_img.url}' class='img-fluid mt-4'>
+		</div>
+		<div class='col-6 col-sm-3 pt-5 text-center'>
+			<strong class='d-block d-md-none'>
+				PRODUCTO
+			</strong>
+      ${x.product.name}
+		</div>
+		<div class='col-6 col-sm-2 pt-5 text-center'>
+			<strong class='d-block d-md-none'>
+				PRECIO
+			</strong>${toMoney(x.cost / x.quantity)}</div>
+		<div class='col-6 col-sm-2 pt-5 text-center'>
+			<strong class='d-block d-md-none'>
+				CANTIDAD
+			</strong>
+			${x.quantity}
 		</div>
 		<div class='col-6 col-sm-2 pt-5 text-center'>
 			<strong class='d-block d-md-none'>
