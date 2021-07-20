@@ -30,7 +30,7 @@
         debugger;
 
         $.ajax({
-            url: "/bridge/routes.php?action=login",
+            url: "./bridge/routes.php?action=login",
             type: "POST",
             data: {
                 user,
