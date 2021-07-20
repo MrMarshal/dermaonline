@@ -1,6 +1,6 @@
 $(document).ready(function () {});
 
-const hostname = "/deskrive/dermaonline";
+const hostname = "/dermaonline";
 let aux = "";
 let total = 0.0;
 let subtotal = 0.0;
@@ -98,9 +98,10 @@ const getCart = (container = "draw_cart") => {
     success: function (res) {
       let data = JSON.parse(res);
       if (data.orders.length == 0) window.location.reload();
-      console.log(data)
+      console.log(data);
       ship = Number(data.shipping);
-      discount = Number(data.discount);
+      debugger;
+      discount = data.discount ? Number(data.discount) : 0;
       draw(container, data.orders);
     },
     error: (error) => {
@@ -186,11 +187,11 @@ const checkCoupon = (code = "") => {
     url: "./bridge/routes.php?action=verifyCoupon",
     data: {
       code,
-      amount:total
+      amount: total,
     },
     success: function (data) {
       let resp = JSON.parse(data);
-      if (resp.valid==true){
+      if (resp.valid == true) {
         switch (resp.type) {
           case "percent":
             discount = (resp.discount * subtotal + ship) / 100;
@@ -203,14 +204,18 @@ const checkCoupon = (code = "") => {
         }
         $("#total").html(toMoney(subtotal + ship - discount));
         $("#ship").html(toMoney(ship));
-        $("#discount").html("-"+toMoney(discount)+(resp.type=='percent'?(" ("+resp.discount+"%)"):""));
+        $("#discount").html(
+          "-" +
+            toMoney(discount) +
+            (resp.type == "percent" ? " (" + resp.discount + "%)" : "")
+        );
         $("#subtotal").html(toMoney(subtotal));
         alert("Descuento aplicado con éxito");
-      }else{
+      } else {
         alert({
-          title:"Error",
-          text:resp.message
-        })
+          title: "Error",
+          text: resp.message,
+        });
       }
     },
     error: (error) => {
@@ -220,17 +225,17 @@ const checkCoupon = (code = "") => {
 };
 
 const finishBuying = () => {
-    let code = $('#coupon').val();
-    let cart_id = $("#cart_id").val();
-    $.ajax({
-      url:"./bridge/routes.php?action=finishBuying",
-      type:"post",
-      data:{
-        cart_id:cart_id,
-        code:code||null
-      },
-      success:function(res){
-        window.location.href = 'finalizar-compra';
-      }
-    });
-  }
+  let code = $("#coupon").val();
+  let cart_id = $("#cart_id").val();
+  $.ajax({
+    url: "./bridge/routes.php?action=finishBuying",
+    type: "post",
+    data: {
+      cart_id: cart_id,
+      code: code || null,
+    },
+    success: function (res) {
+      window.location.href = "finalizar-compra";
+    },
+  });
+};
