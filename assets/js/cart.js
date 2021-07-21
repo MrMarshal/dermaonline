@@ -1,6 +1,6 @@
 $(document).ready(function () {});
 
-const hostname = "/dermaonline";
+const hostname = "deskrive/dermaonline";
 let aux = "";
 let total = 0.0;
 let subtotal = 0.0;
@@ -97,9 +97,7 @@ const getCart = (container = "draw_cart") => {
     data: {},
     success: function (res) {
       let data = JSON.parse(res);
-      console.log(data)
       if (data.orders.length == 0) window.location.reload();
-      console.log(data);
       ship = Number(data.shipping);
       debugger;
       discount = data.discount ? Number(data.discount) : 0;
@@ -188,7 +186,7 @@ const checkCoupon = (code = "") => {
     url: "./bridge/routes.php?action=verifyCoupon",
     data: {
       code,
-      amount: total,
+      amount: total
     },
     success: function (data) {
       console.log(data)
