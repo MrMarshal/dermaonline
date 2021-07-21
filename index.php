@@ -1,7 +1,7 @@
 <?php
 require 'flight/Flight.php';
 include "classes/LoadModels.php";
-define('__ROOT__', "http://localhost/deskrive/dermaonline");
+define('__ROOT__', "http://localhost/dermaonline");
 
 Flight::route('/', function () {
     Flight::render('home', ['title' => 'Home', 'desc' => 'lll', "js" => null]);
@@ -23,6 +23,7 @@ Flight::route('/contacto', function () {
     Flight::render('contacto', ['title' => 'Nosotros', 'desc' => 'lll']);
 });
 
+
 Flight::route('/tienda(/@page)(/@price_range)(/@category)', function ($page, $price_range, $category) {
     $admin = new Model;
     Flight::render('shop/index', ['title' => 'Nosotros', 'desc' => 'lll', 'css' => ["shop"], "page" => $page, "price_range" => $price_range, "category" => $category, "admin" => $admin]);
@@ -42,6 +43,14 @@ Flight::route('/finalizar-compra', function () {
     $admin = new Model;
     Flight::render('shop/end_purchase', ['title' => 'Nosotros', 'desc' => 'lll', "admin" => $admin]);
 });
+
+Flight::route('/login', function () {
+    Flight::render('login', ['title' => 'Iniciar sesión', 'desc' => 'lll']);
+});
+Flight::route('/register', function () {
+    Flight::render('register', ['title' => 'Registro', 'desc' => 'lll']);
+});
+
 
 
 Flight::route('/admin/', function () {

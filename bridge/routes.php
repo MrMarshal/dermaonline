@@ -31,7 +31,7 @@ $router = new Router;
 		]
 	);*/
 
-// $router->New("login","users/Login");
+$router->New("login", "users/Login");
 // $router->New("getProduct","products/View");
 // $router->New("saveProduct","products/SaveProduct");
 // $router->New("saveProductData","products/SaveProductData");
