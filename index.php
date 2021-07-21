@@ -1,7 +1,7 @@
 <?php
 require 'flight/Flight.php';
 include "classes/LoadModels.php";
-define('__ROOT__', "http://localhost/deskrive/dermaonline");
+define('__ROOT__', "http://localhost/dermaonline");
 
 Flight::route('/', function () {
     Flight::render('home', ['title' => 'Home', 'desc' => 'lll', "js" => null]);

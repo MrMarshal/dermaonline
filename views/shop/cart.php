@@ -44,7 +44,8 @@ if ($cart!=null && $cart['orders'] && count($cart['orders']) > 0) {
 					<div id='draw_cart'></div>
 					<div class='row col-12 col-md-9 mx-auto p-0 mt-3'>
 						<div class='col-12'>
-							<?php if ($cart['coupon_id']==0){ ?>
+							<?php
+							if (isset($cart['coupon_id']) && $cart['coupon_id'] == 0) { ?>
 								<input class='b-tags p-2 text-center' type='text' placeholder='CÓDIGO DE CUPÓN' id="coupon" />
 								<button class='btn btn-bor-bottom mx-3 px-0' onclick='checkCoupon($("#coupon").val())'>Aplicar cupón</button>
 							<?php } ?>
