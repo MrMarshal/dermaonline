@@ -1,6 +1,6 @@
 <?php
 $cart = $admin->shop->GetCurrentCart();
-if ($cart['orders'] && count($cart['orders']) > 0) {
+if ($cart!=null && $cart['orders'] && count($cart['orders']) > 0) {
 ?>
 	<input type="hidden" value="<?php echo $cart['id']; ?>" id="cart_id">
 	<script type="text/javascript">

@@ -97,6 +97,7 @@ const getCart = (container = "draw_cart") => {
     data: {},
     success: function (res) {
       let data = JSON.parse(res);
+      console.log(data)
       if (data.orders.length == 0) window.location.reload();
       console.log(data)
       ship = Number(data.shipping);
@@ -189,6 +190,7 @@ const checkCoupon = (code = "") => {
       amount:total
     },
     success: function (data) {
+      console.log(data)
       let resp = JSON.parse(data);
       if (resp.valid==true){
         switch (resp.type) {

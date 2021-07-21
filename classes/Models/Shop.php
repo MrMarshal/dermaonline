@@ -95,7 +95,7 @@ class Shop extends Admin
 		}
 		$cart = $this->GetById(self::TABLE_CARTS, $cart_id);
 		$total = $subtotal + $cart['shipping'];
-		$this->SetCartCost($cart_id,$total);
+		$this->SaveCartCost($cart_id,$total);
 		return ["total" => $total,"subtotal"=>$subtotal];
 	}
 
