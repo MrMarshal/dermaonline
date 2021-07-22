@@ -11,9 +11,14 @@
 			parent::__construct();
 		}
 
+		public function GetUserData(Request $data)
+		{
+			return $this->GetById(self::TABLE_USERS,$data->id);
+		}
+
 		public function Login(Request $data)
 		{
-			$user = $this->query->select("*",self::TABLE_USERS,"nickname = '".$data->get('nickname')."' AND password = '".md5($data->get("password"))."'");
+			$user = $this->query->select("*",self::TABLE_USERS,"(email = '".$data->get('email')."' OR nickname = '".$data->get('nickname')."' ) AND password = '".md5($data->get("password"))."'");
 			$user = $this->GetFirst($user);
 			if ($user==null){
 				return ["login"=>false,"message"=>"Datos incorrectos"];
@@ -31,12 +36,20 @@
 
 		public function RegisterNewUser(Request $data)
 		{
-			$pass = md5($data->get("password"));
+			$user = $this->query->select("*",self::TABLE_USERS,"(email = '".$data->get('email')."')");
+			if ($this->GetFirst($user)!=null){
+				return ["register"=>false,"message"=>"Ya existe un usuario registrado con este correo electrónico"];
+			}
+			$_pass = $data->get("password");
+			$pass = md5($_pass);
 			$data->put("password",$pass);
 			$data->put("type",3);
 			$data->put("status",1);
-			$d = $data->extract(["name","lastname","phone","email","password","type","satus"]);
-			return $this->Insert(self::TABLE_USERS,$d,"id");
+			$d = $data->extract(["name","lastname","phone","email","password","nickname","type","satus"]);
+			$user = $this->Insert(self::TABLE_USERS,$d,"id");
+			$data->put("password",$_pass);
+			$this->Login($data);
+			return ["register"=>true];
 		}
 
 		public function RegisterNewAddress(Request $data)

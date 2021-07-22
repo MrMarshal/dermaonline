@@ -246,6 +246,7 @@ const checkCoupon = (code = "") => {
     data: {
       code,
       amount: total
+    },
     success: function (data) {
       console.log(data)
       let resp = JSON.parse(data);

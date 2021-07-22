@@ -38,7 +38,7 @@
                     Swal.fire({
                          title: params.title||"Alerta",
                          text: params.text||"Alerta",
-                         confirmButtonText: params.button||"Okey", // Text on button
+                         confirmButtonText: params.button||"Okay", // Text on button
                          icon: params.icon||"success", //built in icons: success, warning, error, info
                          timer: params.time||3000, //timeOut for auto-close
                     });

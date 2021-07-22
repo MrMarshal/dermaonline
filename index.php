@@ -1,28 +1,23 @@
 <?php
 require 'flight/Flight.php';
 include "classes/LoadModels.php";
-define('__ROOT__', "http://localhost/dermaonline");
+define('__ROOT__', "http://localhost/deskrive/dermaonline");
 
 Flight::route('/', function () {
-    Flight::render('home', ['title' => 'Home', 'desc' => 'lll', "js" => null]);
+    Flight::render('landings/home', ['title' => 'Home', 'desc' => 'lll', "js" => null]);
 });
 
 Flight::route('/acerca', function () {
-    Flight::render('acerca', ['title' => 'Nosotros', 'desc' => 'lll']);
+    Flight::render('landings/acerca', ['title' => 'Nosotros', 'desc' => 'lll']);
 });
 
 Flight::route('/categorias', function () {
-    Flight::render('categorias', ['title' => 'Nosotros', 'desc' => 'lll']);
-});
-
-Flight::route('/cuenta', function () {
-    Flight::render('cuenta', ['title' => 'Nosotros', 'desc' => 'lll']);
+    Flight::render('landings/categorias', ['title' => 'Nosotros', 'desc' => 'lll']);
 });
 
 Flight::route('/contacto', function () {
-    Flight::render('contacto', ['title' => 'Nosotros', 'desc' => 'lll']);
+    Flight::render('landings/contacto', ['title' => 'Nosotros', 'desc' => 'lll']);
 });
-
 
 Flight::route('/tienda(/@page)(/@price_range)(/@category)', function ($page, $price_range, $category) {
     $admin = new Model;
@@ -45,12 +40,29 @@ Flight::route('/finalizar-compra', function () {
 });
 
 Flight::route('/login', function () {
-    Flight::render('login', ['title' => 'Iniciar sesión', 'desc' => 'lll']);
-});
-Flight::route('/register', function () {
-    Flight::render('register', ['title' => 'Registro', 'desc' => 'lll']);
+    session_start();
+    if (isset($_SESSION['login']) && $_SESSION['login']==1) Flight::redirect("cuenta");
+    Flight::render('account/login', ['title' => 'Iniciar sesión', 'desc' => 'lll']);
 });
 
+Flight::route('/logout', function () {
+    session_start();
+    session_destroy();
+    Flight::redirect("/");
+});
+
+Flight::route('/register', function () {
+    session_start();
+    if (isset($_SESSION['login']) && $_SESSION['login']==1) Flight::redirect("cuenta");
+    Flight::render('account/register', ['title' => 'Registro', 'desc' => 'lll']);
+});
+Flight::route('/cuenta', function () {
+    session_start();
+    if (!isset($_SESSION['login']) || $_SESSION['login']!=1) Flight::redirect("login");
+    $admin = new Model;
+    $user = $_SESSION['user'];
+    Flight::render('account/cuenta', ['title' => 'Mi cuenta', 'desc' => 'lll',"user"=>$user]);
+});
 
 
 Flight::route('/admin/', function () {
