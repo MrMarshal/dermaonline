@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2021 at 09:10 PM
+-- Generation Time: Jul 22, 2021 at 09:15 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `dermaonline_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `addresses`
+--
+
+CREATE TABLE `addresses` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `address` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `state_id` int(11) NOT NULL,
+  `townhall` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `zipcode` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `status` int(11) NOT NULL,
+  `principal` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -571,9 +588,49 @@ CREATE TABLE `stock` (
 INSERT INTO `stock` (`id`, `product_id`, `quantity`) VALUES
 (1, 1, 10);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `lastname` varchar(200) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nickname` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `type` int(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `nickname`, `phone`, `password`, `type`, `status`) VALUES
+(1, 'Marshal', 'Shiosaki Zamudio', 'marshal@mail.com', 'marshal', '', '7a2793957f4bb790f446c5b48f7501ef', 2, 1),
+(2, 'Isaac', '', '', '', '', '7a2793957f4bb790f446c5b48f7501ef', 3, 0),
+(3, '', '', '', '', '', 'd41d8cd98f00b204e9800998ecf8427e', 3, 0),
+(4, '', '', '', '', '', 'd41d8cd98f00b204e9800998ecf8427e', 3, 0),
+(5, '', '', '', '', '', 'd41d8cd98f00b204e9800998ecf8427e', 3, 0),
+(6, '', '', '', '', '', 'd41d8cd98f00b204e9800998ecf8427e', 3, 0),
+(7, 'Marshal', 'Shiosaki', 'marshal@mail.com', '', '5514790052', '7a2793957f4bb790f446c5b48f7501ef', 3, 0),
+(8, 'Isaac', 'Shiosaki', 'marshal@mail.com', 'marshal', '(551) 479-0052', '7a2793957f4bb790f446c5b48f7501ef', 3, 0),
+(9, 'Marshal', 'Shiosaki', 'marshal5@mail.com', 'marshal5', '5514790052', '7a2793957f4bb790f446c5b48f7501ef', 3, 0),
+(10, 'Bernardo', 'Alarcon', 'marshal6@mail.com', 'marshal6', '5511223344', '7a2793957f4bb790f446c5b48f7501ef', 3, 0);
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `addresses`
+--
+ALTER TABLE `addresses`
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `brands`
@@ -642,8 +699,20 @@ ALTER TABLE `stock`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `addresses`
+--
+ALTER TABLE `addresses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `brands`
@@ -710,6 +779,12 @@ ALTER TABLE `product_tags`
 --
 ALTER TABLE `stock`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
