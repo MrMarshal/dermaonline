@@ -1,6 +1,6 @@
 $(document).ready(function () {});
 
-const hostname = "deskrive/dermaonline";
+const hostname = "/dermaonline";
 let aux = "";
 let total = 0.0;
 let subtotal = 0.0;
@@ -245,10 +245,10 @@ const checkCoupon = (code = "") => {
     url: "./bridge/routes.php?action=verifyCoupon",
     data: {
       code,
-      amount: total
+      amount: total,
     },
     success: function (data) {
-      console.log(data)
+      console.log(data);
       let resp = JSON.parse(data);
       if (resp.valid == true) {
         switch (resp.type) {
