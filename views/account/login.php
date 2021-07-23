@@ -30,17 +30,17 @@
             url: "./bridge/routes.php?action=login",
             type: "POST",
             data: {
-                email:user,
-                password:password
+                email: user,
+                password: password
             },
             success: (data) => {
                 data = JSON.parse(data);
-                if (data.login==true){
-                    location.href="cuenta";
-                }else{
+                if (data.login == true) {
+                    location.href = "cuenta";
+                } else {
                     alert({
-                        title:"Error",
-                        text:data.message
+                        title: "Error",
+                        text: data.message
                     });
                 }
             },
