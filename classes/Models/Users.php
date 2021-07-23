@@ -103,4 +103,69 @@ class Users extends Admin
 		$addresses = $this->GetAllRows($query);
 		return $addresses;
 	}
+	/**
+	 * Obtiene los detalles del usuario logueado
+	 */
+	public function getUserDetail(Request $data)
+	{
+		session_start();
+		$userId = $data->get("user_id") ? $data->get("user_id") : $_SESSION['user']['id'];
+		$query = $this->query->select("*", self::TABLE_USERS, " id = $userId ");
+		$user = $this->GetFirst($query);
+		if ($user == null) {
+			return header("HTTP/1.0 404 Not Found");
+		}
+		return $user;
+	}
+	/**
+	 * Actualiza los detalles del usuario
+	 */
+	public function updateUserDetail(Request $data)
+	{
+		session_start();
+		$userId = $data->get("user_id") ? $data->get("user_id") : $_SESSION['user']['id'];
+		$query = $this->query->select("*", self::TABLE_USERS, " id = $userId ");
+		$user = $this->GetFirst($query);
+		if ($user == null) {
+			return header("HTTP/1.0 404 Not Found");
+		}
+		$query = "UPDATE " . self::TABLE_USERS . " set name='" . $data->get('name') . "', lastname='" . $data->get('lastname') . "', phone='" . $data->get('phone') . "' where id=$userId";
+
+		$resp = $this->RunQuery($query);
+		return $resp;
+	}
+	/**
+	 * Actualiza el email del usuario
+	 */
+	public function updateEmailDetail(Request $data)
+	{
+		session_start();
+		$userId = $data->get("user_id") ? $data->get("user_id") : $_SESSION['user']['id'];
+		$query = $this->query->select("*", self::TABLE_USERS, " id = $userId ");
+		$user = $this->GetFirst($query);
+		if ($user == null) {
+			return header("HTTP/1.0 404 Not Found");
+		}
+		$query = "UPDATE " . self::TABLE_USERS . " set email='" . $data->get('email') . "' where id=$userId";
+
+		$resp = $this->RunQuery($query);
+		return $resp;
+	}
+	/**
+	 * Actualiza la contraseña del usuario
+	 */
+	public function updatePasswordDetail(Request $data)
+	{
+		session_start();
+		$userId = $data->get("user_id") ? $data->get("user_id") : $_SESSION['user']['id'];
+		$query = $this->query->select("*", self::TABLE_USERS, " id = $userId ");
+		$user = $this->GetFirst($query);
+		if ($user == null) {
+			return header("HTTP/1.0 404 Not Found");
+		}
+		$query = "UPDATE " . self::TABLE_USERS . " set password='" . md5($data->get('password')) . "' where id=$userId";
+
+		$resp = $this->RunQuery($query);
+		return $resp;
+	}
 }

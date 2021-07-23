@@ -62,6 +62,12 @@ Flight::route('/cuenta', function () {
     $user = isset($_SESSION['user']) ? $_SESSION['user'] : "";
     Flight::render('account/cuenta', ['title' => 'Mi cuenta', 'desc' => 'lll', "user" => $user]);
 });
+Flight::route('/personal-detail', function () {
+    session_start();
+    if (!isset($_SESSION['login']) || $_SESSION['login'] != 1) return Flight::redirect("login");
+    $user = isset($_SESSION['user']) ? $_SESSION['user'] : "";
+    Flight::render('account/detail', ['title' => 'Detalles personales', 'desc' => 'lll', "user" => $user]);
+});
 
 
 Flight::route('/admin/', function () {

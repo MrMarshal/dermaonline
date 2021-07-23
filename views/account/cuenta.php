@@ -173,6 +173,7 @@
                 reference: references.value
             },
             success: function(res) {
+                console.log(res);
                 alert({
                     title: "Listo",
                     text: "La dirección ha sido guardada con éxito",

@@ -47,6 +47,12 @@ $router->New("finishBuying", "shop/FinishBuying");
 $router->New("registerNewUser", "users/RegisterNewUser");
 $router->New("registerNewAddress", "users/RegisterNewAddress");
 $router->New("GetAddressPrefired", "users/GetAddressPrefired");
+$router->New("getUserDetail", "users/getUserDetail");
+$router->New("updateUserDetail", "users/updateUserDetail");
+$router->New("updateEmailDetail", "users/updateEmailDetail");
+$router->New("updatePasswordDetail", "users/updatePasswordDetail");
+
+
 
 
 
