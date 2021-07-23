@@ -35,7 +35,15 @@ CREATE TABLE `addresses` (
   `townhall` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
   `zipcode` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
   `status` int(11) NOT NULL,
-  `principal` tinyint(1) NOT NULL DEFAULT 0
+  `principal` tinyint(1) NOT NULL DEFAULT 0,
+  `name_address` text COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `name` text COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `second_name` text COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `phone` varchar(15) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `phone_mobile` varchar(15) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `exterior` text COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `interior` text COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `reference` text COLLATE utf8mb4_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------

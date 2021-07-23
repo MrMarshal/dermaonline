@@ -58,9 +58,23 @@ class Users extends Admin
 		if ($data->get("principal") == null) {
 			$data->put("principal", false);
 		} else {
-			$this->Save(self::TABLE_ADDRESSES, ["principal" => false], ["user_id", $data->get("user_id")]);
+			// $query = "UPDATE " . self::TABLE_ADDRESSES . " set principal=0 where user_id=$data->get(user_id)";
+			// $this->RunQuery($query);
+			$this->Save(self::TABLE_ADDRESSES, ["principal" => $data->get("principal")], ["user_id", $data->get("user_id")]);
 		}
-		$d = $data->extract(["user_id", "address", "state_id", "townhall", "zipcode", "status", "principal"]);
+		$d = $data->extract([
+			"user_id", "address", "state_id", "townhall", "zipcode", "status", "principal",
+			"name_address",
+			"name",
+			"second_name",
+			"phone",
+			"phone_mobile",
+			"exterior",
+			"interior",
+			"reference"
+		]);
+
+
 		return $this->Insert(self::TABLE_ADDRESSES, $d, "id");
 	}
 	/**
@@ -70,7 +84,7 @@ class Users extends Admin
 	{
 		session_start();
 		$userId = $_SESSION["user"]["id"];
-		$query = $this->query->select("*", self::TABLE_ADDRESSES, "user_id = $userId AND principal=true");
+		$query = $this->query->select("*", self::TABLE_ADDRESSES, "user_id = $userId AND principal=true", "id desc");
 		$address = $this->GetFirst($query);
 		if ($address == null) {
 			header("HTTP/1.0 404 Not Found");

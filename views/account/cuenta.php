@@ -6,16 +6,16 @@
         <div class="col-12 col-md-8 mx-auto my-5 ">
             <div class="row">
                 <div class="col-6 mx-auto col-md-2 p-0 mt-3" style="font-size: 80%;">
-                    <a href="#" class="link" onclick="localStorage.clear();window.location.href='index.php'">
+                    <a class="link">
                         <p class="text-uppercase mt-5"><strong style="font-weight: 400;">Hola <?php echo $user['name']; ?></strong> </p>
                     </a>
-                    <a href="#" class="link" style="background-color: #F2F2F0 !important;" onclick="localStorage.clear();window.location.href='index.php'">
+                    <a href="cuenta" class="link" style="background-color: #F2F2F0 !important;">
                         <p class="text-uppercase mt-2"><strong style="font-weight: 400;">mi cuenta</strong> </p>
                     </a>
-                    <a href="#" class="link" onclick="localStorage.clear();window.location.href='index.php'">
+                    <a href="personal-detail" class="link">
                         <p class="text-uppercase mt-2"><strong style="font-weight: 400;">datos personales</strong> </p>
                     </a>
-                    <a href="#" class="link" onclick="localStorage.clear();window.location.href='index.php'">
+                    <a href="purchases" class="link">
                         <p class="text-uppercase mt-2"><strong style="font-weight: 400;">mis compras</strong> </p>
                     </a>
                     <a href="logout" class="link">
@@ -156,16 +156,23 @@
             type: "post",
             url: hostname + "/bridge/routes.php?action=registerNewAddress",
             data: {
-                principal: true,
+                principal: 1,
                 user_id: userId,
-                address: `${street.value} ${interior.value} ${interior.value?interior.value:""}`,
+                address: street.value,
                 state_id: state.value,
                 townhall: colonia.value,
                 zipcode: cp.value,
                 status: 1,
+                name_address: name_address.value,
+                name: name.value,
+                second_name: second_name.value,
+                phone: phone.value,
+                phone_mobile: phone_mobile.value,
+                exterior: exterior.value,
+                interior: interior.value,
+                reference: references.value
             },
             success: function(res) {
-                console.log(res);
                 alert({
                     title: "Listo",
                     text: "La dirección ha sido guardada con éxito",
@@ -188,9 +195,8 @@
             url: hostname + "/bridge/routes.php?action=GetAddressPrefired",
             data: {},
             success: function(data) {
-                debugger;
                 let resp = JSON.parse(data);
-                $("#address_prefired").html(`${resp.address} Estado: ${resp.state_id} Colonia: ${resp.townhall} CP : ${resp.zipcode}`);
+                $("#address_prefired").html(`<strong>${resp.name_address}</strong> ${resp.name} ${resp.second_name} <strong>Dirección:</strong>${resp.address} Estado: ${resp.state_id} Colonia: ${resp.townhall} CP : ${resp.zipcode}`);
             },
             error: (error) => {
                 errorHandleAddress(error);
