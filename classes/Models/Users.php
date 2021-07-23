@@ -52,15 +52,17 @@ class Users extends Admin
 		return ["register" => true];
 	}
 
-	public function RegisterNewAddress(Request $data)
-	{
-		$data->put("status", 1);
-		if ($data->get("principal") == null) {
-			$data->put("principal", false);
-		} else {
-			$this->Save(self::TABLE_ADDRESSES, ["principal" => false], 1);
+		public function RegisterNewAddress(Request $data)
+		{
+			$data->put("status",1);
+			if ($data->get("principal")==null){
+				$data->put("principal",false);
+			}
+			else{
+				$this->Save(self::TABLE_ADDRESSES,["principal"=>false],["user_id",$data->get("user_id")]);
+			}
+			$d = $data->extract(["user_id","address","state_id","townhall","zipcode","status","principal"]);
+			return $this->Insert(self::TABLE_ADDRESSES,$d,"id");
 		}
-		$d = $data->extract(["user_id", "address", "state_id", "townhall", "zipcode", "status", "principal"]);
-		return $this->Insert(self::TABLE_ADDRESSES, $d, "id");
 	}
 }
