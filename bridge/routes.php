@@ -46,6 +46,8 @@ $router->New("updateOrder", "shop/UpdateOrder");
 $router->New("finishBuying", "shop/FinishBuying");
 $router->New("registerNewUser", "users/RegisterNewUser");
 $router->New("registerNewAddress", "users/RegisterNewAddress");
+$router->New("GetAddressPrefired", "users/GetAddressPrefired");
+
 
 
 // $router->New("getProductDetails","products/GetProductDetails");

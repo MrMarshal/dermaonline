@@ -63,4 +63,30 @@ class Users extends Admin
 		$d = $data->extract(["user_id", "address", "state_id", "townhall", "zipcode", "status", "principal"]);
 		return $this->Insert(self::TABLE_ADDRESSES, $d, "id");
 	}
+	/**
+	 * Obtiene la dirección preferida de la persona logueada
+	 */
+	public function GetAddressPrefired()
+	{
+		session_start();
+		$userId = $_SESSION["user"]["id"];
+		$query = $this->query->select("*", self::TABLE_ADDRESSES, "user_id = $userId AND principal=true");
+		$address = $this->GetFirst($query);
+		if ($address == null) {
+			header("HTTP/1.0 404 Not Found");
+			return;
+		}
+		return $address;
+	}
+	/**
+	 * Obtiene las direcciones de la persona logueada
+	 */
+	public function GetAddressesUser(Request $data)
+	{
+		session_start();
+		$userId = $data->get("user_id") ? $data->get("user_id") : $_SESSION["user"]["id"];
+		$query = $this->query->select("*", self::TABLE_ADDRESSES, "user_id = $userId AND principal=true");
+		$addresses = $this->GetAllRows($query);
+		return $addresses;
+	}
 }
