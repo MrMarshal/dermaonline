@@ -1,6 +1,6 @@
 $(document).ready(function () {});
 
-const hostname = "deskrive/dermaonline";
+const hostname = "/dermaonline";
 let aux = "";
 let total = 0.0;
 let subtotal = 0.0;
@@ -98,7 +98,8 @@ const getCart = (container = "draw_cart") => {
     success: function (res) {
       let data = JSON.parse(res);
       if (data.orders.length == 0) window.location.reload();
-      ship = Number(data.shipping);
+
+      ship = data.shipping ? Number(data.shipping) : 0;
       discount = data.discount ? Number(data.discount) : 0;
       draw(container, data.orders);
     },
@@ -116,8 +117,7 @@ const getCartNoEditable = (container = "draw_cart") => {
       let data = JSON.parse(res);
       if (data.orders.length == 0) window.location.reload();
       console.log(data);
-      ship = Number(data.shipping);
-      debugger;
+      ship = data.shipping ? Number(data.shipping) : 0;
       discount = data.discount ? Number(data.discount) : 0;
       drawNoEditable(container, data.orders);
     },
@@ -245,10 +245,10 @@ const checkCoupon = (code = "") => {
     url: "./bridge/routes.php?action=verifyCoupon",
     data: {
       code,
-      amount: total
+      amount: total,
     },
     success: function (data) {
-      console.log(data)
+      console.log(data);
       let resp = JSON.parse(data);
       if (resp.valid == true) {
         switch (resp.type) {

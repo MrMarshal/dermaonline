@@ -1,7 +1,7 @@
 <?php
 require 'flight/Flight.php';
 include "classes/LoadModels.php";
-define('__ROOT__', "http://localhost/deskrive/dermaonline");
+define('__ROOT__', "http://localhost/dermaonline");
 
 Flight::route('/', function () {
     Flight::render('landings/home', ['title' => 'Home', 'desc' => 'lll', "js" => null]);
@@ -41,7 +41,7 @@ Flight::route('/finalizar-compra', function () {
 
 Flight::route('/login', function () {
     session_start();
-    if (isset($_SESSION['login']) && $_SESSION['login']==1) Flight::redirect("cuenta");
+    if (isset($_SESSION['login']) && $_SESSION['login'] == 1) Flight::redirect("cuenta");
     Flight::render('account/login', ['title' => 'Iniciar sesión', 'desc' => 'lll']);
 });
 
@@ -53,15 +53,20 @@ Flight::route('/logout', function () {
 
 Flight::route('/register', function () {
     session_start();
-    if (isset($_SESSION['login']) && $_SESSION['login']==1) Flight::redirect("cuenta");
+    if (isset($_SESSION['login']) && $_SESSION['login'] == 1) Flight::redirect("cuenta");
     Flight::render('account/register', ['title' => 'Registro', 'desc' => 'lll']);
 });
 Flight::route('/cuenta', function () {
     session_start();
-    if (!isset($_SESSION['login']) || $_SESSION['login']!=1) Flight::redirect("login");
-    $admin = new Model;
-    $user = $_SESSION['user'];
-    Flight::render('account/cuenta', ['title' => 'Mi cuenta', 'desc' => 'lll',"user"=>$user]);
+    if (!isset($_SESSION['login']) || $_SESSION['login'] != 1) return Flight::redirect("login");
+    $user = isset($_SESSION['user']) ? $_SESSION['user'] : "";
+    Flight::render('account/cuenta', ['title' => 'Mi cuenta', 'desc' => 'lll', "user" => $user]);
+});
+Flight::route('/personal-detail', function () {
+    session_start();
+    if (!isset($_SESSION['login']) || $_SESSION['login'] != 1) return Flight::redirect("login");
+    $user = isset($_SESSION['user']) ? $_SESSION['user'] : "";
+    Flight::render('account/detail', ['title' => 'Detalles personales', 'desc' => 'lll', "user" => $user]);
 });
 
 
