@@ -54,14 +54,6 @@ class Users extends Admin
 
 	public function RegisterNewAddress(Request $data)
 	{
-		$data->put("status", 1);
-		if ($data->get("principal") == null) {
-			$data->put("principal", false);
-		} else {
-			// $query = "UPDATE " . self::TABLE_ADDRESSES . " set principal=0 where user_id=$data->get(user_id)";
-			// $this->RunQuery($query);
-			$this->Save(self::TABLE_ADDRESSES, ["principal" => $data->get("principal")], ["user_id", $data->get("user_id")]);
-		}
 		$d = $data->extract([
 			"user_id", "address", "state_id", "townhall", "zipcode", "status", "principal",
 			"name_address",
@@ -93,15 +85,50 @@ class Users extends Admin
 		return $address;
 	}
 	/**
+	 * Setea la dirección preferida
+	 */
+	public function SetAddressPrefired(Request $data)
+	{
+		session_start();
+		$id = $data->get('id');
+		$query = $this->query->update(self::TABLE_ADDRESSES, ["principal" => "1"], " id = $id");
+		return $this->RunQuery($query);
+	}
+	/**
+	 * elimina la dirección
+	 */
+	public function deleteAddress(Request $data)
+	{
+		session_start();
+		$id = $data->get('id');
+		$table = self::TABLE_ADDRESSES;
+		$query = "DELETE FROM $table where id=$id ";
+		return $this->RunQuery($query);
+	}
+
+
+	/**
 	 * Obtiene las direcciones de la persona logueada
 	 */
 	public function GetAddressesUser(Request $data)
 	{
 		session_start();
 		$userId = $data->get("user_id") ? $data->get("user_id") : $_SESSION["user"]["id"];
-		$query = $this->query->select("*", self::TABLE_ADDRESSES, "user_id = $userId AND principal=true");
+		$query = $this->query->select("*", self::TABLE_ADDRESSES, "user_id = $userId");
 		$addresses = $this->GetAllRows($query);
 		return $addresses;
+	}
+	/**
+	 * Setea la direcciones no preferidas
+	 */
+	public function SetAddressNoPrefired(Request $data)
+	{
+		session_start();
+		$userId = $data->get('user_id') ? $data->get('user_id') : $_SESSION["user"]["id"];
+
+		$query = $this->query->update(self::TABLE_ADDRESSES, ["principal" => "0"], " user_id=$userId");
+
+		return $this->RunQuery($query);
 	}
 	/**
 	 * Obtiene los detalles del usuario logueado

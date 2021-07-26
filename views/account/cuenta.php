@@ -29,6 +29,9 @@
                             <hr class="my-0">
                             <p class="mt-4 mb-3"><strong>Dirección principal</strong></p>
                             <p class="mb-4"><small id="address_prefired">No tienes una dirección en tu lista.</small></p>
+                            <p class="mt-4 mb-3"><strong>Mis direcciones</strong></p>
+                            <p class="mb-4"><small id="list_addresses">No tienes direcciones registradas.</small></p>
+
                             <!-- Button trigger modal -->
                             <button type="button" class="btn b-tags px-5" data-toggle="modal" data-target="#modalAddress">Crear dirección</button>
 
@@ -150,6 +153,12 @@
 
     form.addEventListener("submit", (event) => {
         event.preventDefault();
+        setNoPrincipalAddress(saveAddress, reload);
+    });
+    const reload = () => {
+        window.location.reload();
+    }
+    const saveAddress = (callback = () => {}, data_callback) => {
         const userId = <?php
                         echo $_SESSION['user']['id'] ?>;
         $.ajax({
@@ -181,16 +190,23 @@
                     button: "Listo",
                     time: 2000,
                 });
-                window.location.reload();
+                callback(data_callback);
             },
             error: (error) => {
                 errorHandle(error);
             },
         });
-    });
+    }
 </script>
 <script>
     $(document).ready(() => {
+        loadAddress();
+    })
+    const loadAddress = () => {
+        getAddressPrefired();
+        getAddresses();
+    }
+    const getAddressPrefired = () => {
         $.ajax({
             type: "post",
             url: hostname + "/bridge/routes.php?action=GetAddressPrefired",
@@ -203,8 +219,93 @@
                 errorHandleAddress(error);
             },
         });
+    }
+    const getAddresses = () => {
+        $.ajax({
+            type: "post",
+            url: hostname + "/bridge/routes.php?action=GetAddressesUser",
+            data: {},
+            success: function(data) {
+                let resp = JSON.parse(data);
+                let html = "";
 
-    })
+                resp.forEach((address, index) => {
+
+                    html += `
+                                <div class="form-check">
+                                    <input class="form-check-input" onchange="changeAddressPrefired(${address.id})" type="radio" name="flexRadioDefault" id="flexRadioDefault${index}" ${address.principal&&parseInt(address.principal)===1?" checked":""}>
+                                    <label class="form-check-label" for="flexRadioDefault${index}">
+                                    <strong>${address.name_address}</strong> ${address.name} ${address.second_name} <strong>Dirección:</strong>${address.address} Estado: ${address.state_id} Colonia: ${address.townhall} CP : ${address.zipcode}
+                                    </label>
+                                    <a onclick="deleteAddress(${address.id})"><strong>(Eliminar)</strong></a>
+
+                                </div>
+                            `;
+                });
+                $("#list_addresses").html(html);
+            },
+            error: (error) => {
+                errorHandleAddress(error);
+            },
+        });
+    }
+    const deleteAddress = (id) => {
+        if (window.confirm("¿Deseas eliminar la dirección?")) {
+            alert("va");
+            $.ajax({
+                type: "post",
+                url: hostname + "/bridge/routes.php?action=deleteAddress",
+                data: {
+                    id
+                },
+                success: function(data) {
+                    debugger;
+                    let resp = JSON.parse(data);
+                    alert("Dirección eliminada con éxito");
+                    loadAddress();
+                },
+                error: (error) => {
+                    errorHandleAddress(error);
+                },
+            });
+        }
+    }
+    const changeAddressPrefired = (id_address) => {
+        setNoPrincipalAddress(setPrincipalAddress, id_address);
+    }
+    const setPrincipalAddress = (id, callback = () => {}, data_callback = null) => {
+
+        $.ajax({
+            type: "post",
+            url: hostname + "/bridge/routes.php?action=SetAddressPrefired",
+            data: {
+                id
+            },
+            success: function(data) {
+
+                let resp = JSON.parse(data);
+                alert("Dirección actualizada con éxito");
+                callback(data_callback);
+            },
+            error: (error) => {
+                errorHandleAddress(error);
+            },
+        });
+    }
+    const setNoPrincipalAddress = (callback = () => {}, data_callback = null) => {
+        $.ajax({
+            type: "post",
+            url: hostname + "/bridge/routes.php?action=SetAddressNoPrefired",
+            data: {},
+            success: function(data) {
+                let resp = JSON.parse(data);
+                callback(data_callback, loadAddress, "");
+            },
+            error: (error) => {
+                errorHandleAddress(error);
+            },
+        });
+    }
     const errorHandleAddress = (error) => {
         console.log(error);
         switch (error.status) {

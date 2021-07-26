@@ -152,7 +152,6 @@
 
     });
     const changeDataUser = () => {
-        debugger;
         $.ajax({
             type: "post",
             url: hostname + "/bridge/routes.php?action=updateUserDetail",
@@ -162,7 +161,6 @@
                 phone: phone.value
             },
             success: function(res) {
-                debugger;
                 alert({
                     title: "Listo",
                     text: "Datos guardados con éxito",
@@ -185,7 +183,6 @@
         });
     }
     const changeEmailUser = () => {
-        debugger;
         $.ajax({
             type: "post",
             url: hostname + "/bridge/routes.php?action=updateEmailDetail",
@@ -193,7 +190,6 @@
                 email: new_email.value,
             },
             success: function(res) {
-                debugger;
                 alert({
                     title: "Listo",
                     text: "Datos guardados con éxito",
@@ -220,7 +216,6 @@
                 password: new_password.value,
             },
             success: function(res) {
-                debugger;
                 alert({
                     title: "Listo",
                     text: "Datos guardados con éxito",
@@ -244,7 +239,6 @@
             data: {},
             success: function(data) {
                 let resp = JSON.parse(data);
-                debugger;
                 name.value = resp.name;
                 lastname.value = resp.lastname;
                 phone.value = resp.phone;
