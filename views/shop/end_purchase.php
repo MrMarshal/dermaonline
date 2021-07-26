@@ -21,7 +21,13 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 			<div class="col-12 col-md-6">
 				<div class="row">
 					<div class="col-12">
+						<p class="mt-4 mb-3"><strong>Dirección principal</strong></p>
+						<p class="mb-4"><small id="list_addresses">No tienes una dirección en tu lista.</small></p>
+
+					</div>
+					<div class="col-12">
 						<h3>Datos de envío</h3>
+						<input id="id" name="id" hidden value="" />
 					</div>
 					<div class="col-12 col-md-6">
 						<input type="text" id="name" style="height: 3rem !important;" required class="form-control mt-2 mb-3" value="" placeholder="Nombre(s)" />
@@ -90,6 +96,7 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 <?php } ?>
 <script>
 	const form = document.getElementById("form");
+	const id = document.getElementById("id");
 	const name = document.getElementById("name");
 	const secondNames = document.getElementById("secondNames");
 	const phoneNumber = document.getElementById("phoneNumber");
@@ -144,5 +151,53 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 
 			}
 		})
+	}
+</script>
+<script>
+	$(document).ready(() => {
+		getAddresses();
+	});
+
+	const getAddresses = () => {
+		$.ajax({
+			type: "post",
+			url: hostname + "/bridge/routes.php?action=GetAddressesUser",
+			data: {},
+			success: function(data) {
+				let resp = JSON.parse(data);
+				let html = "";
+
+				resp.forEach((address, index) => {
+					console.log(address);
+					html += `
+                                <div class="form-check">
+                                    <input class="form-check-input" onchange="selectAddress(${address.id},'${address.name_address}','${address.name}','${address.second_name}','${address.address}','${address.state_id}','${address.townhall}','${address.zipcode}')" type="radio" name="flexRadioDefault" id="flexRadioDefault${index}"}>
+                                    <label class="form-check-label" for="flexRadioDefault${index}">
+                                    <strong>${address.name_address}</strong> ${address.name} ${address.second_name} <strong>Dirección:</strong>${address.address} Estado: ${address.state_id} Colonia: ${address.townhall} CP : ${address.zipcode}
+                                    </label>
+
+                                </div>
+                            `;
+				});
+				$("#list_addresses").html(html);
+			},
+			error: (error) => {
+				errorHandleAddress(error);
+			},
+		});
+	}
+	const selectAddress = (id_address, _name_address, _name, _second_name, _address, _state_id, _townhall, _zipcode) => {
+		debugger
+		id.value = id_address
+		name.value = _name
+		secondNames.value = _second_name
+		phoneNumber.value = ""
+		email.value = ""
+		address.value = _address
+		postalCode.value = _zipcode
+		colonia.value = _townhall
+		city.value = ""
+		state.value = _state_id
+		country.value = ""
 	}
 </script>
