@@ -1,6 +1,6 @@
 $(document).ready(function () {});
 
-const hostname = "deskrive/dermaonline";
+const hostname = "/deskrive/dermaonline";
 let aux = "";
 let total = 0.0;
 let subtotal = 0.0;
@@ -11,18 +11,16 @@ const errorHandle = (error) => {
   console.log(error);
   switch (error.status) {
     case 400:
-      alert("Algo salió mal, intenta más tarde X001BR");
+      alert({title:"Error",text:"Algo salió mal, intenta más tarde X001BR"});
       break;
     case 404:
-      alert("El recurso no se ha encontrado");
+      alert({title:"Error",text:"El recurso no se ha encontrado"});
       break;
     case 401:
-      alert("No estás autorizado para esta operación");
+      alert({title:"Error",text:"No estás autorizado para esta operación"});
       break;
     case 500:
-      alert(
-        "Ha ocurrido un error en nuestros servidores, intenta más tarde X001BE"
-      );
+      alert({title:"Error",text:"Ha ocurrido un error en nuestros servidores, intenta más tarde X001BE"});
       break;
     default:
       break;
@@ -70,7 +68,8 @@ const removeFromCart = (id) => {
           id: id,
         },
         success: function (res) {
-          console.log(res);
+          total = 0;
+          subtotal = 0;
           let data = JSON.parse(res);
           getCart();
           alert({
@@ -98,7 +97,8 @@ const getCart = (container = "draw_cart") => {
     success: function (res) {
       let data = JSON.parse(res);
       if (data.orders.length == 0) window.location.reload();
-      ship = Number(data.shipping);
+
+      ship = data.shipping ? Number(data.shipping) : 0;
       discount = data.discount ? Number(data.discount) : 0;
       draw(container, data.orders);
     },
@@ -116,8 +116,7 @@ const getCartNoEditable = (container = "draw_cart") => {
       let data = JSON.parse(res);
       if (data.orders.length == 0) window.location.reload();
       console.log(data);
-      ship = Number(data.shipping);
-      debugger;
+      ship = data.shipping ? Number(data.shipping) : 0;
       discount = data.discount ? Number(data.discount) : 0;
       drawNoEditable(container, data.orders);
     },
@@ -245,10 +244,10 @@ const checkCoupon = (code = "") => {
     url: "./bridge/routes.php?action=verifyCoupon",
     data: {
       code,
-      amount: total
+      amount: total,
     },
     success: function (data) {
-      console.log(data)
+      console.log(data);
       let resp = JSON.parse(data);
       if (resp.valid == true) {
         switch (resp.type) {
@@ -269,7 +268,7 @@ const checkCoupon = (code = "") => {
             (resp.type == "percent" ? " (" + resp.discount + "%)" : "")
         );
         $("#subtotal").html(toMoney(subtotal));
-        alert("Descuento aplicado con éxito");
+        alert({title:"Listo",text:"Descuento aplicado con éxito"});
       } else {
         alert({
           title: "Error",

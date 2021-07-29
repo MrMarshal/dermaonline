@@ -24,6 +24,10 @@ Flight::route('/tienda(/@page)(/@price_range)(/@category)', function ($page, $pr
     Flight::render('shop/index', ['title' => 'Nosotros', 'desc' => 'lll', 'css' => ["shop"], "page" => $page, "price_range" => $price_range, "category" => $category, "admin" => $admin]);
 });
 
+Flight::route('/result/@code', function ($code) {
+    Flight::render('shop/results/'.$code, ['title' => 'Nosotros', 'desc' => 'lll']);
+});
+
 Flight::route('/producto/@product', function ($product) {
     $admin = new Model;
     Flight::render('shop/product_detail', ['title' => 'Nosotros', 'desc' => 'lll', "product" => $product, "admin" => $admin]);
@@ -41,7 +45,7 @@ Flight::route('/finalizar-compra', function () {
 
 Flight::route('/login', function () {
     session_start();
-    if (isset($_SESSION['login']) && $_SESSION['login']==1) Flight::redirect("cuenta");
+    if (isset($_SESSION['login']) && $_SESSION['login'] == 1) Flight::redirect("cuenta");
     Flight::render('account/login', ['title' => 'Iniciar sesión', 'desc' => 'lll']);
 });
 
@@ -53,15 +57,20 @@ Flight::route('/logout', function () {
 
 Flight::route('/register', function () {
     session_start();
-    if (isset($_SESSION['login']) && $_SESSION['login']==1) Flight::redirect("cuenta");
+    if (isset($_SESSION['login']) && $_SESSION['login'] == 1) Flight::redirect("cuenta");
     Flight::render('account/register', ['title' => 'Registro', 'desc' => 'lll']);
 });
 Flight::route('/cuenta', function () {
     session_start();
-    if (!isset($_SESSION['login']) || $_SESSION['login']!=1) Flight::redirect("login");
-    $admin = new Model;
-    $user = $_SESSION['user'];
-    Flight::render('account/cuenta', ['title' => 'Mi cuenta', 'desc' => 'lll',"user"=>$user]);
+    if (!isset($_SESSION['login']) || $_SESSION['login'] != 1) return Flight::redirect("login");
+    $user = isset($_SESSION['user']) ? $_SESSION['user'] : "";
+    Flight::render('account/cuenta', ['title' => 'Mi cuenta', 'desc' => 'lll', "user" => $user]);
+});
+Flight::route('/personal-detail', function () {
+    session_start();
+    if (!isset($_SESSION['login']) || $_SESSION['login'] != 1) return Flight::redirect("login");
+    $user = isset($_SESSION['user']) ? $_SESSION['user'] : "";
+    Flight::render('account/detail', ['title' => 'Detalles personales', 'desc' => 'lll', "user" => $user]);
 });
 
 
