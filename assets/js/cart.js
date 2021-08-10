@@ -1,6 +1,6 @@
 $(document).ready(function () {});
 
-const hostname = "/deskrive/dermaonline";
+const hostname = "/dermaonline";
 let aux = "";
 let total = 0.0;
 let subtotal = 0.0;
@@ -11,16 +11,25 @@ const errorHandle = (error) => {
   console.log(error);
   switch (error.status) {
     case 400:
-      alert({title:"Error",text:"Algo salió mal, intenta más tarde X001BR"});
+      alert({
+        title: "Error",
+        text: "Algo salió mal, intenta más tarde X001BR",
+      });
       break;
     case 404:
-      alert({title:"Error",text:"El recurso no se ha encontrado"});
+      alert({ title: "Error", text: "El recurso no se ha encontrado" });
       break;
     case 401:
-      alert({title:"Error",text:"No estás autorizado para esta operación"});
+      alert({
+        title: "Error",
+        text: "No estás autorizado para esta operación",
+      });
       break;
     case 500:
-      alert({title:"Error",text:"Ha ocurrido un error en nuestros servidores, intenta más tarde X001BE"});
+      alert({
+        title: "Error",
+        text: "Ha ocurrido un error en nuestros servidores, intenta más tarde X001BE",
+      });
       break;
     default:
       break;
@@ -268,7 +277,7 @@ const checkCoupon = (code = "") => {
             (resp.type == "percent" ? " (" + resp.discount + "%)" : "")
         );
         $("#subtotal").html(toMoney(subtotal));
-        alert({title:"Listo",text:"Descuento aplicado con éxito"});
+        alert({ title: "Listo", text: "Descuento aplicado con éxito" });
       } else {
         alert({
           title: "Error",

@@ -1,7 +1,7 @@
 <?php
 require 'flight/Flight.php';
 include "classes/LoadModels.php";
-define('__ROOT__', "http://localhost/deskrive/dermaonline");
+define('__ROOT__', "http://localhost/dermaonline");
 
 Flight::route('/', function () {
     Flight::render('landings/home', ['title' => 'Home', 'desc' => 'lll', "js" => null]);
@@ -25,7 +25,7 @@ Flight::route('/tienda(/@page)(/@price_range)(/@category)', function ($page, $pr
 });
 
 Flight::route('/result/@code', function ($code) {
-    Flight::render('shop/results/'.$code, ['title' => 'Nosotros', 'desc' => 'lll']);
+    Flight::render('shop/results/' . $code, ['title' => 'Nosotros', 'desc' => 'lll']);
 });
 
 Flight::route('/producto/@product', function ($product) {
