@@ -12,7 +12,8 @@ Flight::route('/acerca', function () {
 });
 
 Flight::route('/categorias', function () {
-    Flight::render('landings/categorias', ['title' => 'Nosotros', 'desc' => 'lll']);
+    $admin = new Model;
+    Flight::render('landings/categorias', ['title' => 'Nosotros', 'desc' => 'lll', "admin" => $admin]);
 });
 
 Flight::route('/contacto', function () {

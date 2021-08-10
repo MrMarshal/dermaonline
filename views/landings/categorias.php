@@ -1,3 +1,7 @@
+<?php
+$categories = $admin->products->GetCategoriesList();
+var_dump($categories);
+?>
 <!-- Pantallas chicas y medianas -->
 <div class="d-block d-lg-none">
     <div class="row col-12 mx-0 px-0 mt-5 pt-5">
@@ -21,27 +25,17 @@
                     <p class="p-grey">Aprovecha nuestras ofertas de primera mano Nuestro programa de clientes frecuentes otorgara descuentos en paquetes así como envíos gratuitos en paquetes dentro de nuestro programa</p>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-1">
-                <img src="./assets/images/products/cat/1.jpg" alt="" class="w-100">
-            </div>
-            <div class="col-12 col-md-6 col-lg-4 p-1">
-                <img src="./assets/images/products/cat/2.jpg" alt="" class="w-100">
-            </div>
-            <div class="col-12 col-lg-8 p-1">
-                <img src="./assets/images/products/cat/3.jpg" alt="" class="w-100">
-            </div>
-            <div class="col-12 col-md-6 col-lg-4 p-1">
-                <img src="./assets/images/products/cat/4.jpg" alt="" class="w-100">
-            </div>
-            <div class="col-12 col-md-6 col-lg-4 p-1">
-                <img src="./assets/images/products/cat/5.jpg" alt="" class="w-100">
-            </div>
-            <div class="col-12 col-md-6 col-lg-4 p-1">
-                <img src="./assets/images/products/cat/6.jpg" alt="" class="w-100">
-            </div>
-            <div class="col-12 col-md-6 col-lg-4 p-1">
-                <img src="./assets/images/products/cat/7.jpg" alt="" class="w-100">
-            </div>
+            <?php
+            foreach ($categories as $category) {
+            ?>
+                <a class="col-12 col-md-6 col-lg-4 p-1" href="tienda/<?php echo $category['id']; ?>">
+                    <img src="<?php echo $category['image']; ?>" alt="" class="w-100">
+                    <h5 class="text-center text-dark mt-2"><?php echo $category['name'] ?></h5>
+                    <p class="text-center text-dark mt-2"><?php echo $category['description'] ?></p>
+                </a>
+            <?php
+            }
+            ?>
         </div>
     </div>
 </section>
