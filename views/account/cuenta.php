@@ -159,8 +159,7 @@
         window.location.reload();
     }
     const saveAddress = (callback = () => {}, data_callback) => {
-        const userId = <?php
-                        echo $_SESSION['user']['id'] ?>;
+        const userId = <?php echo $_SESSION['user']['id'] ?>;
         $.ajax({
             type: "post",
             url: hostname + "/bridge/routes.php?action=registerNewAddress",
@@ -208,7 +207,7 @@
     }
     const getAddressPrefired = () => {
         $.ajax({
-            type: "post",
+            type: "get",
             url: hostname + "/bridge/routes.php?action=GetAddressPrefired",
             data: {},
             success: function(data) {

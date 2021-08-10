@@ -40,19 +40,19 @@
                                     <label class="mb-1 mt-3"><strong>Género</strong></label>
                                     <div class="row col-12 ">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
+                                            <input class="form-check-input" type="radio" name="gender" value="1" id="gender1">
+                                            <label class="form-check-label" for="gender1">
                                                 Hombre
                                             </label>
                                         </div>
                                         <div class="form-check ml-3">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">
+                                            <input class="form-check-input" type="radio" name="gender" value="2" id="gender2">
+                                            <label class="form-check-label" for="gender2">
                                                 Mujer
                                             </label>
                                         </div>
                                         <div class="form-check ml-3">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                            <input class="form-check-input" type="radio" name="gender" value="3" id="gender2" checked>
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 Sin especificar </label>
                                         </div>
@@ -88,11 +88,11 @@
                             <p><strong>Cambia tu contraseña</strong></p>
                             <hr class="my-0">
                             <div class="col-12 px-0">
-                                <label class="mb-1 mt-3"><strong>Contaseña actual</strong></label>
-                                <input class="form-control" id="new_password" value="" type="password" placeholder="***" />
+                                <label class="mb-1 mt-3"><strong>Cambiar contraseña</strong></label>
+                                <input class="form-control" id="new_password" value="" type="password" placeholder="***" autocomplete="off" />
                             </div>
                             <div class="col-12 px-0">
-                                <label class="mb-1 mt-3"><strong>Nueva contaseña</strong></label>
+                                <label class="mb-1 mt-3"><strong>Confirmar contraseña</strong></label>
                                 <input class="form-control" id="confirm_password" value="" type="password" placeholder="***" />
                             </div>
                             <hr class="my-4">
@@ -124,22 +124,35 @@
     // 
     const new_password = document.getElementById("new_password");
     const confirm_password = document.getElementById("confirm_password");
+
     let flagEmail = false;
     let flagPassword = false;
+
+    let changePasswordFlag = false;
+    let changeEmailFlag = false;
+
+    $("#confirm_email").on("input", (event) => {
+        changeEmailFlag = true;
+    });
+
+    $("#confirm_password").on("input", (event) => {
+        changePasswordFlag = true;
+    });
+
     form.addEventListener("submit", (event) => {
         event.preventDefault();
         flagEmail = false;
         flagPassword = false;
         const userId = <?php
                         echo $_SESSION['user']['id'] ?>;
-        if (new_email.value || confirm_email.value) {
+        if (new_email.value && confirm_email.value) {
             if (new_email.value !== confirm_email.value) {
-                return alert("Los correos no coinciden");
+                alert("Los correos no coinciden");
             } else {
                 flagEmail = true;
             }
         }
-        if (new_password.value || confirm_password.value) {
+        if (new_password.value && confirm_password.value) {
             if (new_password.value !== confirm_password.value) {
                 return alert("Las contraseñas no coinciden");
             } else {
@@ -158,9 +171,11 @@
             data: {
                 name: name.value,
                 lastname: lastname.value,
-                phone: phone.value
+                phone: phone.value,
+                gender: $("input[name='gender']:checked").val()
             },
             success: function(res) {
+                console.log(res)
                 alert({
                     title: "Listo",
                     text: "Datos guardados con éxito",
@@ -168,12 +183,11 @@
                     button: "Listo",
                     time: 5000,
                 });
-                if (flagEmail) {
+                if (flagEmail == true && changeEmailFlag == true) {
                     changeEmailUser();
-                } else if (flagPassword) {
+                }
+                if (flagPassword == true && changePasswordFlag == true) {
                     changePasswordUser();
-                } else {
-                    window.location.reload();
                 }
 
             },
@@ -200,7 +214,7 @@
                 if (flagPassword) {
                     changePasswordUser();
                 } else {
-                    window.location.reload();
+                    //window.location.reload();
                 }
             },
             error: (error) => {
@@ -223,7 +237,7 @@
                     button: "Listo",
                     time: 5000,
                 });
-                window.location.reload();
+                //window.location.reload();
             },
             error: (error) => {
                 errorHandle(error);
@@ -243,14 +257,15 @@
                 lastname.value = resp.lastname;
                 phone.value = resp.phone;
                 email.innerText = resp.email;
+                $("input[name=gender][value=" + resp.gender + "]").attr('checked', 'checked')
             },
             error: (error) => {
-                errorHandleAddress(error);
+                errorHandle(error);
             },
         });
 
     })
-    const errorHandleAddress = (error) => {
+    /*const errorHandleAddress = (error) => {
         console.log(error);
         switch (error.status) {
             case 400:
@@ -269,5 +284,5 @@
             default:
                 break;
         }
-    };
+    };*/
 </script>

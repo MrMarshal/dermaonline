@@ -18,7 +18,7 @@ class Users extends Admin
 
 	public function Login(Request $data)
 	{
-		$user = $this->query->select("*", self::TABLE_USERS, "(email = '" . $data->get('email') . "' OR nickname = '" . $data->get('nickname') . "' ) AND password = '" . md5($data->get("password")) . "'");
+		$user = $this->query->select("*", self::TABLE_USERS, "(email = '" . $data->get('email') . "' OR (nickname != '' AND nickname = '" . $data->get('nickname') . "') ) AND password = '" . md5($data->get("password")) . "'");
 		$user = $this->GetFirst($user);
 		if ($user == null) {
 			return ["login" => false, "message" => "Datos incorrectos"];
@@ -156,9 +156,9 @@ class Users extends Admin
 		if ($user == null) {
 			return header("HTTP/1.0 404 Not Found");
 		}
-		$query = "UPDATE " . self::TABLE_USERS . " set name='" . $data->get('name') . "', lastname='" . $data->get('lastname') . "', phone='" . $data->get('phone') . "' where id=$userId";
-
-		$resp = $this->RunQuery($query);
+		$resp = $this->Save(self::TABLE_USERS,$data->extract(["name","lastname","phone","gender"]),$userId);
+		//$query = "UPDATE " . self::TABLE_USERS . " set name='" . $data->get('name') . "', lastname='" . $data->get('lastname') . "', phone='" . $data->get('phone') . "' where id=$userId";
+		//$resp = $this->RunQuery($query);
 		return $resp;
 	}
 	/**
@@ -191,7 +191,6 @@ class Users extends Admin
 			return header("HTTP/1.0 404 Not Found");
 		}
 		$query = "UPDATE " . self::TABLE_USERS . " set password='" . md5($data->get('password')) . "' where id=$userId";
-
 		$resp = $this->RunQuery($query);
 		return $resp;
 	}

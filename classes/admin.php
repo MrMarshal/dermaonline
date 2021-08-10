@@ -101,6 +101,16 @@ class Admin
 		return $this->GetFirst($select);
 	}
 
+	public function GetByCondition($table, $cond)
+	{
+		if (is_array($cond)) {
+			$res['query'] = $this->query->select("*", $table, $cond[0] . " = " . $cond[1]);
+		} else {
+			$res['query'] = $this->query->select("*", $table, "id = " . $cond);
+		}
+		return $this->GetFirst($res['query']);
+	}
+
 	public function ListAll($table)
 	{
 		$res = $this->query->select("*", $table);

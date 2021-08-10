@@ -4,9 +4,14 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 	$subtotal = 0;
 	$total = 0;
 	$shipcost = 0;
+	$preference = $admin->mercadopago->CreatePreference(new Request(['cart_id'=>$cart['id']]));
 ?>
+	<script src="https://sdk.mercadopago.com/js/v2"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			const mp = new MercadoPago('TEST-be126955-354f-4dfa-ba7e-4a95f9a2a6c2', {
+			      locale: 'es-MX'
+			});
 			const valores = window.location.search;
 			const urlParams = new URLSearchParams(valores);
 			var code = urlParams.get('code');
@@ -14,6 +19,19 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 			if (code) {
 				checkCoupon(code);
 			}
+			mp.checkout({
+			    preference: {
+			        id: "<?php echo $preference['id']; ?>"
+			    },
+			    render: {
+			          container: '.button-checkout', // Indica el nombre de la clase donde se mostrará el botón de pago
+			          label: 'Pagar ahora', // Cambia el texto del botón de pago (opcional)
+			    },
+			    theme: {
+			        elementsColor: '#124561',
+			        headerColor: '#B37737'
+			    }
+			});
 		})
 	</script>
 	<div class="col-12" style='margin-top: 8rem;margin-bottom: 8rem;'>
@@ -75,7 +93,8 @@ if ($cart['orders'] && count($cart['orders']) > 0) {
 								<p class='mt-2 mb-1'><strong>ENVÍO &nbsp;&nbsp;&nbsp;<span><span id='ship'></span></span></strong></p>
 								<p class='mt-2 mb-1'><strong>DESCUENTO &nbsp;&nbsp;&nbsp;<span><span id='discount'></span></span></strong></p>
 								<p class='mt-4 mb-1'><strong>TOTAL &nbsp;&nbsp;&nbsp;<span><span id='total'></span></span></strong></p>
-								<input class='btn b-tags col-12 mt-3' type="submit" value="Realizar el pedido" />
+								<!--<input class='button-checkout' type="submit" value="Realizar el pago" />-->
+								<div class="button-checkout"></div>   
 							</div>
 						</div>
 					</div>

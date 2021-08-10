@@ -19,21 +19,17 @@
 </section>
 <script>
     let form = document.getElementById("login");
-    let email = document.getElementById("email");
-    let password = document.getElementById("password");
     form.addEventListener("submit", (event) => {
         event.preventDefault();
-        login(email.value, password.value);
-    })
-    const login = (user, password) => {
         $.ajax({
             url: "./bridge/routes.php?action=login",
             type: "POST",
             data: {
-                email: user,
-                password: password
+                email: $("#email").val(),
+                password: $("#password").val()
             },
             success: (data) => {
+                console.log(data);
                 data = JSON.parse(data);
                 if (data.login == true) {
                     location.href = "cuenta";
@@ -49,5 +45,5 @@
 
             }
         })
-    }
+    });
 </script>

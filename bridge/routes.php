@@ -55,6 +55,7 @@ $router->New("getUserDetail", "users/getUserDetail");
 $router->New("updateUserDetail", "users/updateUserDetail");
 $router->New("updateEmailDetail", "users/updateEmailDetail");
 $router->New("updatePasswordDetail", "users/updatePasswordDetail");
+$router->New("CreateMpPreference", "mercadopago/CreatePreference");
 
 
 

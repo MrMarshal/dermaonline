@@ -15,8 +15,14 @@ class Shop extends Admin
 
 	public function GetCurrentCart()
 	{
-		session_start();
-		$cart_id = isset($_SESSION['cart_id']) ? $_SESSION['cart_id'] : null;
+		if (session_status() === PHP_SESSION_NONE) session_start();
+		$user_id = isset($_SESSION['user'])?$_SESSION['user']['id']:null;
+		if ($user_id!=null){
+			$cart = $this->GetCartByUser($user_id);
+			$cart_id = $cart?$cart['id']:null;
+		}else{
+			$cart_id = isset($_SESSION['cart_id']) ? $_SESSION['cart_id'] : null;
+		}
 		if ($cart_id == null) return null;
 		$cart = $this->GetById(self::TABLE_CARTS, $cart_id);
 		$s = $this->query->select("*", self::TABLE_ORDERS, "cart_id = " . $cart_id . " AND status != 2");
@@ -33,10 +39,15 @@ class Shop extends Admin
 	public function AddProductToCart(Request $request)
 	{
 		// return "Nada";
-		session_start();
-		$cart_id = isset($_SESSION['cart_id']) ? $_SESSION['cart_id'] : null;
-		if ($cart_id == null)
-			$cart_id = $this->CreateCart();
+		if (session_status() === PHP_SESSION_NONE) session_start();
+		$user_id = isset($_SESSION['user'])?$_SESSION['user']['id']:null;
+		if ($user_id!=null){
+			$cart = $this->GetCartByUser($user_id);
+			$cart_id = $cart?$cart['id']:null;
+		}else{
+			$cart_id = isset($_SESSION['cart_id']) ? $_SESSION['cart_id'] : null;
+		}
+		if ($cart_id == null) $cart_id = $this->CreateCart($user_id);
 		$_SESSION['cart_id'] = $cart_id;
 		$product = $this->productModel->View($request);
 		$product_price = $this->productModel->GetPrice($request);
@@ -57,9 +68,15 @@ class Shop extends Admin
 		return ["quantity" => $q, "cost" => $c];
 	}
 
-	public function CreateCart()
+	public function GetCartByUser($user_id)
 	{
-		$id = $this->Insert(self::TABLE_CARTS, ["user_id" => 0, "total" => 0, "shipping" => 0, "status" => 1, "created_at" => "CURRENT_TIME()"], "id")['id'];
+		return $this->GetByCondition(self::TABLE_CARTS,["user_id",$user_id]);
+	}
+
+	public function CreateCart($user_id)
+	{
+		if ($user_id==null) $user_id = 0;
+		$id = $this->Insert(self::TABLE_CARTS, ["user_id" => $user_id, "total" => 0, "shipping" => 0, "status" => 1, "created_at" => "CURRENT_TIME()"], "id")['id'];
 		return $id;
 	}
 
@@ -94,7 +111,7 @@ class Shop extends Admin
 			$subtotal += $order['cost'];
 		}
 		$cart = $this->GetById(self::TABLE_CARTS, $cart_id);
-		$total = $subtotal + $cart['shipping'];
+		$total = $subtotal + $cart['shipping'] - $cart['discount'];
 		$this->SaveCartCost($cart_id,$total);
 		return ["total" => $total,"subtotal"=>$subtotal];
 	}
