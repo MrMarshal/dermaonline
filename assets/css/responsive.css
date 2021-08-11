@@ -1,5 +1,31 @@
 /* Pantalla muy chica */
-
+@media (max-width: 400px) {
+  .logo {
+    max-width: 100px;
+  }
+  #home .title-black {
+    font-size: 100%;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    text-align: left;
+    color: white;
+    -webkit-text-stroke: 0.5px #000000;
+  }
+  #home p {
+    margin-bottom: 0 !important;
+  }
+  #home button {
+    margin-top: 0 !important;
+  }
+  #home .mt-3 {
+    margin-top: 0 !important;
+  }
+  .p-5-custom {
+    padding: 0 !important;
+  }
+}
 @media (min-width: 300px) {
   .title-black {
     font-size: 25px;
@@ -8,12 +34,25 @@
     font-style: normal;
     line-height: normal;
     text-align: left;
+    color: white;
+    -webkit-text-stroke: 1.5px #000000;
+  }
+  .subtitle-dark {
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: 2.8px;
     color: #000000;
+    font-size: 120%;
   }
 }
 /* Pantalla chica */
 
 @media (min-width: 576px) {
+  .logo {
+    max-width: 140px;
+  }
   .title-black {
     font-size: 40px;
     font-weight: 500;
@@ -68,4 +107,10 @@
 /* Pantalla extragrande */
 
 @media (min-width: 1400px) {
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
 }

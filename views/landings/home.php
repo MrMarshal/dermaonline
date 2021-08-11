@@ -1,6 +1,6 @@
 <!-- Pantallas chicas -->
 <div class="d-block d-md-none">
-    <div class="owl-carousel mt-5 pt-5" id="home">
+    <div class="owl-carousel mt-5" id="home">
         <div class="mt-2">
             <!-- Sección 1 -->
             <div class="col-12 m-0 p-0">
@@ -246,7 +246,7 @@
     <div class="container">
         <div class="row col-12 mx-0 px-0">
 
-            <div class="col-12 col-md-6 col-lg-4 p-5">
+            <div class="col-12 col-md-6 col-lg-4 p-5 p-5-custom">
                 <div class="container-2">
                     <img src="./assets/images/products/index/1.jpg" alt="Avatar" class="image w-100 h-100">
                     <a href="./tienda/1" class="middle text-dark">
@@ -257,7 +257,7 @@
                 <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
             </a> -->
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-5">
+            <div class="col-12 col-md-6 col-lg-4 p-5 p-5-custom">
                 <div class="container-2">
                     <img src="./assets/images/products/index/2.jpg" alt="Avatar" class="image w-100 h-100">
                     <a href="./tienda/1" class="middle text-dark">
@@ -268,7 +268,7 @@
                 <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
             </a> -->
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-5">
+            <div class="col-12 col-md-6 col-lg-4 p-5 p-5-custom">
                 <div class="container-2">
                     <img src="./assets/images/products/index/3.jpg" alt="Avatar" class="image w-100 h-100">
                     <a href="./tienda/1" class="middle text-dark">
@@ -279,7 +279,7 @@
                 <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
             </a> -->
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-5">
+            <div class="col-12 col-md-6 col-lg-4 p-5 p-5-custom">
                 <div class="container-2">
                     <img src="./assets/images/products/index/4.jpg" alt="Avatar" class="image w-100 h-100">
                     <a href="./tienda/1" class="middle text-dark">
@@ -290,7 +290,7 @@
                 <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
             </a> -->
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-5">
+            <div class="col-12 col-md-6 col-lg-4 p-5 p-5-custom">
                 <div class="container-2">
                     <img src="./assets/images/products/index/5.jpg" alt="Avatar" class="image w-100 h-100">
                     <a href="./tienda/1" class="middle text-dark">
@@ -301,7 +301,7 @@
                 <h5 class="name-product mb-0 text-center mt-3"><strong>Sebiaclear Active Teinté</strong></h5>
             </a> -->
             </div>
-            <div class="col-12 col-md-6 col-lg-4 p-5">
+            <div class="col-12 col-md-6 col-lg-4 p-5 p-5-custom">
                 <div class="container-2">
                     <img src="./assets/images/products/index/6.jpg" alt="Avatar" class="image w-100 h-100">
                     <a href="./tienda/1" class="middle text-dark">

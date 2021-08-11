@@ -15,59 +15,79 @@ $categories = $admin->products->GetCategoriesList();
 		<div class="col-12 py-5 px-5" style="margin-top: 8rem; background-color:#F2F2F2">
 			Home / Productos
 		</div>
-		<div class="col-12 col-md-3 py-5 pl-5 pr-4">
-			<p><strong class="texts-store">Filtrar por precio</strong></p>
-			<div id="slider-range"></div>
-
-			<label for="amount" class="mt-2">Precio:</label>
-			<div class="row">
-				<div class="col-8">
-					<input type="text" id="amount" disabled readonly style="border:0;">
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary pt-2 d-block d-lg-none">
+						<i class="fas fa-filter mt-1"></i>
+						<span class="sr-only">Toggle Menu</span>
+					</button>
 				</div>
-				<div class="col-2">
-					<a class="btn" onclick="set_range()">Aplicar</a>
-				</div>
-			</div>
+				<div class="p-4 pt-5">
+					<p><strong class="texts-store">Filtrar por precio</strong></p>
+					<div id="slider-range"></div>
 
-			<p class="mb-3 mt-5"><strong class="texts-store">Categorías</strong><a class="btn" onclick="set_category(0)">Ver todas</a></p>
-			<?php foreach ($categories as $cat) { ?>
-				<p class="mb-2"><a class="btn" onclick="set_category(<?php echo $cat['id']; ?>)" class="link-p"><?php echo $cat['name']; ?></a></p>
-			<?php } ?>
-
-			<p class="mb-3 mt-5"><strong class="texts-store">Tags populares</strong></p>
-			<div class="row">
-				<span id="tags"></span>
-
-			</div>
-			<p class="mb-3 mt-5"><strong class="texts-store">Productos populares</strong></p>
-			<?php foreach ($popular as $pop) { ?>
-				<div class="row mb-2">
-					<div class="col-8">
-						<img src="<?php echo $pop['image']; ?>" class="img-fluid" />
-					</div>
-					<div class="col-4 px-0">
-						<p class="name-product mb-0 mt-5"><?php echo $pop['name']; ?></p>
-						<p class="price-product">$<?php echo $pop['price']; ?></p>
-					</div>
-				</div>
-			<?php } ?>
-		</div>
-		<div class="col-12 col-md-8 pt-4">
-			<div class="row">
-				<div class="col-12">
-					<p class="showing-text">Mostrando <span id="count">0</span> resultados</p>
-				</div>
-				<div class="col-12 pb-4">
-					<div class="row" id="products_galery"></div>
+					<label for="amount" class="mt-2">Precio:</label>
 					<div class="row">
-						<div class="col-12 text-center">
-							<p class="links-number" id="pages">
-								1
-							</p>
+						<div class="col-8">
+							<input type="text" id="amount" disabled readonly style="border:0;">
+						</div>
+						<div class="col-2">
+							<a class="btn" onclick="set_range()">Aplicar</a>
+						</div>
+					</div>
+
+					<p class="mb-3 mt-5"><strong class="texts-store">Categorías</strong><a class="btn" onclick="set_category(0)">Ver todas</a></p>
+					<?php foreach ($categories as $cat) { ?>
+						<p class="mb-2"><a class="btn" onclick="set_category(<?php echo $cat['id']; ?>)" class="link-p"><?php echo $cat['name']; ?></a></p>
+					<?php } ?>
+
+					<p class="mb-3 mt-5"><strong class="texts-store">Tags populares</strong></p>
+					<div class="row">
+						<span id="tags"></span>
+
+					</div>
+					<p class="mb-3 mt-5"><strong class="texts-store">Productos populares</strong></p>
+					<?php foreach ($popular as $pop) { ?>
+						<div class="row mb-2">
+							<div class="col-8">
+								<img src="<?php echo $pop['image']; ?>" class="img-fluid" />
+							</div>
+							<div class="col-4 px-0">
+								<p class="name-product mb-0 mt-5"><?php echo $pop['name']; ?></p>
+								<p class="price-product">$<?php echo $pop['price']; ?></p>
+							</div>
+						</div>
+					<?php } ?>
+
+				</div>
+			</nav>
+
+			<!-- Page Content  -->
+			<div id="content" class="p-4 p-md-5 pt-5">
+				<!-- Contenido -->
+				<div class="row">
+					<div class="col-12">
+						<p class="showing-text">Mostrando <span id="count">0</span> resultados</p>
+					</div>
+					<div class="col-12 pb-4">
+						<div class="row" id="products_galery"></div>
+						<div class="row">
+							<div class="col-12 text-center">
+								<p class="links-number" id="pages">
+									1
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="col-12 col-md-3 py-5 pl-5 pr-4">
+
+		</div>
+		<div class="col-12 col-md-8 pt-4">
+
 		</div>
 	</div>
 </div>
@@ -99,10 +119,6 @@ $categories = $admin->products->GetCategoriesList();
 		location.href = "<?php echo __ROOT__; ?>/tienda/" + page + "/" + min_price + "-" + max_price + (category != 0 ? ("/" + category) : "");
 	}
 </script>
-
-</div>
-
-
 <script>
 	$(function() {
 		$("#slider-range").slider({
@@ -124,7 +140,7 @@ $categories = $admin->products->GetCategoriesList();
 	let tags = [];
 	let tags_selected = [];
 	let products = []
-	let page = <?php echo $page??1; ?>;
+	let page = <?php echo $page ?? 1; ?>;
 	$(document).ready(() => {
 		loadProducts(<?php echo $category ?  "'" . $category . "'" : "''"; ?>, <?php echo "'" . $max_price . "'"; ?>, <?php echo "'" . $min_price . "'"; ?>, onSuccess);
 	})
@@ -245,9 +261,9 @@ $categories = $admin->products->GetCategoriesList();
 
 	function findProductsByTags() {
 		let productsToDraw = [];
-		if (tags_selected.length==0){
+		if (tags_selected.length == 0) {
 			productsToDraw = products;
-		}else{
+		} else {
 			products.forEach(product => {
 				let findProduct = null;
 				tags_selected.forEach(tag => {
@@ -266,4 +282,26 @@ $categories = $admin->products->GetCategoriesList();
 		onSuccess(productsToDraw, total_results, total_pages);
 
 	}
+</script>
+<script>
+	// Funcionalidad de la sidebar
+	(function($) {
+
+		"use strict";
+
+		var fullHeight = function() {
+
+			$('.js-fullheight').css('height', $(window).height());
+			$(window).resize(function() {
+				$('.js-fullheight').css('height', $(window).height());
+			});
+
+		};
+		fullHeight();
+
+		$('#sidebarCollapse').on('click', function() {
+			$('#sidebar').toggleClass('active');
+		});
+
+	})(jQuery);
 </script>

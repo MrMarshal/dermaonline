@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-2 pb-3" id="mainNav">
     <a class="" href="./">
-        <img src="<?php echo $backing; ?>assets/images/page/logo.svg" class=" mx-5" width="140px" />
+        <img src="<?php echo $backing; ?>assets/images/page/logo.svg" class=" mx-5" style="max-width:140px" />
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         Menu

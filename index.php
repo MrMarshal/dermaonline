@@ -24,6 +24,10 @@ Flight::route('/tienda(/@page)(/@price_range)(/@category)', function ($page, $pr
     $admin = new Model;
     Flight::render('shop/index', ['title' => 'Nosotros', 'desc' => 'lll', 'css' => ["shop"], "page" => $page, "price_range" => $price_range, "category" => $category, "admin" => $admin]);
 });
+Flight::route('/prueba', function () {
+    $admin = new Model;
+    Flight::render('shop/prueba', ['title' => 'Nosotros', 'desc' => 'lll', "admin" => $admin]);
+});
 
 Flight::route('/result/@code', function ($code) {
     Flight::render('shop/results/' . $code, ['title' => 'Nosotros', 'desc' => 'lll']);
